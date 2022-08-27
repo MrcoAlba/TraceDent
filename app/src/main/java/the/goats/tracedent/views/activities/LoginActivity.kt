@@ -8,6 +8,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //transactionFirstAndMainFragment(FragmentLogin(), binding.fcv)
     }
 
 }
