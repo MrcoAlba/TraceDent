@@ -8,5 +8,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Use next function to set first Fragment of the Activity right
+        //transactionFirstAndMainFragment()
+
+        //binding is already done by inherit from BaseActivity
     }
+
 }
