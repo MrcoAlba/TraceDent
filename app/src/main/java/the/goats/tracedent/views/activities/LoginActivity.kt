@@ -12,7 +12,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         transactionFirstAndMainFragment(LoginFragment(), binding.fcvLoginActivity)
     }
 
-    override fun goToAnotherFragment(bundle: Bundle) {
+    fun goToAnotherFragment(bundle: Bundle) {
         TODO("Not yet implemented")
     }
 

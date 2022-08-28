@@ -15,7 +15,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         //binding is already done by inherit from BaseActivity
     }
 
-    override fun goToAnotherFragment(bundle: Bundle) {
+    fun goToAnotherFragment(bundle: Bundle) {
         TODO("Not yet implemented")
     }
 
