@@ -1,7 +1,9 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.views.base.BaseFragment
 
