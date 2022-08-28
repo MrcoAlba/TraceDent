@@ -6,10 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.LoginFragment">
 
-    <!--            TITULO a             -->
-
-
-    <!--            CORREO ELECTRONICO              -->
+    <!-- Application Image -->
     <ImageView
         android:id="@+id/iv_loginImage"
 
@@ -28,6 +25,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/penguin" />
 
+    <!-- Email -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilChangeName"
 
@@ -57,11 +55,10 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--            CONTRASENIA              -->
+    <!-- Password -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_IngresarContrasenaLayout"
 
@@ -95,6 +92,7 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Forget password -->
     <TextView
         android:id="@+id/tv_olvideMiContrasena"
 
@@ -116,7 +114,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_IngresarContrasenaLayout" />
 
-    <!--            BOTONES              -->
+    <!-- Login button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_ingresar"
 
@@ -137,6 +135,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_olvideMiContrasena" />
 
+    <!-- Create account -->
     <TextView
         android:id="@+id/tv_crearUnaCuenta"
 
@@ -156,6 +155,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_ingresar" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
