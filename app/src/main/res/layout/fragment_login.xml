@@ -1,14 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--            TITULO a             -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tv_ingresar"
 
-</FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+
+        android:gravity="center"
+        android:text="Ingresar"
+        android:textSize="64sp"
+        app:layout_constraintBottom_toTopOf="@id/tvChangeName"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!--            CORREO ELECTRONICO              -->
+    <TextView
+        android:id="@+id/tvChangeName"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        android:gravity="start"
+
+        android:text="Ingresar correo electronico"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tilChangeName"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ingresar" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilChangeName"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="16sp"
+        android:hint="Ingresar correo electronico"
+        android:gravity="start"
+
+        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        android:inputType="textEmailAddress"
+
+        app:layout_constraintTop_toBottomOf="@id/tvChangeName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_ingresarContrasena"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tilCorreoEditText"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--            CONTRASENIA              -->
+    <TextView
+        android:id="@+id/tv_ingresarContrasena"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Ingresar correo electronico"
+        android:gravity="start"
+
+        app:layout_constraintTop_toBottomOf="@id/tilChangeName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/til_IngresarContrasenaLayout"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="2dp"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_IngresarContrasenaLayout"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="16sp"
+        android:hint="Ingresar correo electronico"
+        android:gravity="start"
+
+        app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"
+        android:inputType="textPassword"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_ingresarContrasena"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_olvideMiContrasena"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/til_IngresarContrasenaEditText"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/tv_olvideMiContrasena"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:gravity="start"
+
+        android:text="Olvide mi contraseña"
+        android:textColor="#021638"
+
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@id/btn_ingresar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_IngresarContrasenaLayout" />
+
+    <!--            BOTONES              -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_ingresar"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:gravity="center"
+        android:text="Ingresar"
+
+        android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_crearUnaCuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_olvideMiContrasena" />
+
+    <TextView
+        android:id="@+id/tv_crearUnaCuenta"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:gravity="center_horizontal"
+
+        android:text="O crear una cuenta"
+        android:textColor="#021638"
+        android:textSize="16sp"
+
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_ingresar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
