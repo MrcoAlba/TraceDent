@@ -12,8 +12,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         transactionFirstAndMainFragment(LoginFragment(), binding.fcvLoginActivity)
     }
 
-    fun goToAnotherFragment(bundle: Bundle) {
-        TODO("Not yet implemented")
-    }
-
 }

@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.viewbinding.ViewBinding
+import the.goats.tracedent.interfaces.Communicator
 
 abstract class BaseActivity<VB : ViewBinding>(
     // A lambda to get the Activity"Name"Binding::inflate so the layout can be bound
     val bindingFactory : (LayoutInflater) -> VB
-) : AppCompatActivity() {
+) : AppCompatActivity(), Communicator {
 
     //ViewBinding of type VB -> Activity"Name"Binding
     lateinit var binding: VB
@@ -30,7 +31,7 @@ abstract class BaseActivity<VB : ViewBinding>(
             .commit()
     }
 
-    fun transactionReplaceFragment(
+    private fun transactionReplaceFragment(
         fragment : Fragment,
         containerView : FragmentContainerView,
         transactionName : String
@@ -42,7 +43,7 @@ abstract class BaseActivity<VB : ViewBinding>(
             .commit()
     }
 
-    fun goToAnotherFragment(
+    override fun goToAnotherFragment(
         bundle: Bundle,
         fragment: Fragment,
         containerView: FragmentContainerView,
@@ -51,5 +52,6 @@ abstract class BaseActivity<VB : ViewBinding>(
         fragment.arguments = bundle
         transactionReplaceFragment(fragment, containerView, transactionName)
     }
+
 
 }
