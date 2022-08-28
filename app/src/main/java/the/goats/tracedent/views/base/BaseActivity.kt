@@ -22,6 +22,7 @@ abstract class BaseActivity<VB : ViewBinding>(
         super.onCreate(savedInstanceState)
         binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
+        actionBar?.hide()
     }
 
     //Every activity should call this function in the onCreate to set it's first fragment
