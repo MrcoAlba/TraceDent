@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseActivity<VB : ViewBinding>(
@@ -21,9 +22,9 @@ abstract class BaseActivity<VB : ViewBinding>(
     }
 
     //Every activity should call this function in the onCreate to set it's first fragment
-    fun transactionFirstAndMainFragment(fragment : Fragment, containerView : Int){
+    fun transactionFirstAndMainFragment(fragment : Fragment, containerView : FragmentContainerView){
         supportFragmentManager.beginTransaction()
-            .replace(containerView, fragment)
+            .replace(containerView.id, fragment)
             .addToBackStack("main")
             .setReorderingAllowed(true)
             .commit()
