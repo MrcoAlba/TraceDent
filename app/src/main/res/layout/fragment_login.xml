@@ -7,48 +7,27 @@
     tools:context=".views.fragments.LoginFragment">
 
     <!--            TITULO a             -->
-    <TextView
-        android:id="@+id/tv_ingresar"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
-
-        android:gravity="center"
-        android:text="Ingresar"
-        android:textSize="64sp"
-        app:layout_constraintBottom_toTopOf="@id/tvChangeName"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed" />
 
     <!--            CORREO ELECTRONICO              -->
-    <TextView
-        android:id="@+id/tvChangeName"
+    <ImageView
+        android:id="@+id/iv_loginImage"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
 
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
-        android:gravity="start"
+        android:layout_margin="20dp"
 
-        android:text="Ingresar correo electronico"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:background="#F7F7F7"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@id/tilChangeName"
 
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_ingresar" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/penguin" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilChangeName"
 
@@ -62,10 +41,10 @@
         app:startIconDrawable="@drawable/ic_baseline_mail_24"
         android:inputType="textEmailAddress"
 
-        app:layout_constraintTop_toBottomOf="@id/tvChangeName"
+        app:layout_constraintTop_toBottomOf="@id/iv_loginImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_ingresarContrasena"
+        app:layout_constraintBottom_toTopOf="@id/til_IngresarContrasenaLayout"
 
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="2dp"
@@ -83,26 +62,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--            CONTRASENIA              -->
-    <TextView
-        android:id="@+id/tv_ingresarContrasena"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="Ingresar correo electronico"
-        android:gravity="start"
-
-        app:layout_constraintTop_toBottomOf="@id/tilChangeName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/til_IngresarContrasenaLayout"
-
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
-        />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_IngresarContrasenaLayout"
 
@@ -116,7 +75,7 @@
         app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"
         android:inputType="textPassword"
 
-        app:layout_constraintTop_toBottomOf="@id/tv_ingresarContrasena"
+        app:layout_constraintTop_toBottomOf="@id/tilChangeName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv_olvideMiContrasena"
@@ -135,6 +94,7 @@
 
             />
     </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/tv_olvideMiContrasena"
 
@@ -143,9 +103,10 @@
 
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="5dp"
-        android:gravity="start"
+
 
         android:text="Olvide mi contraseña"
+        android:gravity="end"
         android:textColor="#021638"
 
         android:textSize="16sp"
@@ -167,7 +128,8 @@
         android:gravity="center"
         android:text="Ingresar"
 
-        android:textSize="32dp"
+
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tv_crearUnaCuenta"
         app:layout_constraintEnd_toEndOf="parent"
