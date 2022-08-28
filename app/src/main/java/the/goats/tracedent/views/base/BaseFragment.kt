@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-
-typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
-
 abstract class BaseFragment<VB: ViewBinding>(
-    private val inflate: Inflate<VB>
+    private val bindingInflater: (inflater: LayoutInflater) -> VB
 ) : Fragment() {
 
     private var _binding: VB? = null
@@ -24,7 +21,9 @@ abstract class BaseFragment<VB: ViewBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = inflate.invoke(inflater, container, false)
+        _binding = bindingInflater.invoke(inflater)
+        if(_binding == null)
+            throw IllegalArgumentException("Binding can not be null")
         return binding.root
     }
 
