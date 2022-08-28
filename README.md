@@ -1,1 +1,1 @@
-Feature Register
+Feature Register fixed and merged
