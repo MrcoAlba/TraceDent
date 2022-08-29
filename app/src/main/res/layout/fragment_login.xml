@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,16 +9,16 @@
 
     <!-- Application Image -->
     <ImageView
-        android:id="@+id/iv_loginImage"
+        android:id="@+id/iv_login_image"
 
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
 
         android:background="#F7F7F7"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@id/tilChangeName"
+        app:layout_constraintBottom_toTopOf="@id/til_email"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -27,7 +28,7 @@
 
     <!-- Email -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilChangeName"
+        android:id="@+id/til_email"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,20 +39,22 @@
 
         app:startIconDrawable="@drawable/ic_baseline_mail_24"
         android:inputType="textEmailAddress"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
 
-        app:layout_constraintTop_toBottomOf="@id/iv_loginImage"
+        app:layout_constraintTop_toBottomOf="@id/iv_login_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/til_IngresarContrasenaLayout"
+        app:layout_constraintBottom_toTopOf="@id/til_password"
 
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tilCorreoEditText"
+            android:id="@+id/tiet_email"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +63,7 @@
 
     <!-- Password -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_IngresarContrasenaLayout"
+        android:id="@+id/til_password"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,20 +74,22 @@
 
         app:startIconDrawable="@drawable/ic_baseline_vpn_key_24"
         android:inputType="textPassword"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
 
-        app:layout_constraintTop_toBottomOf="@id/tilChangeName"
+        app:layout_constraintTop_toBottomOf="@id/til_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_olvideMiContrasena"
+        app:layout_constraintBottom_toTopOf="@id/tv_forgotten_password"
 
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/til_IngresarContrasenaEditText"
+            android:id="@+id/tiet_password"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,15 +97,14 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Forget password -->
+    <!-- Forgotten password -->
     <TextView
-        android:id="@+id/tv_olvideMiContrasena"
+        android:id="@+id/tv_forgotten_password"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="5dp"
+        android:layout_margin="10dp"
 
 
         android:text="Olvide mi contraseña"
@@ -109,41 +113,40 @@
 
         android:textSize="16sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@id/btn_ingresar"
+        app:layout_constraintBottom_toTopOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_IngresarContrasenaLayout" />
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
 
     <!-- Login button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_ingresar"
+        android:id="@+id/btn_login"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cornerRadius="30dp"
 
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:text="Ingresar"
 
 
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tv_crearUnaCuenta"
+        app:layout_constraintBottom_toTopOf="@id/tv_create_account"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_olvideMiContrasena" />
+        app:layout_constraintTop_toBottomOf="@id/tv_forgotten_password" />
 
     <!-- Create account -->
     <TextView
-        android:id="@+id/tv_crearUnaCuenta"
+        android:id="@+id/tv_create_account"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        android:layout_margin="10dp"
         android:gravity="center_horizontal"
 
         android:text="O crear una cuenta"
@@ -154,6 +157,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_ingresar" />
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
