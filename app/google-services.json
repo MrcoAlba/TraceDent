@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:431097210600:android:89bacd08e32ff352d68b5d",
+        "mobilesdk_app_id": "1:431097210600:android:7e7eff7b784003d7d68b5d",
         "android_client_info": {
           "package_name": "the.goats.tracedent"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "431097210600-ll9o3nbqphlkohpf8oorq60qnd7pvdsm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "the.goats.tracedent",
-            "certificate_hash": "f8c8ff88077d6066b3bc13d2674e933e250f636d"
-          }
-        },
         {
           "client_id": "431097210600-5bmpne4g95tpaendkgqsvocg2ok4hlkc.apps.googleusercontent.com",
           "client_type": 3
