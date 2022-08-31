@@ -1,9 +1,7 @@
 package the.goats.tracedent.views.activities
 
-import android.content.Intent
 import android.os.Bundle
 import the.goats.tracedent.databinding.ActivityMainBinding
-import the.goats.tracedent.interfaces.LogIn
 import the.goats.tracedent.views.base.BaseActivity
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {

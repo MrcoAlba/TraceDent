@@ -3,11 +3,11 @@ package the.goats.tracedent.views.activities
 import android.content.Intent
 import android.os.Bundle
 import the.goats.tracedent.databinding.ActivityLoginBinding
-import the.goats.tracedent.interfaces.LogIn
+import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
 import the.goats.tracedent.views.fragments.LoginFragment
 
-class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), LogIn {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), Credential.LogIn {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

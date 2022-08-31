@@ -1,7 +1,5 @@
 package the.goats.tracedent.views.fragments
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,9 +8,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.interfaces.LogIn
-import the.goats.tracedent.views.activities.LoginActivity
-import the.goats.tracedent.views.activities.MainActivity
+import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
@@ -23,8 +19,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         super.onViewCreated(view, savedInstanceState)
         //Here should be coded the logic
 
-        communicator = activity as Communicator
-        login = activity as LogIn
+        communicator = requireActivity() as Communicator
+        login = requireActivity() as Credential.LogIn
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "LoginFragment", "onViewCreated")

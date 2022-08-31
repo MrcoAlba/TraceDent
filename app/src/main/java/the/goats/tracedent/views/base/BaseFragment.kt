@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.interfaces.LogIn
-import the.goats.tracedent.interfaces.LogOut
+import the.goats.tracedent.interfaces.Credential
 
 abstract class BaseFragment<VB: ViewBinding>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
@@ -23,8 +22,8 @@ abstract class BaseFragment<VB: ViewBinding>(
     val binding get() = _binding!!
 
     lateinit var communicator: Communicator
-    lateinit var login: LogIn
-    lateinit var logout: LogOut
+    lateinit var login: Credential.LogIn
+    lateinit var logout: Credential.LogOut
 
     override fun onCreateView(
         inflater: LayoutInflater,

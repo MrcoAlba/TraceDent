@@ -1,13 +1,9 @@
 package the.goats.tracedent.views.base
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.viewbinding.ViewBinding
 import the.goats.tracedent.interfaces.Communicator
