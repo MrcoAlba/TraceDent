@@ -20,6 +20,13 @@ abstract class BaseActivity<VB : ViewBinding>(
         super.onCreate(savedInstanceState)
         binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
+        actionBar?.hide()
+    }
+
+    // If you go from activityA to activityB, activityA is gonna be destroyed
+    override fun onStop() {
+        super.onStop()
+        finish()
     }
 
     //Every activity should call this function in the onCreate to set it's first fragment
@@ -43,8 +50,9 @@ abstract class BaseActivity<VB : ViewBinding>(
             .commit()
     }
 
+    // Use to go from fragmentA to new fragmentB
     override fun goToAnotherFragment(
-        bundle: Bundle,
+        bundle: Bundle?,
         fragment: Fragment,
         containerView: FragmentContainerView,
         transactionName: String
@@ -52,6 +60,5 @@ abstract class BaseActivity<VB : ViewBinding>(
         fragment.arguments = bundle
         transactionReplaceFragment(fragment, containerView, transactionName)
     }
-
 
 }

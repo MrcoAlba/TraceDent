@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "431097210600",
+    "project_id": "tracedent-a59bd",
+    "storage_bucket": "tracedent-a59bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431097210600:android:7e7eff7b784003d7d68b5d",
+        "android_client_info": {
+          "package_name": "the.goats.tracedent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431097210600-5bmpne4g95tpaendkgqsvocg2ok4hlkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC6hJBHcGkirD0-kJcrUjz7gXOySf4npQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431097210600-5bmpne4g95tpaendkgqsvocg2ok4hlkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
