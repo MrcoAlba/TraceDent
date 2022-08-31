@@ -52,6 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun updateUI() {
         //Go to next activity
         login.login2Main()
+        //Code example to go from this view to another
     }
 
 }

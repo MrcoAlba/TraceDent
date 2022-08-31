@@ -16,20 +16,21 @@ abstract class BaseActivity<VB : ViewBinding>(
     //ViewBinding of type VB -> Activity"Name"Binding
     lateinit var binding: VB
 
-    override fun onCreate(
-        savedInstanceState: Bundle?
-    ) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
         actionBar?.hide()
     }
 
+    // If you go from activityA to activityB, activityA is gonna be destroyed
+    override fun onStop() {
+        super.onStop()
+        finish()
+    }
+
     //Every activity should call this function in the onCreate to set it's first fragment
-    fun transactionFirstAndMainFragment(
-        fragment : Fragment,
-        containerView : FragmentContainerView
-    ){
+    fun transactionFirstAndMainFragment(fragment : Fragment, containerView : FragmentContainerView){
         supportFragmentManager.beginTransaction()
             .replace(containerView.id, fragment)
             .addToBackStack("main")
@@ -37,7 +38,7 @@ abstract class BaseActivity<VB : ViewBinding>(
             .commit()
     }
 
-    fun transactionReplaceFragment(
+    private fun transactionReplaceFragment(
         fragment : Fragment,
         containerView : FragmentContainerView,
         transactionName : String
@@ -49,6 +50,7 @@ abstract class BaseActivity<VB : ViewBinding>(
             .commit()
     }
 
+    // Use to go from fragmentA to new fragmentB
     override fun goToAnotherFragment(
         bundle: Bundle?,
         fragment: Fragment,
