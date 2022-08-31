@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="70dp"
+        android:layout_marginVertical="20dp"
         android:gravity="center_horizontal"
         android:text="Nuevo Cliente"
         android:textColor="#021638"
@@ -99,38 +99,36 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_nombre"
 
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:textSize="16sp"
-        android:hint="Ingresar nombre"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="start"
 
+        android:hint="Ingresar nombre"
         android:inputType="textEmailAddress"
+        android:textSize="16sp"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
+
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
-
-        app:layout_constraintTop_toBottomOf="@id/til_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintBottom_toTopOf="@+id/til_apellido"
 
 
-        android:layout_margin="10dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_password">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_nombre"
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_apellido"
