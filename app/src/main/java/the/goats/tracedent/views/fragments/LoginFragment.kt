@@ -10,6 +10,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Here should be coded the logic
+        analyticEvent(fragmentActivity, "LoginFragment", "onViewCreated")
         binding.btnLogin.setOnClickListener { login() }
     }
 

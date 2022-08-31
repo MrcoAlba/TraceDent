@@ -1,11 +1,14 @@
 package the.goats.tracedent.views.base
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.google.firebase.analytics.FirebaseAnalytics
 import the.goats.tracedent.interfaces.Communicator
 
 abstract class BaseFragment<VB: ViewBinding>(
@@ -17,7 +20,8 @@ abstract class BaseFragment<VB: ViewBinding>(
     // onDestroyView.
     val binding get() = _binding!!
 
-    private lateinit var communicator: Communicator
+    lateinit var communicator: Communicator
+    lateinit var fragmentActivity: Activity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +31,7 @@ abstract class BaseFragment<VB: ViewBinding>(
         _binding = bindingInflater.invoke(inflater)
         if(_binding == null)
             throw IllegalArgumentException("Binding can not be null")
+        fragmentActivity = requireActivity()
         return binding.root
     }
 
@@ -41,4 +46,12 @@ abstract class BaseFragment<VB: ViewBinding>(
     To get the bundle from the destination fragment, use the following:
         arguments?.getString(key: "message")
     */
+
+    fun analyticEvent(activity: Activity, fragmentName: String, message: String){
+        val analytics : FirebaseAnalytics = FirebaseAnalytics.getInstance(activity)
+        val bundle = Bundle()
+        bundle.putString("message", message)
+        analytics.logEvent(fragmentName, bundle)
+        Log.e("1","123")
+    }
 }

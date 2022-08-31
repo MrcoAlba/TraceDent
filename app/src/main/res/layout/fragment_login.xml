@@ -16,7 +16,6 @@
 
         android:layout_margin="15dp"
 
-        android:background="#F7F7F7"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@id/til_email"
 
@@ -24,7 +23,7 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/penguin" />
+        app:srcCompat="@drawable/tracedent" />
 
     <!-- Email -->
     <com.google.android.material.textfield.TextInputLayout
