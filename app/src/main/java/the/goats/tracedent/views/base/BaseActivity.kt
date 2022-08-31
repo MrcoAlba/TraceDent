@@ -1,5 +1,7 @@
 package the.goats.tracedent.views.base
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,14 +51,23 @@ abstract class BaseActivity<VB : ViewBinding>(
             .commit()
     }
 
-    fun goToAnotherFragment(
-        bundle: Bundle,
+    override fun goToAnotherFragment(
+        bundle: Bundle?,
         fragment: Fragment,
         containerView: FragmentContainerView,
         transactionName: String
     ) {
         fragment.arguments = bundle
         transactionReplaceFragment(fragment, containerView, transactionName)
+    }
+
+    override fun goToAnotherActivity(
+        bundle: Bundle?,
+        activity: Activity
+    ) {
+        val intent = Intent(this,activity::class.java)
+        intent.putExtra("bundle",bundle)
+        startActivity(intent)
     }
 
 }
