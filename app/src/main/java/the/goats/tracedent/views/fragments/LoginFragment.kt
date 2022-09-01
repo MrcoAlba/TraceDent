@@ -32,6 +32,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         //Button listeners
         binding.btnLogin.setOnClickListener { login() }
+        binding.tvForgottenPassword.setOnClickListener { forgottenPassword() }
     }
 
     private fun login() {
@@ -48,6 +49,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                         Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun forgottenPassword() {
+        communicator.goToAnotherFragment(null, )
     }
 
     private fun updateUI() {
