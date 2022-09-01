@@ -2,6 +2,7 @@ package the.goats.tracedent.views.activities
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.FragmentContainerView
 import the.goats.tracedent.databinding.ActivityLoginBinding
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
@@ -18,4 +19,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
+
+    override var containerView: FragmentContainerView = binding.fcvLoginActivity
 }

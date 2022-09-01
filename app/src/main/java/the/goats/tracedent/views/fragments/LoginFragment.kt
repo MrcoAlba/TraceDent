@@ -52,7 +52,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun forgottenPassword() {
-        communicator.goToAnotherFragment(null, )
+        communicator.goToAnotherFragment(null,ForgottenPassword1Fragment(),communicator.containerView, "Login2ForgottenPassword")
     }
 
     private fun updateUI() {
