@@ -17,10 +17,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //Here should be coded the logic
 
-        communicator = requireActivity() as Communicator
-        login = requireActivity() as Credential.LogIn
+        //Delegates
+        communicator = activity as Communicator
+        login = activity as Credential.LogIn
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "LoginFragment", "onViewCreated")
@@ -46,13 +48,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                         Toast.LENGTH_SHORT).show()
                 }
             }
-
     }
 
     private fun updateUI() {
         //Go to next activity
         login.login2Main()
-        //Code example to go from this view to another
     }
 
 }
