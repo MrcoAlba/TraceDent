@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.fragments.RegisterG3Fragment">
+    tools:context=".views.fragments.RegisterG4Fragment">
 
     <TextView
         android:id="@+id/tv_textoInicial"
@@ -22,16 +22,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tv_textocodigo"/>
+        app:layout_constraintBottom_toTopOf="@+id/tv_textotipo"/>
 
     <TextView
-        android:id="@+id/tv_textocodigo"
+        android:id="@+id/tv_textotipo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
         android:gravity="center_horizontal"
-        android:text="Código de verificación:"
+        android:text="Seleccione el tipo de cuenta:"
         android:textColor="#021638"
         android:textSize="25dp"
         android:textStyle="bold|italic"
@@ -56,7 +56,7 @@
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
 
-        app:layout_constraintTop_toBottomOf="@id/tv_textocodigo"
+        app:layout_constraintTop_toBottomOf="@id/tv_textotipo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
