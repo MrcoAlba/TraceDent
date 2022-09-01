@@ -13,6 +13,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transactionFirstAndMainFragment(LoginFragment(), binding.fcvLoginActivity)
+        containerView = binding.fcvLoginActivity
     }
 
     override fun login2Main() {
@@ -20,5 +21,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         startActivity(intent)
     }
 
-    override var containerView: FragmentContainerView = binding.fcvLoginActivity
 }

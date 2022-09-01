@@ -16,6 +16,8 @@ abstract class BaseActivity<VB : ViewBinding>(
     //ViewBinding of type VB -> Activity"Name"Binding
     lateinit var binding: VB
 
+    lateinit var containerView : FragmentContainerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = bindingFactory(layoutInflater)

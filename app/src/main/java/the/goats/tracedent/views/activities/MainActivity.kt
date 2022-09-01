@@ -11,13 +11,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        containerView = binding.fcvMainActivity
     }
 
     override fun Main2Login() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
-
-    override var containerView: FragmentContainerView = binding.fcvMainActivity
 
 }

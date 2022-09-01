@@ -11,5 +11,4 @@ interface Communicator {
         containerView: FragmentContainerView,
         transactionName: String
     )
-    var containerView : FragmentContainerView
 }

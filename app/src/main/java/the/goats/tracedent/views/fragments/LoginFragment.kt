@@ -9,11 +9,14 @@ import com.google.firebase.ktx.Firebase
 import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
+import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     private lateinit var auth: FirebaseAuth
+
+    lateinit var activityParent : LoginActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,6 +26,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         //Delegates
         communicator = activity as Communicator
         login = activity as Credential.LogIn
+
+        activityParent =  activity as LoginActivity
+
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "LoginFragment", "onViewCreated")
@@ -52,7 +58,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun forgottenPassword() {
-        communicator.goToAnotherFragment(null,ForgottenPassword1Fragment(),communicator.containerView, "Login2ForgottenPassword")
+        communicator.goToAnotherFragment(null,ForgottenPassword1Fragment(),activityParent.containerView, "Login2ForgottenPassword")
     }
 
     private fun updateUI() {
