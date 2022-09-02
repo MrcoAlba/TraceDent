@@ -78,13 +78,14 @@
     <!-- Forgotten password - tv_forgotten_password                 -->
     <TextView
         android:id="@+id/tv_forgotten_password"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="end"
         android:text="Olvide mi contraseña"
         android:textSize="16sp"
         android:textStyle="bold|italic"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_password"
@@ -109,7 +110,7 @@
     <!-- Create account     - tv_create_account                     -->
     <TextView
         android:id="@+id/tv_create_account"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center_horizontal"
