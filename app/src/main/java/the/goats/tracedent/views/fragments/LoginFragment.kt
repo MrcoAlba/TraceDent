@@ -3,7 +3,6 @@ package the.goats.tracedent.views.fragments
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -14,11 +13,14 @@ import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
-class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+class LoginFragment
+    : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate)
+{
 
     private lateinit var auth: FirebaseAuth
     lateinit var activityParent : LoginActivity
 
+    //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Delegates
@@ -42,32 +44,43 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         val password = binding.tietPassword.text.toString()
         //Validate email and password
         if (validateCredentials(email,password)){
-            //Firebase authentication
+            //Firebase authenticati
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Sign in success, go to next activity
-                        updateUILogin()
+                        login.login2Main()
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(activityParent, "Authentication failed ${task.exception}",
+                        Toast.makeText(activityParent, "Las credenciales no son válida",
                             Toast.LENGTH_SHORT).show()
                     }
                 }
         }
     }
-
     private fun validateCredentials(email: String, password: String): Boolean {
-         val emailValidator = Patterns.EMAIL_ADDRESS
-        if (emailValidator.matcher(email).matches()) {
-            return true
+        // Validate email is not empty
+        if(email.isNotEmpty()){
+            // Validate email address with a valid one
+            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                // Validate password is not empty
+                if (password.isNotEmpty()){
+                    // Validate password length is 6 or longer due to Firebase length constraints
+                    if (password.count()>=6){
+                        return true
+                    }else{
+                        Toast.makeText(activityParent, "Las credenciales no son válidas",           Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    Toast.makeText(activityParent, "Por favor ingrese una contraseña",              Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(activityParent, "Por favor ingrese una dirección de correo válida",  Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            Toast.makeText(activityParent, "Por favor ingrese un correo",                           Toast.LENGTH_SHORT).show()
         }
         return false
-    }
-
-    private fun updateUILogin() {
-        //Go to next activity
-        login.login2Main()
     }
 
     //ForgottenPassword
@@ -86,9 +99,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         communicator
             .goToAnotherFragment(
                 null,
-                RegisterG1Fragment(),
+                RegisterG0Fragment(),
                 activityParent.containerView,
-                "Login2RegisterG1"
+                "Login2RegisterG0"
             )
     }
 }

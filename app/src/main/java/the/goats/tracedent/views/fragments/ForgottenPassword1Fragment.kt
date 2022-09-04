@@ -2,6 +2,7 @@ package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
 import the.goats.tracedent.databinding.FragmentForgottenPassword1Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
@@ -10,6 +11,7 @@ import the.goats.tracedent.views.base.BaseFragment
 
 class ForgottenPassword1Fragment : BaseFragment<FragmentForgottenPassword1Binding>(FragmentForgottenPassword1Binding::inflate) {
 
+    private lateinit var auth: FirebaseAuth
     lateinit var activityParent : LoginActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
