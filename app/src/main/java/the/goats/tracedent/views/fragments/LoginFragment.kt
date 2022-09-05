@@ -86,9 +86,13 @@ class LoginFragment
 
     //ForgottenPassword
     private fun forgottenPassword() {
+        //Save in memory that client card view was pressed
+        val email : String = binding.tietEmail.text.toString()
+        val bundle : Bundle = Bundle()
+        bundle.putString("email", email)
         communicator
             .goToAnotherFragment(
-                null,
+                bundle,
                 ForgottenPassword1Fragment(),
                 activityParent.containerView,
                 "Login2ForgottenPassword"
