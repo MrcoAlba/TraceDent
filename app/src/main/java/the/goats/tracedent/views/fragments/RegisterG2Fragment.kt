@@ -1,44 +1,46 @@
 package the.goats.tracedent.views.fragments
 
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Patterns
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import the.goats.tracedent.R
-import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.databinding.FragmentRegisterG2Binding
 import the.goats.tracedent.interfaces.Communicator
+import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
-import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
 class RegisterG2Fragment
     : BaseFragment<FragmentRegisterG2Binding>(FragmentRegisterG2Binding::inflate)
 {
 
+    private lateinit var auth: FirebaseAuth
     lateinit var activityParent : LoginActivity
-
 
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Delegates
         communicator    =   requireActivity() as Communicator
+        login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
-
         //Firebase Analytics
         analyticEvent(requireActivity(), "RegisterG2Fragment", "onViewCreated")
-
-
+        //Firebase Auth
+        auth = Firebase.auth
         //Listeners
-        binding.tietPassword.doAfterTextChanged            { validate1Password() }
-        binding.tietPassword2.doAfterTextChanged           { validate2Password() }
-        binding.btnCreateAccount.setOnClickListener  { createAccount() }
-        binding.tvGoBack.setOnClickListener     { activityParent.onBackPressed() }
+        binding.tietPassword.doAfterTextChanged                 { validate1Password() }
+        binding.tietPassword2.doAfterTextChanged                { validate2Password() }
+        binding.btnCreateAccount.setOnClickListener             { createAccount() }
+        binding.tvGoBack.setOnClickListener                     { activityParent.onBackPressed() }
     }
 
+    //Validate password
     private fun validate1Password(){
         //User input
         val password = binding.tietPassword.text.toString()
@@ -77,24 +79,32 @@ class RegisterG2Fragment
         binding.btnCreateAccount.isEnabled = b
     }
 
+    //Create account
     private fun createAccount(){
         val clientType : Int? = requireArguments().getInt("option")
         val email : String? = requireArguments().getString("mail")
+        val password : String = binding.tietPassword2.text.toString()
         if (clientType != null && email != null) {
             // AUTH
-            communicator
-                .goToAnotherFragment(
-                    null,
-                    RegisterG3Fragment(),
-                    activityParent.containerView,
-                    "RegisterG22RegisterG3"
-                )
+            auth
+                .createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        login.login2Main()
+                    }else if(task.exception?.message == "The email address is already in use by another account."){
+                        Toast.makeText(activityParent, "Alguien acaba de crear una cuenta con el correo utilizado, regrese y utilice otro por favor", Toast.LENGTH_LONG).show()
+                        binding.tvPasswordInformation.text = "Regrese y utilice otro correo por favor"
+                        binding.tvPasswordInformation.setTextColor(Color.parseColor("#FF0000"))
+                    }else{
+                        Toast.makeText(activityParent, "No se ha podido crear la cuenta", Toast.LENGTH_LONG).show()
+                        binding.tvPasswordInformation.text = "Utilice otra contraseña"
+                        binding.tvPasswordInformation.setTextColor(Color.parseColor("#FF0000"))
+                    }
+                }
         }else{
             Toast.makeText(activityParent, "Ha sucedido un error", Toast.LENGTH_SHORT).show()
             throw error("El tipo de cliente o el tipo de email es nulo")
         }
-
-
     }
 
 }

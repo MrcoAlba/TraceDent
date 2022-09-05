@@ -32,9 +32,9 @@ class LoginFragment
         //Firebase Auth
         auth = Firebase.auth
         //Listeners
-        binding.btnLogin.setOnClickListener             { login()               }
-        binding.tvForgottenPassword.setOnClickListener  { forgottenPassword()   }
-        binding.tvCreateAccount.setOnClickListener      { signUp()              }
+        binding.btnLogin.setOnClickListener                     { login()               }
+        binding.tvForgottenPassword.setOnClickListener          { forgottenPassword()   }
+        binding.tvCreateAccount.setOnClickListener              { register()            }
     }
 
     //Login
@@ -45,7 +45,8 @@ class LoginFragment
         //Validate email and password
         if (validateCredentials(email,password)){
             //Firebase authenticati
-            auth.signInWithEmailAndPassword(email, password)
+            auth
+                .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // Sign in success, go to next activity
@@ -95,7 +96,7 @@ class LoginFragment
     }
 
     //Register
-    private fun signUp(){
+    private fun register()  {
         communicator
             .goToAnotherFragment(
                 null,

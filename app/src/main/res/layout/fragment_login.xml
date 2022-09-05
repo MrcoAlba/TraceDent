@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="start"
-        android:hint="Ingresar correo electronico"
+        android:hint="Ingresar contraseña"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

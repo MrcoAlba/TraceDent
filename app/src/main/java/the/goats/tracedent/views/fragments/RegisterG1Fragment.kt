@@ -1,9 +1,14 @@
 package the.goats.tracedent.views.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG1Binding
 import the.goats.tracedent.interfaces.Communicator
@@ -14,8 +19,8 @@ class RegisterG1Fragment
     : BaseFragment<FragmentRegisterG1Binding>(FragmentRegisterG1Binding::inflate)
 {
 
+    private lateinit var auth: FirebaseAuth
     lateinit var activityParent : LoginActivity
-
 
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,15 +31,16 @@ class RegisterG1Fragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "RegisterG1Fragment", "onViewCreated")
-
-
+        //Firebase Auth
+        auth = Firebase.auth
         //Listeners
-        binding.tietEmail.doAfterTextChanged            { validate1Mail() }
-        binding.tietEmail2.doAfterTextChanged           { validate2Mail() }
-        binding.btnCreatePassword.setOnClickListener    { createPassword() }
-        binding.tvGoBack.setOnClickListener             { activityParent.onBackPressed() }
+        binding.tietEmail.doAfterTextChanged                    { validate1Mail() }
+        binding.tietEmail2.doAfterTextChanged                   { validate2Mail() }
+        binding.btnCreatePassword.setOnClickListener            { createPassword() }
+        binding.tvGoBack.setOnClickListener                     { activityParent.onBackPressed() }
     }
 
+    //Validate mail
     private fun validate1Mail(){
         //User input
         val email = binding.tietEmail.text.toString()
@@ -73,11 +79,29 @@ class RegisterG1Fragment
         binding.btnCreatePassword.isEnabled = b
     }
 
+    //Create password
     private fun createPassword(){
+        val email = binding.tietEmail2.text.toString()
+        validateMailExistence(email)
+    }
+    private fun validateMailExistence(email: String) {
+        auth
+            .signInWithEmailAndPassword(email,"1234567")
+            .addOnCompleteListener { task ->
+                if (task.exception?.message == "There is no user record corresponding to this identifier. The user may have been deleted."){
+                    moveNextFragment(email)
+                }else{
+                    Toast.makeText(activityParent, "El correo está siendo usado por otro usuario", Toast.LENGTH_SHORT).show()
+                    binding.tvKeyInformation.text = "Ingrese otro correo"
+                    binding.tvKeyInformation.setTextColor(Color.parseColor("#FF0000"))
+                }
+            }
+    }
+    private fun moveNextFragment(email : String) {
         //Save in memory that client card view was pressed
         val bundle : Bundle = Bundle()
         //new bundle
-        bundle.putString("mail", binding.tietEmail2.text.toString())
+        bundle.putString("mail", email)
         //previous bundle
         bundle.putInt("option",requireArguments().getInt("option"))
         communicator

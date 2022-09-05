@@ -26,11 +26,11 @@ class RegisterG0Fragment
 
 
         //Listeners
-        binding.cvClient.setOnClickListener         { clientPressed(1) }
-        binding.cvDentist.setOnClickListener        { clientPressed(2) }
-        binding.cvClinic.setOnClickListener         { clientPressed(3) }
-        binding.cvFranchice.setOnClickListener      { clientPressed(4) }
-        binding.tvGoBack.setOnClickListener         { activityParent.onBackPressed() }
+        binding.cvClient.setOnClickListener                     { clientPressed(1) }
+        binding.cvDentist.setOnClickListener                    { clientPressed(2) }
+        binding.cvClinic.setOnClickListener                     { clientPressed(3) }
+        binding.cvFranchice.setOnClickListener                  { clientPressed(4) }
+        binding.tvGoBack.setOnClickListener                     { activityParent.onBackPressed()}
     }
 
     //Selected option
