@@ -2,6 +2,7 @@ package the.goats.tracedent.views.fragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
@@ -79,6 +80,8 @@ class RegisterG2Fragment
         binding.btnCreateAccount.isEnabled = b
     }
 
+
+
     //Create account
     private fun createAccount(){
         val clientType : Int? = requireArguments().getInt("option")
@@ -90,7 +93,27 @@ class RegisterG2Fragment
                 .createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        login.login2Main()
+                        val bundle : Bundle = Bundle()
+                        bundle.putString("correo", requireArguments().getString("mail"))
+                        bundle.putString("password", binding.tietPassword.text.toString())
+                        bundle.putInt("option", requireArguments().getInt("option"))
+
+                        if(requireArguments().getInt("option") == 1) {
+                            communicator.goToAnotherFragment(
+                                bundle,
+                                RegisterG5Fragment(),
+                                activityParent.containerView,
+                                "RegisterG22RegisterG5"
+                            )
+                        }
+                        else if(requireArguments().getInt("option") == 2){
+                            communicator.goToAnotherFragment(
+                                bundle,
+                                RegisterG6Fragment(),
+                                activityParent.containerView,
+                                "RegisterG22RegisterG6"
+                            )
+                        }
                     }else if(task.exception?.message == "The email address is already in use by another account."){
                         Toast.makeText(activityParent, "Alguien acaba de crear una cuenta con el correo utilizado, regrese y utilice otro por favor", Toast.LENGTH_LONG).show()
                         binding.tvPasswordInformation.text = "Regrese y utilice otro correo por favor"
@@ -106,5 +129,7 @@ class RegisterG2Fragment
             throw error("El tipo de cliente o el tipo de email es nulo")
         }
     }
+
+
 
 }
