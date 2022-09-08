@@ -7,12 +7,13 @@ import the.goats.tracedent.databinding.ActivityLoginBinding
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
 import the.goats.tracedent.views.fragments.LoginFragment
+import the.goats.tracedent.views.fragments.RegisterG5Fragment
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), Credential.LogIn {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transactionFirstAndMainFragment(LoginFragment(), binding.fcvLoginActivity)
+        transactionFirstAndMainFragment(RegisterG5Fragment(), binding.fcvLoginActivity)
         containerView = binding.fcvLoginActivity
     }
 

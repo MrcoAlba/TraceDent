@@ -1,11 +1,18 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import the.goats.tracedent.Api.DefaultResponse
+import the.goats.tracedent.Api.RetrofitClient
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.interfaces.Communicator
@@ -29,7 +36,27 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
 
         //Listeners
 
-        binding.butConfirmarG5.setOnClickListener           { confirmar() }
+        binding.butConfirmarG5.setOnClickListener           {
+
+            RetrofitClient.instance.CreateUser("123456654ds"
+                , "pruebaRetro@gmail.com"
+                , "1234567"
+                , 1)
+                .enqueue(object: Callback<DefaultResponse>{
+                    override fun onResponse(
+                        call: Call<DefaultResponse>,
+                        response: Response<DefaultResponse>
+                    ) {
+                        Toast.makeText(activityParent, response.body()?.msj, Toast.LENGTH_SHORT).show()
+                        Log.i("Hola", "Hola")
+                    }
+                    override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                        Toast.makeText(activityParent,t.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
+            //confirmar()
+
+        }
     }
 
     private fun confirmar() {
