@@ -114,6 +114,14 @@ class RegisterG2Fragment
                                 "RegisterG22RegisterG6"
                             )
                         }
+                        else if(requireArguments().getInt("option") == 3) {
+                            communicator.goToAnotherFragment(
+                                bundle,
+                                RegisterG8Fragment(),
+                                activityParent.containerView,
+                                "RegisterG22RegisterG8"
+                            )
+                        }
                     }else if(task.exception?.message == "The email address is already in use by another account."){
                         Toast.makeText(activityParent, "Alguien acaba de crear una cuenta con el correo utilizado, regrese y utilice otro por favor", Toast.LENGTH_LONG).show()
                         binding.tvPasswordInformation.text = "Regrese y utilice otro correo por favor"

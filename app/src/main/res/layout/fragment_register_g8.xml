@@ -8,13 +8,13 @@
     tools:context=".views.fragments.RegisterG5Fragment">
 
     <TextView
-        android:id="@+id/tv_textoInicialG6_2"
+        android:id="@+id/tv_textoInicialG8_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         android:gravity="center_horizontal"
-        android:text="@string/nuevo_dentista"
+        android:text="Nueva Clínica"
         android:textColor="#021638"
         android:textSize="30dp"
         android:textStyle="bold|italic"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_textoInicialG6_2">
+        app:layout_constraintTop_toBottomOf="@id/tv_textoInicialG8_2">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_nombre"
@@ -92,7 +92,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_dni"
+        android:id="@+id/til_razon"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
@@ -102,7 +102,7 @@
 
         android:layout_marginTop="16dp"
         android:gravity="start"
-        android:hint="Ingresar DNI"
+        android:hint="Ingresar Razón Social"
         android:textSize="16sp"
 
         app:boxCornerRadiusBottomEnd="30dp"
@@ -118,12 +118,47 @@
         app:layout_constraintTop_toBottomOf="@id/til_apellido">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_dni"
+            android:id="@+id/tiet_razon"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_ruc"
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+
+        android:layout_marginTop="16dp"
+        android:gravity="start"
+        android:hint="Ingresar RUC"
+        android:textSize="16sp"
+
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
+
+
+        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_razon">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_ruc"
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_direccion"
@@ -136,7 +171,7 @@
 
         android:layout_marginTop="16dp"
         android:gravity="start"
-        android:hint="Ingresar Dirección"
+        android:hint="Ingresar Dirección de Establecimiento"
         android:textSize="16sp"
 
         app:boxCornerRadiusBottomEnd="30dp"
@@ -149,7 +184,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_dni">
+        app:layout_constraintTop_toBottomOf="@id/til_ruc">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_direccion"
@@ -159,73 +194,7 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_genero"
 
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-
-        android:layout_marginTop="16dp"
-        android:gravity="start"
-        android:hint="Ingresar Género"
-        android:textSize="16sp"
-
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
-
-
-        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_direccion">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_genero"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_numero_contacto"
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-
-        android:layout_marginTop="16dp"
-        android:gravity="start"
-        android:hint="Ingresar Número de Contacto"
-        android:textSize="16sp"
-
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
-
-
-        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_genero">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_numero_contacto"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/but_continuar_G6"
@@ -236,10 +205,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_numero_contacto" />
+        app:layout_constraintTop_toBottomOf="@+id/til_direccion" />
 
     <Button
-        android:id="@+id/buttonReturn_G6"
+        android:id="@+id/buttonReturn_G8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"

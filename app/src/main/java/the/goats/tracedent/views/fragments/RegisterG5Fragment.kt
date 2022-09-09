@@ -37,6 +37,9 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
             //confirmar()
 
         }
+
+        binding.buttonReturnG5.setOnClickListener           { activityParent.onBackPressed() }
+
         //Funciones ejecutadas en la creación del Fragment
         CreateUser()
     }

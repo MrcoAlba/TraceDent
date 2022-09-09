@@ -31,12 +31,13 @@ class RegisterG7Fragment : BaseFragment<FragmentRegisterG7Binding>(FragmentRegis
 
         //Listeners
 
-        binding.butAttachFile.setOnClickListener            { /*seleccionar()*/ }
-        binding.butConfirmarG7.setOnClickListener           { /*confirmar()*/ }
+        binding.butAttachFile.setOnClickListener            { /*select()*/ }
+        binding.butConfirmarG7.setOnClickListener           { /*confirm()*/ }
+        binding.buttonReturnG7.setOnClickListener           { activityParent.onBackPressed() }
     }
 
 
-    private fun seleccionar() {
+    private fun select() {
        var intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
        intent.setType("image/")
        startActivityForResult(intent, 10)
@@ -50,7 +51,7 @@ class RegisterG7Fragment : BaseFragment<FragmentRegisterG7Binding>(FragmentRegis
         }
     }
 
-    private fun confirmar() {
+    private fun confirm() {
         val bundle : Bundle = Bundle()
         bundle.putString("mail", requireArguments().getString("correo"))
         bundle.putString("password", requireArguments().getString("password"))

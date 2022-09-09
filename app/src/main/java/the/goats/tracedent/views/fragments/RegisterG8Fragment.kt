@@ -9,13 +9,14 @@ import com.google.firebase.auth.FirebaseAuth
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.databinding.FragmentRegisterG6Binding
+import the.goats.tracedent.databinding.FragmentRegisterG8Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
 
-class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegisterG6Binding::inflate) {
+class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegisterG8Binding::inflate) {
 
     private lateinit var auth: FirebaseAuth
     lateinit var activityParent : LoginActivity
@@ -31,21 +32,11 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         //Listeners
 
         binding.butContinuarG6.setOnClickListener           { confirmar() }
-        binding.buttonReturnG6.setOnClickListener           { activityParent.onBackPressed() }
+        binding.buttonReturnG8.setOnClickListener           { activityParent.onBackPressed() }
     }
 
     private fun confirmar() {
         val bundle : Bundle = Bundle()
-        bundle.putString("nombre", binding.tietNombre.text.toString())
-        bundle.putString("apellido", binding.tietApellido.text.toString())
-        bundle.putString("dni", binding.tietDni.text.toString())
-        bundle.putString("numero_contacto", binding.tietNumeroContacto.text.toString())
-        bundle.putString("direccion", binding.tietDireccion.text.toString())
-        bundle.putString("genero", binding.tietGenero.text.toString())
-        bundle.putString("mail", requireArguments().getString("correo"))
-        bundle.putString("password", requireArguments().getString("password"))
-        bundle.putInt("option", requireArguments().getInt("option"))
-
         communicator.goToAnotherFragment(bundle, RegisterG7Fragment(), activityParent.containerView, "RegisterG62RegisterG7")
     }
 }
