@@ -33,8 +33,7 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         activityParent  =   requireActivity() as LoginActivity
 
         //Listeners
-        binding.butConfirmarG5.setOnClickListener           {
-            //confirmar()
+        binding.butConfirmarG5.setOnClickListener           { confirmar()
 
         }
         //Funciones ejecutadas en la creación del Fragment
@@ -51,7 +50,7 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
             , mail.toString()
             , password.toString()
             , option)
-        activityParent.Prueba(user)
+        activityParent.CreacionUsuario(user)
     }
 
     private fun confirmar() {

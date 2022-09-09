@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import the.goats.tracedent.Api.Usuario
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.databinding.FragmentRegisterG6Binding
@@ -31,8 +34,22 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         //Listeners
 
         binding.butContinuarG6.setOnClickListener           { confirmar() }
+        //Funciones ejecutadas en la creación del Fragment
+        CreateUser()
     }
-
+    private fun CreateUser(){
+        val mail = requireArguments().getString("correo")
+        val password = requireArguments().getString("password")
+        val option = requireArguments().getInt("option")
+        //Firebase Auth
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val user = Usuario(id
+            , mail.toString()
+            , password.toString()
+            , option)
+        activityParent.CreacionUsuario(user)
+    }
     private fun confirmar() {
         val bundle : Bundle = Bundle()
         bundle.putString("nombre", binding.tietNombre.text.toString())

@@ -38,7 +38,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             .build()
     }
 
-    fun Prueba(User: Usuario){
+    fun CreacionUsuario(User: Usuario){
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://tracedent-api.herokuapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
