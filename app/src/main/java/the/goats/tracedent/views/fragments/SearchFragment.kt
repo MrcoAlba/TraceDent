@@ -21,7 +21,7 @@ import the.goats.tracedent.views.base.BaseFragment
 
 class SearchFragment
     : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate),
-    SearchView.OnQueryTextListener {
+    SearchView.OnQueryTextListener, SearchView.OnCloseListener{
     lateinit var mService : RetrofitService
     lateinit var layoutManager : LinearLayoutManager
     lateinit var activityParent : MainActivity
@@ -50,19 +50,14 @@ class SearchFragment
         getAllDentistList()
     }
 
-    private fun search(p0: String?) {
-        //User input
-        val search = p0?:""
-        Toast.makeText(activityParent, search, Toast.LENGTH_SHORT).show()
-    }
 
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        getAllDentistList()
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        getTheDentistList(query?:"")
         return true
     }
 
     private fun getAllDentistList() {
-        mService.getDentistsList().enqueue(object: Callback<MutableList<Dentist>> {
+        mService.getAllDentistsList().enqueue(object: Callback<MutableList<Dentist>> {
             override fun onResponse(
                 call: Call<MutableList<Dentist>>,
                 response: Response<MutableList<Dentist>>
@@ -83,8 +78,32 @@ class SearchFragment
         })
     }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
+    private fun getTheDentistList(query: String) {
+        mService.getDentistsList(query).enqueue(object: Callback<MutableList<Dentist>> {
+            override fun onResponse(
+                call: Call<MutableList<Dentist>>,
+                response: Response<MutableList<Dentist>>
+            ) {
+                adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
+                adapter.notifyDataSetChanged()
+                binding.rvListadodata.adapter = adapter
 
+
+            }
+
+            override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e("gaaa!",t.message.toString())
+            }
+        })
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        return true
+    }
+
+    override fun onClose(): Boolean {
+        getAllDentistList()
         return true
     }
 
