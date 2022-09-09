@@ -9,10 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import the.goats.tracedent.Api.DefaultResponse
-import the.goats.tracedent.Api.Dentist
-import the.goats.tracedent.Api.Patient
-import the.goats.tracedent.Api.Usuario
+import the.goats.tracedent.Api.*
 import the.goats.tracedent.databinding.ActivityLoginBinding
 import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
@@ -39,13 +36,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
+    //Crate Retrofit instance
     fun CreacionUsuario(User: Usuario){
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://tracedent-api.herokuapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val apiService = retrofitBuilder.create(ApiService::class.java)
+        //Llamar la función insertar usuario para insertar un documento usuario en la api
         val call = apiService.InserUsert(User)
         call.enqueue(object : Callback<DefaultResponse>{
             override fun onResponse(
@@ -57,7 +55,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -78,7 +76,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -99,7 +97,28 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    fun CreateClinic(clinic: Clinic){
+        val retrofitBuilder = Retrofit.Builder()
+            .baseUrl("https://tracedent-api.herokuapp.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val apiService = retrofitBuilder.create(ApiService::class.java)
+        val call = apiService.InsertClinic(clinic)
+        call.enqueue(object : Callback<DefaultResponse>{
+            override fun onResponse(
+                call: Call<DefaultResponse>,
+                response: Response<DefaultResponse>
+            ) {
+                Toast.makeText(applicationContext, response.code().toString(), Toast.LENGTH_SHORT).show()
+                Log.i("onResponse","Se creo la clinica")
+            }
 
+            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
             }
         })
     }
