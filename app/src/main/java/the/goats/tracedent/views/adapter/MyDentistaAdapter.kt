@@ -1,16 +1,16 @@
 package the.goats.tracedent.views.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import the.goats.tracedent.views.model.Dentista
-import res.layout.*
 
-class MyDentistaAdapter(private val context:Context, private val dentistaList:MutableList<Dentista>): RecyclerView.Adapter<MyDentistaAdapter.MyViewHolder>(){
+class MyDentistaAdapter(private val context:Context, private val dentistaList:MutableList<Dentista>): RecyclerView.Adapter<MyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        TODO("Not yet implemented")
+        LayoutInflater.from(parent.context)
+        return MyViewHolder()
     }
 
     override fun getItemCount(): Int {
@@ -20,16 +20,25 @@ class MyDentistaAdapter(private val context:Context, private val dentistaList:Mu
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         TODO("Not yet implemented")
     }
+}
 
-    class MyViewHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
-        var tvNombre:TextView
-        var tvdistrito:TextView
-        var tvrating:TextView
+class ChatsBtwUsersHolder(view: View):RecyclerView.ViewHolder(view){
+    val binding =ChatUsersBinding.bind(view)
 
-        init {
-            tvNombre=itemView.tvNombre
-            tvdistrito
-            tvrating
+    fun render (msg : MessageChat,userId : String){
+        if(userId == msg.fromID){
+            binding.textMessageSend.visibility = View.VISIBLE
+            binding.textMessageReceived.visibility = View.GONE
+            binding.textMessageSend.text = msg.content
+        }else{
+            binding.textMessageSend.visibility = View.GONE
+            binding.textMessageReceived.visibility = View.VISIBLE
+            binding.textMessageReceived.text = msg.content
         }
+
     }
 }
+
+
+
+
