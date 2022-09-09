@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import the.goats.tracedent.Api.Dentist
+import the.goats.tracedent.Api.Patient
 import the.goats.tracedent.Api.Usuario
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
@@ -33,7 +35,9 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
 
         //Listeners
 
-        binding.butContinuarG6.setOnClickListener           { confirmar() }
+        binding.butContinuarG6.setOnClickListener           {
+            CreateDentist()
+            confirmar() }
         //Funciones ejecutadas en la creación del Fragment
         CreateUser()
     }
@@ -49,6 +53,20 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
             , password.toString()
             , option)
         activityParent.CreacionUsuario(user)
+    }
+    private fun CreateDentist(){
+        val mail = requireArguments().getString("correo").toString()
+        val name = binding.tietNombre.text.toString()
+        val lastname = binding.tietApellido.text.toString()
+        val address = binding.tietDireccion.text.toString()
+        val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
+        val gender = binding.tietGenero.text.toString()
+        val dni = binding.tietDni.text.toString().toInt()
+        val district = binding.tietDisitrito.text.toString().toUpperCase()
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val dentist = Dentist(id, mail, name, lastname,address, district, phonenumber, gender, dni)
+        activityParent.CreateDentist(dentist)
     }
     private fun confirmar() {
         val bundle : Bundle = Bundle()
