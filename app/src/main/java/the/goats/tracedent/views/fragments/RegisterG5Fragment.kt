@@ -2,6 +2,7 @@ package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -35,6 +36,12 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         }
 
         binding.buttonReturnG5.setOnClickListener           { activityParent.onBackPressed() }
+        binding.tietNombre.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietApellido.doAfterTextChanged             { CheckAllComplete() }
+        binding.tietGenero.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietDni.doAfterTextChanged                  { CheckAllComplete() }
+        binding.tietDireccion.doAfterTextChanged            { CheckAllComplete() }
+        binding.tietNumeroContacto.doAfterTextChanged       { CheckAllComplete() }
 
         //Funciones ejecutadas en la creación del Fragment
         CreateUser()
@@ -79,5 +86,18 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         bundle.putInt("option", requireArguments().getInt("option"))
 
         login.login2Main()
+    }
+
+    private fun CheckAllComplete(){
+        if(binding.tietNombre.text.toString() != "" && binding.tietApellido.text.toString() != ""
+            && binding.tietDni.text.toString() != "" && binding.tietDireccion.text.toString() != "" &&
+                binding.tietGenero.text.toString() != "" && binding.tietNumeroContacto.text.toString() != "") {
+            enableButton(true)
+        }
+    }
+
+    private fun enableButton(b: Boolean) {
+        binding.butConfirmarG5.isClickable = b
+        binding.butConfirmarG5.isEnabled = b
     }
 }

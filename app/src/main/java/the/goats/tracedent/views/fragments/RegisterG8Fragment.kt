@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
@@ -31,6 +32,12 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
 
         //Listeners
 
+        binding.tietNombre.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietApellido.doAfterTextChanged             { CheckAllComplete() }
+        binding.tietRuc.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietRazon.doAfterTextChanged                  { CheckAllComplete() }
+        binding.tietDireccion.doAfterTextChanged            { CheckAllComplete() }
+
         binding.butContinuarG6.setOnClickListener           { confirmar() }
         binding.buttonReturnG8.setOnClickListener           { activityParent.onBackPressed() }
     }
@@ -38,5 +45,18 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
     private fun confirmar() {
         val bundle : Bundle = Bundle()
         communicator.goToAnotherFragment(bundle, RegisterG7Fragment(), activityParent.containerView, "RegisterG62RegisterG7")
+    }
+
+    private fun CheckAllComplete(){
+        if(binding.tietNombre.text.toString() != "" && binding.tietApellido.text.toString() != ""
+            && binding.tietRuc.text.toString() != "" && binding.tietDireccion.text.toString() != "" &&
+            binding.tietRazon.text.toString() != "") {
+            enableButton(true)
+        }
+    }
+
+    private fun enableButton(b: Boolean) {
+        binding.butContinuarG6.isClickable = b
+        binding.butContinuarG6.isEnabled = b
     }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -35,10 +36,15 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
 
         //Listeners
 
-<<<<<<< HEAD
-        binding.butContinuarG6.setOnClickListener           { confirmar() }
+        binding.tietNombre.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietApellido.doAfterTextChanged             { CheckAllComplete() }
+        binding.tietGenero.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietDni.doAfterTextChanged                  { CheckAllComplete() }
+        binding.tietDireccion.doAfterTextChanged            { CheckAllComplete() }
+        binding.tietNumeroContacto.doAfterTextChanged       { CheckAllComplete() }
+
+
         binding.buttonReturnG6.setOnClickListener           { activityParent.onBackPressed() }
-=======
         binding.butContinuarG6.setOnClickListener           {
             CreateDentist()
             confirmar() }
@@ -71,7 +77,7 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         val id = auth.currentUser?.uid.toString()
         val dentist = Dentist(id, mail, name, lastname,address, district, phonenumber, gender, dni)
         activityParent.CreateDentist(dentist)
->>>>>>> d868ba5fa9bff771a660ba6c2ba2e327b9a62413
+
     }
     private fun confirmar() {
         val bundle : Bundle = Bundle()
@@ -86,5 +92,18 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         bundle.putInt("option", requireArguments().getInt("option"))
 
         communicator.goToAnotherFragment(bundle, RegisterG7Fragment(), activityParent.containerView, "RegisterG62RegisterG7")
+    }
+
+    private fun CheckAllComplete(){
+        if(binding.tietNombre.text.toString() != "" && binding.tietApellido.text.toString() != ""
+            && binding.tietDni.text.toString() != "" && binding.tietDireccion.text.toString() != "" &&
+            binding.tietGenero.text.toString() != "" && binding.tietNumeroContacto.text.toString() != "") {
+            enableButton(true)
+        }
+    }
+
+    private fun enableButton(b: Boolean) {
+        binding.butContinuarG6.isClickable = b
+        binding.butContinuarG6.isEnabled = b
     }
 }
