@@ -1,11 +1,13 @@
 package the.goats.tracedent.interfaces
 
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Url
-import the.goats.tracedent.Api.*
+import the.goats.tracedent.api.Clinic
+import the.goats.tracedent.api.Dentist
+import the.goats.tracedent.api.Patient
+import the.goats.tracedent.api.DefaultResponse
+import the.goats.tracedent.api.Usuario
 
 interface ApiService {
     @POST("usuarios")

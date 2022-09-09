@@ -6,8 +6,8 @@ import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import the.goats.tracedent.Api.Patient
-import the.goats.tracedent.Api.Usuario
+import the.goats.tracedent.api.Patient
+import the.goats.tracedent.api.Usuario
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential

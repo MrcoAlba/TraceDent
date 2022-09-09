@@ -1,4 +1,4 @@
-package the.goats.tracedent.Api
+package the.goats.tracedent.api
 
 data class Usuario(
     val idUsuario: String,

@@ -1,19 +1,13 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import the.goats.tracedent.Api.Dentist
-import the.goats.tracedent.Api.Patient
-import the.goats.tracedent.Api.Usuario
-import the.goats.tracedent.R
-import the.goats.tracedent.databinding.FragmentRegisterG5Binding
+import the.goats.tracedent.api.Dentist
+import the.goats.tracedent.api.Usuario
 import the.goats.tracedent.databinding.FragmentRegisterG6Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
@@ -72,7 +66,7 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
         val gender = binding.tietGenero.text.toString()
         val dni = binding.tietDni.text.toString().toInt()
-        val district = binding.tietDisitrito.text.toString().toUpperCase()
+        val district = binding.tietDisitrito.text.toString().uppercase()
         auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val dentist = Dentist(id, mail, name, lastname,address, district, phonenumber, gender, dni)

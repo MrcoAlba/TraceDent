@@ -9,13 +9,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import the.goats.tracedent.Api.*
+import the.goats.tracedent.api.*
 import the.goats.tracedent.databinding.ActivityLoginBinding
 import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
 import the.goats.tracedent.views.fragments.LoginFragment
-import the.goats.tracedent.views.fragments.RegisterG5Fragment
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), Credential.LogIn {
 
