@@ -1,12 +1,17 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import the.goats.tracedent.R
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import the.goats.tracedent.Api.DefaultResponse
+import the.goats.tracedent.Api.Usuario
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
@@ -28,8 +33,25 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         activityParent  =   requireActivity() as LoginActivity
 
         //Listeners
+        binding.butConfirmarG5.setOnClickListener           {
+            //confirmar()
 
-        binding.butConfirmarG5.setOnClickListener           { confirmar() }
+        }
+        //Funciones ejecutadas en la creación del Fragment
+        CreateUser()
+    }
+    private fun CreateUser(){
+        val mail = requireArguments().getString("correo")
+        val password = requireArguments().getString("password")
+        val option = requireArguments().getInt("option")
+        //Firebase Auth
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val user = Usuario(id
+            , mail.toString()
+            , password.toString()
+            , option)
+        activityParent.Prueba(user)
     }
 
     private fun confirmar() {
