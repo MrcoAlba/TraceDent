@@ -36,6 +36,7 @@ class ForgottenPassword1Fragment
         binding.tietEmail.doAfterTextChanged                    { validateMail() }
         binding.btnSendLink.setOnClickListener                  { sendLink() }
         binding.tvGoBack.setOnClickListener                     { activityParent.onBackPressed() }
+        //Funciones ejecutadas en la creación del Fragment
         previousEmail()
     }
 

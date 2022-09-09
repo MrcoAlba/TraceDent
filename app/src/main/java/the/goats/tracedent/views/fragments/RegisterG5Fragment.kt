@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,12 +33,25 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         activityParent  =   requireActivity() as LoginActivity
 
         //Listeners
-
         binding.butConfirmarG5.setOnClickListener           {
-            activityParent.Prueba()
             //confirmar()
 
         }
+        //Funciones ejecutadas en la creación del Fragment
+        CreateUser()
+    }
+    private fun CreateUser(){
+        val mail = requireArguments().getString("correo")
+        val password = requireArguments().getString("password")
+        val option = requireArguments().getInt("option")
+        //Firebase Auth
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val user = Usuario(id
+            , mail.toString()
+            , password.toString()
+            , option)
+        activityParent.Prueba(user)
     }
 
     private fun confirmar() {

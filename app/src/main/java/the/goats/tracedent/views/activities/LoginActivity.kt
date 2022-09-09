@@ -22,7 +22,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transactionFirstAndMainFragment(RegisterG5Fragment(), binding.fcvLoginActivity)
+        transactionFirstAndMainFragment(LoginFragment(), binding.fcvLoginActivity)
         containerView = binding.fcvLoginActivity
     }
 
@@ -38,7 +38,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             .build()
     }
 
-    fun Prueba(){
+    fun Prueba(User: Usuario){
         val retrofitBuilder = Retrofit.Builder()
             .baseUrl("https://tracedent-api.herokuapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -48,14 +48,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             , "1234567"
             , 1)
         val apiService = retrofitBuilder.create(ApiService::class.java)
-        val call = apiService.InserUsert(us)
+        val call = apiService.InserUsert(User)
         call.enqueue(object : Callback<DefaultResponse>{
             override fun onResponse(
                 call: Call<DefaultResponse>,
                 response: Response<DefaultResponse>
             ) {
                 Toast.makeText(applicationContext, response.code().toString(), Toast.LENGTH_SHORT).show()
-                Log.i("Hola","Hola")
+                Log.i("Hola","SI DIOS EXISTE ESTO NO VA A FUNCIONAR")
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
