@@ -1,6 +1,6 @@
-package the.goats.tracedent.views.model
+package the.goats.tracedent.model
 
-class Dentista {
+class Dentist {
     var _id: String? = null
     var correo: String? = null
     var nombres: String? = null
