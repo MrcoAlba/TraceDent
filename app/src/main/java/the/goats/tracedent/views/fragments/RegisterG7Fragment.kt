@@ -1,14 +1,12 @@
 package the.goats.tracedent.views.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.provider.MediaStore
 import android.view.View
-import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import the.goats.tracedent.R
-import the.goats.tracedent.databinding.FragmentRegisterG5Binding
-import the.goats.tracedent.databinding.FragmentRegisterG6Binding
 import the.goats.tracedent.databinding.FragmentRegisterG7Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
@@ -21,6 +19,8 @@ class RegisterG7Fragment : BaseFragment<FragmentRegisterG7Binding>(FragmentRegis
     private lateinit var auth: FirebaseAuth
     lateinit var activityParent : LoginActivity
 
+    private val SELECT_ACTIVITY = 50
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,7 +31,23 @@ class RegisterG7Fragment : BaseFragment<FragmentRegisterG7Binding>(FragmentRegis
 
         //Listeners
 
-        binding.butConfirmarG7.setOnClickListener           { confirmar() }
+        binding.butAttachFile.setOnClickListener            { /*seleccionar()*/ }
+        binding.butConfirmarG7.setOnClickListener           { /*confirmar()*/ }
+    }
+
+
+    private fun seleccionar() {
+       var intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+       intent.setType("image/")
+       startActivityForResult(intent, 10)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK){
+            var path : Uri = data?.getData()!!
+            binding.imageView.setImageURI(path)
+        }
     }
 
     private fun confirmar() {
