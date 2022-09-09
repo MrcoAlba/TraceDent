@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import the.goats.tracedent.Api.Dentist
+import the.goats.tracedent.Api.Patient
+import the.goats.tracedent.Api.Usuario
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.databinding.FragmentRegisterG6Binding
@@ -30,10 +35,44 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
 
         //Listeners
 
+<<<<<<< HEAD
         binding.butContinuarG6.setOnClickListener           { confirmar() }
         binding.buttonReturnG6.setOnClickListener           { activityParent.onBackPressed() }
+=======
+        binding.butContinuarG6.setOnClickListener           {
+            CreateDentist()
+            confirmar() }
+        //Funciones ejecutadas en la creación del Fragment
+        CreateUser()
     }
-
+    private fun CreateUser(){
+        val mail = requireArguments().getString("correo")
+        val password = requireArguments().getString("password")
+        val option = requireArguments().getInt("option")
+        //Firebase Auth
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val user = Usuario(id
+            , mail.toString()
+            , password.toString()
+            , option)
+        activityParent.CreacionUsuario(user)
+    }
+    private fun CreateDentist(){
+        val mail = requireArguments().getString("correo").toString()
+        val name = binding.tietNombre.text.toString()
+        val lastname = binding.tietApellido.text.toString()
+        val address = binding.tietDireccion.text.toString()
+        val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
+        val gender = binding.tietGenero.text.toString()
+        val dni = binding.tietDni.text.toString().toInt()
+        val district = binding.tietDisitrito.text.toString().toUpperCase()
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val dentist = Dentist(id, mail, name, lastname,address, district, phonenumber, gender, dni)
+        activityParent.CreateDentist(dentist)
+>>>>>>> d868ba5fa9bff771a660ba6c2ba2e327b9a62413
+    }
     private fun confirmar() {
         val bundle : Bundle = Bundle()
         bundle.putString("nombre", binding.tietNombre.text.toString())

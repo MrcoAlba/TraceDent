@@ -1,16 +1,11 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import the.goats.tracedent.Api.DefaultResponse
+import the.goats.tracedent.Api.Patient
 import the.goats.tracedent.Api.Usuario
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.interfaces.Communicator
@@ -34,7 +29,8 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
 
         //Listeners
         binding.butConfirmarG5.setOnClickListener           {
-            //confirmar()
+            CreatePatient()
+            confirmar()
 
         }
 
@@ -54,7 +50,20 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
             , mail.toString()
             , password.toString()
             , option)
-        activityParent.Prueba(user)
+        activityParent.CreacionUsuario(user)
+    }
+    private fun CreatePatient(){
+        val mail = requireArguments().getString("correo").toString()
+        val name = binding.tietNombre.text.toString()
+        val lastname = binding.tietApellido.text.toString()
+        val address = binding.tietDireccion.text.toString()
+        val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
+        val gender = binding.tietGenero.text.toString()
+        val dni = binding.tietDni.text.toString().toInt()
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val patient = Patient(id, mail, name, lastname, address, phonenumber, gender, dni)
+        activityParent.CreatePatient(patient)
     }
 
     private fun confirmar() {
