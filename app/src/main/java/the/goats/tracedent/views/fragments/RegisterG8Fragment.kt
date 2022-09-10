@@ -14,22 +14,28 @@ import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
-
-class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegisterG8Binding::inflate) {
-
+class RegisterG8Fragment
+    : BaseFragment<FragmentRegisterG8Binding>(FragmentRegisterG8Binding::inflate)
+{
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
-    lateinit var activityParent : LoginActivity
 
+
+
+    //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //Delegates
         communicator    =   requireActivity() as Communicator
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
-
+        //Firebase Analytics
+        analyticEvent(requireActivity(), "RegisterG8Fragment", "onViewCreated")
+        //Firebase Auth
+        auth = Firebase.auth
         //Listeners
-
         binding.tietRsocial.doAfterTextChanged               { CheckAllComplete() }
         binding.tietDir.doAfterTextChanged             { CheckAllComplete() }
         binding.tietRuc.doAfterTextChanged               { CheckAllComplete() }
@@ -44,12 +50,11 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
         //Funciones ejecutadas en la creación del Fragment
         CreateUser()
     }
+
     private fun CreateUser(){
         val mail = requireArguments().getString("correo")
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
-        //Firebase Auth
-        auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val user = Usuario(id
             , mail.toString()
@@ -64,7 +69,6 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
         val disrict = binding.tietDis.text.toString()
         val phonenumber = binding.tietNum.text.toString().toInt()
         val ruc = binding.tietRuc.text.toString().toInt()
-        auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val clinic = Clinic(id, mail, razon, address, disrict, phonenumber, ruc)
         activityParent.CreateClinic(clinic)

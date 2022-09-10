@@ -36,7 +36,7 @@
         android:gravity="start"
         android:hint="Ingresar Razón Social"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -70,7 +70,7 @@
         android:gravity="start"
         android:hint="Ingresar Dirección del Establecimiento"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -104,7 +104,7 @@
         android:gravity="start"
         android:hint="Ingresar Distrito del establecimiento"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -138,7 +138,7 @@
         android:gravity="start"
         android:hint="Ingresar Número "
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -173,7 +173,7 @@
         android:gravity="start"
         android:hint="Ingresar RUC"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"

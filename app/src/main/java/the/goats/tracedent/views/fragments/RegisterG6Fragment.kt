@@ -3,6 +3,8 @@ package the.goats.tracedent.views.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -14,22 +16,28 @@ import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
-
-class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegisterG6Binding::inflate) {
-
+class RegisterG6Fragment
+    : BaseFragment<FragmentRegisterG6Binding>(FragmentRegisterG6Binding::inflate)
+{
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
-    lateinit var activityParent : LoginActivity
 
+
+
+    //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //Delegates
         communicator    =   requireActivity() as Communicator
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
-
+        //Firebase Analytics
+        analyticEvent(requireActivity(), "RegisterG6Fragment", "onViewCreated")
+        //Firebase Auth
+        auth = Firebase.auth
         //Listeners
-
         binding.tietNombre.doAfterTextChanged               { CheckAllComplete() }
         binding.tietApellido.doAfterTextChanged             { CheckAllComplete() }
         binding.tietGenero.doAfterTextChanged               { CheckAllComplete() }
@@ -45,12 +53,11 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         //Funciones ejecutadas en la creación del Fragment
         CreateUser()
     }
+
     private fun CreateUser(){
         val mail = requireArguments().getString("correo")
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
-        //Firebase Auth
-        auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val user = Usuario(id
             , mail.toString()
@@ -67,7 +74,6 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
         val gender = binding.tietGenero.text.toString()
         val dni = binding.tietDni.text.toString().toInt()
         val district = binding.tietDisitrito.text.toString().uppercase()
-        auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val dentist = Dentist(id, mail, name, lastname,address, district, phonenumber, gender, dni)
         activityParent.CreateDentist(dentist)

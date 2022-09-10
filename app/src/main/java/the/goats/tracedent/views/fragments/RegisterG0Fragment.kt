@@ -10,8 +10,11 @@ import the.goats.tracedent.views.base.BaseFragment
 class RegisterG0Fragment
     : BaseFragment<FragmentRegisterG0Binding>(FragmentRegisterG0Binding::inflate)
 {
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
 
-    lateinit var activityParent : LoginActivity
+
 
 
     //Fragment Lifecycle

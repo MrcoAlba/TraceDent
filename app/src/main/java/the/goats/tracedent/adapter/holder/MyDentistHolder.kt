@@ -13,6 +13,6 @@ class MyDentistHolder (
     fun bind(dentist: Dentist){
         binding.tvDistrito.text = dentist.distrito
         binding.tvNombre.text = dentist.nombres
-        binding.tvRating.text = dentist.__v
+        binding.tvRating.text = dentist.rating
     }
 }

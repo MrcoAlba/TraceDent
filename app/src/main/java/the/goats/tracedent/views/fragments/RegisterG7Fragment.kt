@@ -6,31 +6,34 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import com.google.firebase.auth.FirebaseAuth
 import the.goats.tracedent.databinding.FragmentRegisterG7Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
+class RegisterG7Fragment
+    : BaseFragment<FragmentRegisterG7Binding>(FragmentRegisterG7Binding::inflate)
+{
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
 
-class RegisterG7Fragment : BaseFragment<FragmentRegisterG7Binding>(FragmentRegisterG7Binding::inflate) {
 
-    private lateinit var auth: FirebaseAuth
-    lateinit var activityParent : LoginActivity
 
-    private val SELECT_ACTIVITY = 50
 
+    //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //Delegates
         communicator    =   requireActivity() as Communicator
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
+        //Firebase Analytics
+        analyticEvent(requireActivity(), "RegisterG7Fragment", "onViewCreated")
+
 
         //Listeners
-
         binding.butAttachFile.setOnClickListener            { /*select()*/ }
         binding.butConfirmarG7.setOnClickListener           { /*confirm()*/ }
         binding.buttonReturnG7.setOnClickListener           { activityParent.onBackPressed() }

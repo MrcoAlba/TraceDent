@@ -25,24 +25,19 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_nombre"
-
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
         android:layout_marginTop="16dp"
         android:gravity="start"
         android:hint="Ingresar Nombre"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
-
-
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,24 +54,19 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_apellido"
-
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
         android:layout_marginTop="16dp"
         android:gravity="start"
         android:hint="Ingresar Apellido"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
-
-
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -104,7 +94,7 @@
         android:gravity="start"
         android:hint="Ingresar DNI"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -138,7 +128,7 @@
         android:gravity="start"
         android:hint="Ingresar Dirección"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -172,7 +162,7 @@
         android:gravity="start"
         android:hint="Ingresar Género"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -206,7 +196,7 @@
         android:gravity="start"
         android:hint="Ingresar Número de Contacto"
         android:textSize="16sp"
-
+        app:endIconMode="clear_text"
         app:boxCornerRadiusBottomEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"

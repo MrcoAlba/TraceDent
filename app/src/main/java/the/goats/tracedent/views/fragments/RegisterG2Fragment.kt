@@ -2,7 +2,6 @@ package the.goats.tracedent.views.fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
@@ -19,9 +18,12 @@ import the.goats.tracedent.views.base.BaseFragment
 class RegisterG2Fragment
     : BaseFragment<FragmentRegisterG2Binding>(FragmentRegisterG2Binding::inflate)
 {
-
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
-    lateinit var activityParent : LoginActivity
+
+
 
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -137,7 +139,4 @@ class RegisterG2Fragment
             throw error("El tipo de cliente o el tipo de email es nulo")
         }
     }
-
-
-
 }

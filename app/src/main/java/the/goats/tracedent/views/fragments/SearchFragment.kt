@@ -20,12 +20,14 @@ import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
 class SearchFragment
-    : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate),
-    SearchView.OnQueryTextListener, SearchView.OnCloseListener{
-    lateinit var mService : RetrofitService
-    lateinit var layoutManager : LinearLayoutManager
-    lateinit var activityParent : MainActivity
-    lateinit var adapter : MyDentistAdapter
+    : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate), SearchView.OnQueryTextListener, SearchView.OnCloseListener
+{
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : MainActivity
+    private lateinit var layoutManager : LinearLayoutManager
+    private lateinit var mService : RetrofitService
+    private lateinit var adapter : MyDentistAdapter
 
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +42,6 @@ class SearchFragment
 
         //Listeners
         binding.svSearcher.setOnQueryTextListener(this)
-        //search("")
 
         //recycler view
         mService = Common.retrofitService
@@ -71,7 +72,6 @@ class SearchFragment
 
         })
     }
-
     private fun getTheDentistList(query: String) {
         mService.getDentistsList(query).enqueue(object: Callback<MutableList<Dentist>> {
             override fun onResponse(
@@ -94,13 +94,16 @@ class SearchFragment
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         getTheDentistList(query?:"")
+        binding.svSearcher.clearFocus()
         return true
     }
-    override fun onQueryTextChange(p0: String?): Boolean {
+    override fun onQueryTextChange(query: String?): Boolean {
+        getTheDentistList(query?:"")
         return true
     }
     override fun onClose(): Boolean {
         getAllDentistList()
+        binding.svSearcher.clearFocus()
         return true
     }
 }

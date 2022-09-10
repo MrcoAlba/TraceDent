@@ -18,9 +18,12 @@ import the.goats.tracedent.views.base.BaseFragment
 class RegisterG1Fragment
     : BaseFragment<FragmentRegisterG1Binding>(FragmentRegisterG1Binding::inflate)
 {
-
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
-    lateinit var activityParent : LoginActivity
+
+
 
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

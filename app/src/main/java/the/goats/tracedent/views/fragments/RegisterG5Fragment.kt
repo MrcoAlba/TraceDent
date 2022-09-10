@@ -14,27 +14,30 @@ import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
-
-class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegisterG5Binding::inflate) {
-
+class RegisterG5Fragment
+    : BaseFragment<FragmentRegisterG5Binding>(FragmentRegisterG5Binding::inflate)
+{
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
-    lateinit var activityParent : LoginActivity
 
+
+
+    //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //Delegates
         communicator    =   requireActivity() as Communicator
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
-
+        //Firebase Analytics
+        analyticEvent(requireActivity(), "RegisterG5Fragment", "onViewCreated")
+        //Firebase Auth
+        auth = Firebase.auth
         //Listeners
-        binding.butConfirmarG5.setOnClickListener           {
-            CreatePatient()
-            confirmar()
-
-        }
-
+        binding.butConfirmarG5.setOnClickListener           { CreatePatient()
+                                                                confirmar() }
         binding.buttonReturnG5.setOnClickListener           { activityParent.onBackPressed() }
         binding.tietNombre.doAfterTextChanged               { CheckAllComplete() }
         binding.tietApellido.doAfterTextChanged             { CheckAllComplete() }
@@ -46,12 +49,11 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         //Funciones ejecutadas en la creación del Fragment
         CreateUser()
     }
+
     private fun CreateUser(){
         val mail = requireArguments().getString("correo")
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
-        //Firebase Auth
-        auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val user = Usuario(id
             , mail.toString()
@@ -67,7 +69,6 @@ class RegisterG5Fragment : BaseFragment<FragmentRegisterG5Binding>(FragmentRegis
         val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
         val gender = binding.tietGenero.text.toString()
         val dni = binding.tietDni.text.toString().toInt()
-        auth = Firebase.auth
         val id = auth.currentUser?.uid.toString()
         val patient = Patient(id, mail, name, lastname, address, phonenumber, gender, dni)
         activityParent.CreatePatient(patient)
