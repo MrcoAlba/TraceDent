@@ -37,6 +37,7 @@ class RegisterG7Fragment
         binding.butAttachFile.setOnClickListener            { /*select()*/ }
         binding.butConfirmarG7.setOnClickListener           { /*confirm()*/ }
         binding.buttonReturnG7.setOnClickListener           { activityParent.onBackPressed() }
+        binding.butConfirmarG7.setOnClickListener           { confirm() }
     }
 
 

@@ -91,7 +91,8 @@ class RegisterG6Fragment
         bundle.putString("password", requireArguments().getString("password"))
         bundle.putInt("option", requireArguments().getInt("option"))
 
-        communicator.goToAnotherFragment(bundle, RegisterG7Fragment(), activityParent.containerView, "RegisterG62RegisterG7")
+        //communicator.goToAnotherFragment(bundle, RegisterG7Fragment(), activityParent.containerView, "RegisterG62RegisterG7")
+        login.login2Main()
     }
 
     private fun CheckAllComplete(){
