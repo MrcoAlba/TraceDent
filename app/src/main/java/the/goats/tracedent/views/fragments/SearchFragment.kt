@@ -108,6 +108,7 @@ class SearchFragment
 
     override fun onClose(): Boolean {
         getAllDentistList()
+        binding.svSearcher.clearFocus()
         return true
     }
 
