@@ -9,12 +9,15 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.google.android.gms.common.api.internal.LifecycleCallback.getFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_main.*
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.ActivityMainBinding
 import the.goats.tracedent.interfaces.Credential
@@ -50,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
                 R.id.booking_item -> Log.d("BtmNavView", "Se presiono para pasar a las reservas")
                 R.id.search_item -> Move2Search(ft)
-                R.id.map_item -> Log.d("BtmNavView", "Se presiono para pasar al mapa(principal")
+                R.id.map_item -> Move2Map(ft)
                 R.id.profile_item -> Log.d("BtmNavView", "Se presiono para pasar al perfil")
                 R.id.messaging_item -> Log.d("BtmNavView", "Se presiono para pasar a los chats")
 
@@ -62,6 +65,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
             true
         }
+    }
+
+    private fun Move2Map(ft: FragmentTransaction) {
+        val fragment = map
+        ft.replace(R.id.fcv_main_activity, map)
     }
 
     private fun Move2Search(ft: FragmentTransaction) {

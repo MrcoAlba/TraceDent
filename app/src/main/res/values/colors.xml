@@ -9,5 +9,4 @@
     <color name="primaryTextColor">#e2f6ff</color>
     <color name="secondaryTextColor">#e9eaff</color>
     <color name="design_default_color_error">#F44336</color>
-    <color name="black">#000000</color>
 </resources>
