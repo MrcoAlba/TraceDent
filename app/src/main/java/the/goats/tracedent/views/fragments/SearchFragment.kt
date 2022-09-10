@@ -50,12 +50,6 @@ class SearchFragment
         getAllDentistList()
     }
 
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        getTheDentistList(query?:"")
-        return true
-    }
-
     private fun getAllDentistList() {
         mService.getAllDentistsList().enqueue(object: Callback<MutableList<Dentist>> {
             override fun onResponse(
@@ -98,14 +92,15 @@ class SearchFragment
         })
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        getTheDentistList(query?:"")
+        return true
+    }
     override fun onQueryTextChange(p0: String?): Boolean {
         return true
     }
-
     override fun onClose(): Boolean {
         getAllDentistList()
         return true
     }
-
-
 }
