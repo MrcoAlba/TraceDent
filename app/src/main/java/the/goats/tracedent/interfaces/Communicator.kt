@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentContainerView
 
 interface Communicator {
     fun goToAnotherFragment(
-        bundle: Bundle,
+        bundle: Bundle?,
         fragment: Fragment,
         containerView: FragmentContainerView,
         transactionName: String
