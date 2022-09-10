@@ -37,10 +37,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     }
     //Crate Retrofit instance
     fun CreacionUsuario(User: Usuario){
-        val retrofitBuilder = Retrofit.Builder()
-            .baseUrl("https://tracedent-api.herokuapp.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofitBuilder = GetRetrofit()
         val apiService = retrofitBuilder.create(ApiService::class.java)
         //Llamar la función insertar usuario para insertar un documento usuario en la api
         val call = apiService.InserUsert(User)
@@ -59,10 +56,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         })
     }
     fun CreatePatient(patient: Patient){
-        val retrofitBuilder = Retrofit.Builder()
-            .baseUrl("https://tracedent-api.herokuapp.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofitBuilder = GetRetrofit()
         val apiService = retrofitBuilder.create(ApiService::class.java)
         val call = apiService.InserPatient(patient)
         call.enqueue(object : Callback<DefaultResponse>{
@@ -80,10 +74,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         })
     }
     fun CreateDentist(dentist: Dentist){
-        val retrofitBuilder = Retrofit.Builder()
-            .baseUrl("https://tracedent-api.herokuapp.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofitBuilder = GetRetrofit()
         val apiService = retrofitBuilder.create(ApiService::class.java)
         val call = apiService.InserDentist(dentist)
         call.enqueue(object : Callback<DefaultResponse>{
@@ -101,10 +92,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         })
     }
     fun CreateClinic(clinic: Clinic){
-        val retrofitBuilder = Retrofit.Builder()
-            .baseUrl("https://tracedent-api.herokuapp.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofitBuilder = GetRetrofit()
         val apiService = retrofitBuilder.create(ApiService::class.java)
         val call = apiService.InsertClinic(clinic)
         call.enqueue(object : Callback<DefaultResponse>{
