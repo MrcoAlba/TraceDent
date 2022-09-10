@@ -5,10 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Url
-import the.goats.tracedent.Api.DefaultResponse
-import the.goats.tracedent.Api.Dentist
-import the.goats.tracedent.Api.Patient
-import the.goats.tracedent.Api.Usuario
+import the.goats.tracedent.Api.*
 
 interface ApiService {
     @POST("usuarios")
@@ -19,4 +16,7 @@ interface ApiService {
 
     @POST("dentistas")
     fun InserDentist(@Body dentist: Dentist):Call<DefaultResponse>
+
+    @POST("clinicas")
+    fun InsertClinic(@Body clinic: Clinic):Call<DefaultResponse>
 }

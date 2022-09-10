@@ -7,6 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import the.goats.tracedent.Api.Clinic
+import the.goats.tracedent.Api.Patient
+import the.goats.tracedent.Api.Usuario
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentRegisterG5Binding
 import the.goats.tracedent.databinding.FragmentRegisterG6Binding
@@ -32,14 +37,44 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
 
         //Listeners
 
-        binding.tietNombre.doAfterTextChanged               { CheckAllComplete() }
-        binding.tietApellido.doAfterTextChanged             { CheckAllComplete() }
+        binding.tietRsocial.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietDir.doAfterTextChanged             { CheckAllComplete() }
         binding.tietRuc.doAfterTextChanged               { CheckAllComplete() }
-        binding.tietRazon.doAfterTextChanged                  { CheckAllComplete() }
-        binding.tietDireccion.doAfterTextChanged            { CheckAllComplete() }
+        binding.tietDis.doAfterTextChanged                  { CheckAllComplete() }
+        binding.tietNum.doAfterTextChanged            { CheckAllComplete() }
 
-        binding.butContinuarG6.setOnClickListener           { confirmar() }
+        binding.butContinuarG6.setOnClickListener           {
+            CreateClinic()
+            confirmar()
+            }
         binding.buttonReturnG8.setOnClickListener           { activityParent.onBackPressed() }
+        //Funciones ejecutadas en la creación del Fragment
+        CreateUser()
+    }
+    private fun CreateUser(){
+        val mail = requireArguments().getString("correo")
+        val password = requireArguments().getString("password")
+        val option = requireArguments().getInt("option")
+        //Firebase Auth
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val user = Usuario(id
+            , mail.toString()
+            , password.toString()
+            , option)
+        activityParent.CreacionUsuario(user)
+    }
+    private fun CreateClinic(){
+        val mail = requireArguments().getString("correo").toString()
+        val razon = binding.tietRsocial.text.toString()
+        val address = binding.tietDir.text.toString()
+        val disrict = binding.tietDis.text.toString()
+        val phonenumber = binding.tietNum.text.toString().toInt()
+        val ruc = binding.tietRuc.text.toString().toInt()
+        auth = Firebase.auth
+        val id = auth.currentUser?.uid.toString()
+        val clinic = Clinic(id, mail, razon, address, disrict, phonenumber, ruc)
+        activityParent.CreateClinic(clinic)
     }
 
     private fun confirmar() {
@@ -48,9 +83,10 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
     }
 
     private fun CheckAllComplete(){
-        if(binding.tietNombre.text.toString() != "" && binding.tietApellido.text.toString() != ""
-            && binding.tietRuc.text.toString() != "" && binding.tietDireccion.text.toString() != "" &&
-            binding.tietRazon.text.toString() != "" && validateRUCPattern(binding.tietRuc.text.toString())) {
+
+        if(binding.tietDir.text.toString() != "" && binding.tietDis.text.toString() != ""
+            && binding.tietRuc.text.toString() != "" && binding.tietNum.text.toString() != "" &&
+            binding.tietRsocial.text.toString() != "" && validateRUCPattern(binding.tietRuc.text.toString())) {
             enableButton(true)
         }
     }

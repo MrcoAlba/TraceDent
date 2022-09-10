@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@id/til_nombre">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_apellido"
+            android:id="@+id/tiet_Apellido"
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
