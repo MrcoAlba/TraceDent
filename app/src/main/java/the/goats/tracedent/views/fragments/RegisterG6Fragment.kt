@@ -97,7 +97,8 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
     private fun CheckAllComplete(){
         if(binding.tietNombre.text.toString() != "" && binding.tietApellido.text.toString() != ""
             && binding.tietDni.text.toString() != "" && binding.tietDireccion.text.toString() != "" &&
-            binding.tietGenero.text.toString() != "" && binding.tietNumeroContacto.text.toString() != "") {
+            binding.tietGenero.text.toString() != "" && binding.tietNumeroContacto.text.toString() != ""
+            && validateDNIPattern(binding.tietDni.text.toString()) && validateNumberPattern(binding.tietNumeroContacto.text.toString())) {
             enableButton(true)
         }
     }
@@ -105,5 +106,15 @@ class RegisterG6Fragment : BaseFragment<FragmentRegisterG6Binding>(FragmentRegis
     private fun enableButton(b: Boolean) {
         binding.butContinuarG6.isClickable = b
         binding.butContinuarG6.isEnabled = b
+    }
+
+    private fun validateDNIPattern(dni: String): Boolean {
+        // Validate dni with a valid one
+        return dni.length == 8
+    }
+
+    private fun validateNumberPattern(number: String): Boolean {
+        // Validate password with a valid one
+        return number.length == 9
     }
 }

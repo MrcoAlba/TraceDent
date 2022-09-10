@@ -50,10 +50,16 @@ class RegisterG8Fragment : BaseFragment<FragmentRegisterG8Binding>(FragmentRegis
     private fun CheckAllComplete(){
         if(binding.tietNombre.text.toString() != "" && binding.tietApellido.text.toString() != ""
             && binding.tietRuc.text.toString() != "" && binding.tietDireccion.text.toString() != "" &&
-            binding.tietRazon.text.toString() != "") {
+            binding.tietRazon.text.toString() != "" && validateRUCPattern(binding.tietRuc.text.toString())) {
             enableButton(true)
         }
     }
+
+    private fun validateRUCPattern(ruc: String): Boolean {
+        // Validate ruc with a valid one
+        return ruc.length == 11
+    }
+
 
     private fun enableButton(b: Boolean) {
         binding.butContinuarG6.isClickable = b
