@@ -80,12 +80,19 @@ class RegisterG8Fragment
     }
 
     private fun CheckAllComplete(){
+
         if(binding.tietDir.text.toString() != "" && binding.tietDis.text.toString() != ""
             && binding.tietRuc.text.toString() != "" && binding.tietNum.text.toString() != "" &&
-            binding.tietRsocial.text.toString() != "") {
+            binding.tietRsocial.text.toString() != "" && validateRUCPattern(binding.tietRuc.text.toString())) {
             enableButton(true)
         }
     }
+
+    private fun validateRUCPattern(ruc: String): Boolean {
+        // Validate ruc with a valid one
+        return ruc.length == 11
+    }
+
 
     private fun enableButton(b: Boolean) {
         binding.butContinuarG6.isClickable = b
