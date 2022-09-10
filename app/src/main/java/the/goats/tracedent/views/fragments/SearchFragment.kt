@@ -1,8 +1,10 @@
 package the.goats.tracedent.views.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,6 +55,7 @@ class SearchFragment
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         getTheDentistList(query?:"")
+        binding.svSearcher.clearFocus()
         return true
     }
 
@@ -98,7 +101,8 @@ class SearchFragment
         })
     }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
+    override fun onQueryTextChange(query: String?): Boolean {
+        getTheDentistList(query?:"")
         return true
     }
 
@@ -106,6 +110,5 @@ class SearchFragment
         getAllDentistList()
         return true
     }
-
 
 }

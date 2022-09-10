@@ -7,5 +7,6 @@ class Dentist {
     var apellidos: String? = null
     var direccion: String? = null
     var distrito: String? = null
+    var rating: String? = null
     var __v: String? = null
 }
