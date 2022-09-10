@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.LoginFragment">
 
-    <!-- Application Image  - iv_login_image                        -->
-    <ImageView
-        android:id="@+id/iv_login_image"
+    <!-- Application Image  - siv_login_image                       -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/siv_login_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15dp"
@@ -27,12 +27,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="start"
-        android:inputType="textEmailAddress"
         android:hint="Ingresar correo electronico"
         android:textSize="16sp"
+        app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_login_image"
+        app:layout_constraintTop_toBottomOf="@id/siv_login_image"
         app:layout_constraintBottom_toTopOf="@id/til_password"
         app:boxCornerRadiusTopStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
@@ -55,9 +55,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="start"
-        android:inputType="textPassword"
-        android:hint="Ingresar correo electronico"
+        android:hint="Ingresar contraseña"
         android:textSize="16sp"
+        app:endIconMode="password_toggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_email"
@@ -78,13 +78,14 @@
     <!-- Forgotten password - tv_forgotten_password                 -->
     <TextView
         android:id="@+id/tv_forgotten_password"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="end"
         android:text="Olvide mi contraseña"
         android:textSize="16sp"
         android:textStyle="bold|italic"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_password"
@@ -109,7 +110,7 @@
     <!-- Create account     - tv_create_account                     -->
     <TextView
         android:id="@+id/tv_create_account"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center_horizontal"

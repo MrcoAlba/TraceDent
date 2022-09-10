@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.viewbinding.ViewBinding
+import the.goats.tracedent.R
 import the.goats.tracedent.interfaces.Communicator
 
 abstract class BaseActivity<VB : ViewBinding>(
@@ -15,6 +16,8 @@ abstract class BaseActivity<VB : ViewBinding>(
 
     //ViewBinding of type VB -> Activity"Name"Binding
     lateinit var binding: VB
+
+    lateinit var containerView : FragmentContainerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,12 @@ abstract class BaseActivity<VB : ViewBinding>(
         transactionName : String
     ){
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(containerView.id, fragment)
             .addToBackStack(transactionName)
             .setReorderingAllowed(true)

@@ -64,4 +64,6 @@ abstract class BaseFragment<VB: ViewBinding>(
         }
 
     }
+
+
 }
