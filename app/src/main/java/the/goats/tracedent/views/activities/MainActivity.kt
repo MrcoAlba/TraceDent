@@ -9,15 +9,12 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import com.google.android.gms.common.api.internal.LifecycleCallback.getFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_main.*
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.ActivityMainBinding
 import the.goats.tracedent.interfaces.Credential
@@ -68,8 +65,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private fun Move2Map(ft: FragmentTransaction) {
-        val fragment = map
-        ft.replace(R.id.fcv_main_activity, map)
+        val fragment = binding.map
+        ft.replace(R.id.fcv_main_activity, binding.map)
     }
 
     private fun Move2Search(ft: FragmentTransaction) {
