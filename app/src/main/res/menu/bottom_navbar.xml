@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/booking_item"
+        android:icon="@drawable/ic_today" />
+    <item
+        android:id="@+id/search_item"
+        android:icon="@drawable/ic_search" />
+    <item
+        android:id="@+id/map_item"
+        android:icon="@drawable/ic_travel_explore" />
+    <item
+        android:id="@+id/messaging_item"
+        android:icon="@drawable/ic_forum" />
+    <item
+        android:id="@+id/profile_item"
+        android:icon="@drawable/ic_person" />
+</menu>

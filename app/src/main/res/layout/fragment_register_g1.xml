@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.fragments.RegisterG1Fragment">
+
+    <!-- Registration Image  - siv_password                         -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/siv_password"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_key_information"
+        app:srcCompat="@drawable/ic_baseline_mail_outline_24"/>
+
+    <!-- Informative text   - tv_key_information                    -->
+    <TextView
+        android:id="@+id/tv_key_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:gravity="center_horizontal"
+        android:text="Asocie un correo a su nueva cuenta"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/siv_password"
+        app:layout_constraintBottom_toTopOf="@id/til_email" />
+
+    <!-- Email              - til_email             - tiet_email    -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="start"
+        android:hint="Ingresar correo electronico"
+        android:textSize="16sp"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_key_information"
+        app:layout_constraintBottom_toTopOf="@id/til_email2"
+        app:boxCornerRadiusTopStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:startIconDrawable="@drawable/ic_baseline_mail_outline_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- EmailConfirmation  - til_email2            - tiet_email2   -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="start"
+        android:hint="Confirme correo electronico"
+        android:textSize="16sp"
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_email"
+        app:layout_constraintBottom_toTopOf="@id/btn_create_password"
+        app:boxCornerRadiusTopStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:startIconDrawable="@drawable/ic_baseline_mail_outline_24"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_email2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Create password button - btn_create_password               -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_create_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Crear contraseña"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:clickable="false"
+        android:enabled="false"
+        app:cornerRadius="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_email2"
+        app:layout_constraintBottom_toTopOf="@id/tv_go_back"/>
+
+    <!-- Create account     - tv_go_back                            -->
+    <TextView
+        android:id="@+id/tv_go_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:text="Regresar"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_create_password"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
