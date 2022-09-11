@@ -50,7 +50,7 @@ class RegisterG6Fragment
         binding.butContinuarG6.setOnClickListener           {
             CreateDentist()
             confirmar() }
-        //Funciones ejecutadas en la creación del Fragment
+        //Lifecycle necessary functions
         CreateUser()
     }
 

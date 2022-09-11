@@ -47,7 +47,7 @@ class RegisterG8Fragment
             confirmar()
             }
         binding.buttonReturnG8.setOnClickListener           { activityParent.onBackPressed() }
-        //Funciones ejecutadas en la creación del Fragment
+        //Lifecycle necessary functions
         CreateUser()
     }
 

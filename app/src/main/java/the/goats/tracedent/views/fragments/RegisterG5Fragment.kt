@@ -46,7 +46,7 @@ class RegisterG5Fragment
         binding.tietDireccion.doAfterTextChanged            { CheckAllComplete() }
         binding.tietNumeroContacto.doAfterTextChanged       { CheckAllComplete() }
 
-        //Funciones ejecutadas en la creación del Fragment
+        //Lifecycle necessary functions
         CreateUser()
     }
 
