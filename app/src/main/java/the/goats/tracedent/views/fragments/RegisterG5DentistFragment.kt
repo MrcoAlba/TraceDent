@@ -6,14 +6,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import the.goats.tracedent.databinding.FragmentRegisterG7Binding
+import the.goats.tracedent.databinding.FragmentRegisterG5DentistBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
-class RegisterG7Fragment
-    : BaseFragment<FragmentRegisterG7Binding>(FragmentRegisterG7Binding::inflate)
+class RegisterG5DentistFragment
+    : BaseFragment<FragmentRegisterG5DentistBinding>(FragmentRegisterG5DentistBinding::inflate)
 {
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
@@ -30,7 +30,7 @@ class RegisterG7Fragment
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
         //Firebase Analytics
-        analyticEvent(requireActivity(), "RegisterG7Fragment", "onViewCreated")
+        analyticEvent(requireActivity(), "RegisterG5DentistFragment", "onViewCreated")
 
 
         //Listeners

@@ -101,7 +101,7 @@ class RegisterG2Fragment
                         if(requireArguments().getInt("option") == 1) {
                             communicator.goToAnotherFragment(
                                 bundle,
-                                RegisterG5Fragment(),
+                                RegisterG3ClientFragment(),
                                 activityParent.containerView,
                                 "RegisterG22RegisterG5"
                             )
@@ -109,7 +109,7 @@ class RegisterG2Fragment
                         else if(requireArguments().getInt("option") == 2){
                             communicator.goToAnotherFragment(
                                 bundle,
-                                RegisterG6Fragment(),
+                                RegisterG4DentistFragment(),
                                 activityParent.containerView,
                                 "RegisterG22RegisterG6"
                             )
@@ -117,7 +117,7 @@ class RegisterG2Fragment
                         else if(requireArguments().getInt("option") == 3) {
                             communicator.goToAnotherFragment(
                                 bundle,
-                                RegisterG8Fragment(),
+                                RegisterG6ClinicFragment(),
                                 activityParent.containerView,
                                 "RegisterG22RegisterG8"
                             )

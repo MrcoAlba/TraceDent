@@ -8,8 +8,20 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1933876811594203" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.189209726443769" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.189209726443769" />
+        <entry key="app/src/main/res/layout/fragment_register_g0.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/fragment_register_g1.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/fragment_register_g2.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/fragment_register_g3_client.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_register_g4_dentist.xml" value="0.3890625" />
         <entry key="app/src/main/res/layout/fragment_register_g5.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_register_g5_dentist.xml" value="0.3890625" />
         <entry key="app/src/main/res/layout/fragment_register_g6.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_register_g6_clinic.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_register_g7.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_register_g8.xml" value="0.34427083333333336" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/item_dentist.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/list_gender.xml" value="0.3890625" />
       </map>
     </option>
   </component>

@@ -5,16 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.RegisterG5Fragment">
+    tools:context=".views.fragments.RegisterG3ClientFragment">
 
     <TextView
-        android:id="@+id/tv_textoInicialG6_2"
+        android:id="@+id/tv_textoInicialG5_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="10dp"
         android:gravity="center_horizontal"
-        android:text="@string/nuevo_dentista"
+        android:text="@string/nuevo_cliente"
         android:textColor="#021638"
         android:textSize="30dp"
         android:textStyle="bold|italic"
@@ -25,13 +25,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_nombre"
-
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
         android:layout_marginTop="16dp"
         android:gravity="start"
         android:hint="Ingresar Nombre"
@@ -41,13 +38,11 @@
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
-
-
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_textoInicialG6_2">
+        app:layout_constraintTop_toBottomOf="@id/tv_textoInicialG5_2">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_nombre"
@@ -59,13 +54,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_apellido"
-
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
         android:layout_marginTop="16dp"
         android:gravity="start"
         android:hint="Ingresar Apellido"
@@ -75,8 +67,6 @@
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
-
-
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -226,53 +216,21 @@
             android:layout_height="wrap_content"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_distrito"
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-
-        android:layout_marginTop="16dp"
-        android:gravity="start"
-        android:hint="Ingresar Distrito de consultorio"
-        android:textSize="16sp"
-        app:endIconMode="clear_text"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
-
-
-        app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_numero_contacto">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_disitrito"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/but_continuar_G6"
+        android:id="@+id/but_confirmar_G5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CONTINUAR"
-        android:enabled="false"
         android:textSize="24sp"
+        android:text="CONFIRMAR"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_numero_contacto" />
 
     <Button
-        android:id="@+id/buttonReturn_G6"
+        android:id="@+id/buttonReturn_G5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
@@ -280,6 +238,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_continuar_G6" />
+        app:layout_constraintTop_toBottomOf="@+id/but_confirmar_G5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

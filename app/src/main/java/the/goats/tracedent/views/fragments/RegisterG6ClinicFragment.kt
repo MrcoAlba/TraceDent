@@ -8,14 +8,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import the.goats.tracedent.api.Clinic
 import the.goats.tracedent.api.Usuario
-import the.goats.tracedent.databinding.FragmentRegisterG8Binding
+import the.goats.tracedent.databinding.FragmentRegisterG6ClinicBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
-class RegisterG8Fragment
-    : BaseFragment<FragmentRegisterG8Binding>(FragmentRegisterG8Binding::inflate)
+class RegisterG6ClinicFragment
+    : BaseFragment<FragmentRegisterG6ClinicBinding>(FragmentRegisterG6ClinicBinding::inflate)
 {
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
@@ -32,7 +32,7 @@ class RegisterG8Fragment
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
         //Firebase Analytics
-        analyticEvent(requireActivity(), "RegisterG8Fragment", "onViewCreated")
+        analyticEvent(requireActivity(), "RegisterG6ClinicFragment", "onViewCreated")
         //Firebase Auth
         auth = Firebase.auth
         //Listeners
@@ -77,7 +77,7 @@ class RegisterG8Fragment
 
     private fun confirmar() {
         val bundle : Bundle = Bundle()
-        communicator.goToAnotherFragment(bundle, RegisterG7Fragment(), activityParent.containerView, "RegisterG62RegisterG7")
+        communicator.goToAnotherFragment(bundle, RegisterG5DentistFragment(), activityParent.containerView, "RegisterG62RegisterG7")
     }
 
     private fun CheckAllComplete(){
