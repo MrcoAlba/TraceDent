@@ -7,5 +7,5 @@ data class Clinic (
     val direccion: String,
     val distrito: String,
     val numero: Int,
-    val ruc: Int
+    val ruc: Long
         )

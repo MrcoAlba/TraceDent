@@ -69,7 +69,7 @@ class RegisterG6ClinicFragment
         val address = binding.tietDir.text.toString()
         val disrict = binding.tietDis.text.toString()
         val phonenumber = binding.tietNum.text.toString().toInt()
-        val ruc = binding.tietRuc.text.toString().toInt()
+        val ruc = binding.tietRuc.text.toString().toLong()
         val id = auth.currentUser?.uid.toString()
         val clinic = Clinic(id, mail, razon, address, disrict, phonenumber, ruc)
         activityParent.CreateClinic(clinic)
@@ -77,7 +77,7 @@ class RegisterG6ClinicFragment
 
     private fun confirmar() {
         val bundle : Bundle = Bundle()
-        communicator.goToAnotherFragment(bundle, RegisterG5DentistFragment(), activityParent.containerView, "RegisterG62RegisterG7")
+        login.login2Main()
     }
 
     private fun CheckAllComplete(){
