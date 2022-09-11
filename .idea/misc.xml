@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/RT172BA/code/TraceDent/app/src/main/res/layout/activity_main.xml" value="0.3072916666666667" />
-        <entry key="..\:/Users/RT172BA/code/TraceDent/app/src/main/res/layout/fragment_map.xml" value="0.18518518518518517" />
+        <entry key="..\:/TempTrabajo/TraceDent/app/src/main/res/layout/activity_main.xml" value="0.31068840579710144" />
+        <entry key="..\:/TempTrabajo/TraceDent/app/src/main/res/layout/fragment_login.xml" value="0.3211050724637681" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1933876811594203" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.189209726443769" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.189209726443769" />
+        <entry key="app/src/main/res/layout/fragment_register_g5.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/fragment_register_g6.xml" value="0.3890625" />
       </map>
     </option>
   </component>
