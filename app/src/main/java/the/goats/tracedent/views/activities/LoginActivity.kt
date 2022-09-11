@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,17 +21,30 @@ import the.goats.tracedent.views.fragments.LoginFragment
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), Credential.LogIn {
 
+    //This variables are gonna be instantiated on the fragment lifecycle,
+    //At the moment, they are null variables
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Firebase Auth
+        auth = Firebase.auth
+        checkIfUserExists()
         transactionFirstAndMainFragment(LoginFragment(), binding.fcvLoginActivity)
         containerView = binding.fcvLoginActivity
     }
+
+    private fun checkIfUserExists() {
+        if (auth.currentUser != null) {
+            login2Main()
+        }
+    }
+
 
     override fun login2Main() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-
     private fun GetRetrofit():Retrofit{
         return Retrofit.Builder()
             .baseUrl("https://tracedent-api.herokuapp.com/api/")
