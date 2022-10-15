@@ -27,13 +27,15 @@ import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
 import the.goats.tracedent.views.fragments.MapFragment
 import the.goats.tracedent.views.fragments.SearchFragment
+import the.goats.tracedent.views.fragments.UsuarioFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), Credential.LogOut {
 
     private val searchFragment = SearchFragment()
     private val principalFragments : List<Fragment> = listOf(
         SearchFragment(),
-        MapFragment()
+        MapFragment(),
+        UsuarioFragment()
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             R.id.booking_item   -> Log.d("BtmNavView", "Se presiono para pasar a las reservas")
             R.id.search_item    -> ft.replace(binding.fcvMainActivity.id, principalFragments[0])
             R.id.map_item       -> ft.replace(binding.fcvMainActivity.id, principalFragments[1])
-            R.id.profile_item   -> Log.d("BtmNavView", "Se presiono para pasar al perfil")
+            R.id.profile_item   -> ft.replace(binding.fcvMainActivity.id, principalFragments[2])
             R.id.messaging_item -> Log.d("BtmNavView", "Se presiono para pasar a los chats")
             else -> {}
         }
