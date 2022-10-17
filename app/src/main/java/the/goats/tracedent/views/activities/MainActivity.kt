@@ -21,8 +21,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import the.goats.tracedent.R
+import the.goats.tracedent.api.DefaultResponse
+import the.goats.tracedent.api.Dentist
+import the.goats.tracedent.api.Usuario
 import the.goats.tracedent.databinding.ActivityMainBinding
+import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
 import the.goats.tracedent.views.fragments.MapFragment
@@ -66,6 +75,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun Main2Login() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+    private fun GetRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://tracedent-api.herokuapp.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+    fun ChangesSubscription(usuario: Usuario){
+        val retrofitBuilder = GetRetrofit()
+        val apiService = retrofitBuilder.create(ApiService::class.java)
+        /*val call = apiService.InserDentist(dentist)
+        call.enqueue(object : Callback<DefaultResponse> {
+            override fun onResponse(
+                call: Call<DefaultResponse>,
+                response: Response<DefaultResponse>
+            ) {
+                Toast.makeText(applicationContext, response.code().toString(), Toast.LENGTH_SHORT).show()
+                Log.i("onResponse","Se creo el dentista")
+            }
+
+            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })*/
     }
 
 }
