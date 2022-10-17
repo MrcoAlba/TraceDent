@@ -31,9 +31,20 @@ class UsuarioFragment
 
 
         //Listeners
-
+        binding.btnSuscribirse.setOnClickListener                     { clientPressed(1) }
     }
 
     //Selected option
-
+    private fun clientPressed(option:Int){
+        //Save in memory that client card view was pressed
+        val bundle : Bundle = Bundle()
+        bundle.putInt("option", option)
+        communicator
+            .goToAnotherFragment(
+                bundle,
+                Suscripcion01Fragment(),
+                activityParent.containerView,
+                "UsuarioSuscripcion01Fragment"
+            )
+    }
 }
