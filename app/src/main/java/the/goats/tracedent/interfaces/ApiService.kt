@@ -21,4 +21,5 @@ interface ApiService {
 
     @POST("clinicas")
     fun InsertClinic(@Body clinic: Clinic):Call<DefaultResponse>
+
 }
