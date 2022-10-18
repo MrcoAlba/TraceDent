@@ -21,6 +21,9 @@ class Suscripcion02Fragment
     private lateinit var activityParent : MainActivity
     private var Email = false
     private var Card = false
+    private var CVV = false
+    private var Name = false
+    private var LastName = false
 
 
 
@@ -39,6 +42,9 @@ class Suscripcion02Fragment
         //Listeners
         binding.tietEmail.doAfterTextChanged                    { validateMail() }
         binding.tietTarjeta.doAfterTextChanged                  { validateCard() }
+        binding.tietCodigo.doAfterTextChanged                   { validateCVV() }
+        binding.tietNombre.doAfterTextChanged                   { validateName() }
+        binding.tietApellidos.doAfterTextChanged                { validateLastName() }
 
     }
 
@@ -47,8 +53,10 @@ class Suscripcion02Fragment
 
     }
     private fun ValidateAllData(){
-        if(Email == true && Card == true){
+        if(Email == true && Card == true && CVV == true && Name == true && LastName == true){
             enableButton(true)
+        }else{
+            enableButton(false)
         }
     }
     private fun validateMailPattern(email: String): Boolean {
@@ -60,11 +68,11 @@ class Suscripcion02Fragment
         val email = binding.tietEmail.text.toString()
 
         var icon : Int = R.drawable.ic_baseline_mail_outline_24
+        Email = false
         //Validate email
         if (validateMailPattern(email)){
             icon = R.drawable.ic_baseline_mark_email_read_24
             Email = true
-
         }
         binding.tilEmail.setStartIconDrawable(icon)
         ValidateAllData()
@@ -78,13 +86,51 @@ class Suscripcion02Fragment
         val card = binding.tietTarjeta.text.toString()
 
         var icon : Int = R.drawable.credit_card_24px
+        Card = false
         //Validate password and password
         if (validateCradPattern(card)){
             icon = R.drawable.credit_score_24px
             Card = true
         }
-
         binding.tilTarjeta.setStartIconDrawable(icon)
+        ValidateAllData()
+    }
+    private fun validateCVVPattern(CVV: String): Boolean {
+        // Validate card with a valid one
+        return CVV.length ==3
+    }
+    private fun validateCVV(){
+        //User input
+        val cvv = binding.tietCodigo.text.toString()
+
+        var icon : Int = R.drawable.credit_card_24px
+        CVV = false
+        //Validate password and password
+        if (validateCVVPattern(cvv)){
+            icon = R.drawable.credit_score_24px
+            CVV = true
+        }
+        binding.tilCodigo.setStartIconDrawable(icon)
+        ValidateAllData()
+    }
+    private fun validateName(){
+        //User input
+        val name = binding.tietNombre.text.toString()
+        Name = false
+        //Validate email
+        if (name.isNotEmpty()){
+            Name = true
+        }
+        ValidateAllData()
+    }
+    private fun validateLastName(){
+        //User input
+        val lastname = binding.tietApellidos.text.toString()
+        LastName = false
+        //Validate email
+        if (lastname.isNotEmpty()){
+            LastName = true
+        }
         ValidateAllData()
     }
     private fun enableButton(b: Boolean) {
