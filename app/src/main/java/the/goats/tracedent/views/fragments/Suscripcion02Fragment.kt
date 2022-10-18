@@ -60,16 +60,13 @@ class Suscripcion02Fragment
         }
     }
     private fun validateMailPattern(email: String): Boolean {
-        // Validate email address with a valid one
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
     private fun validateMail(){
-        //User input
         val email = binding.tietEmail.text.toString()
 
         var icon : Int = R.drawable.ic_baseline_mail_outline_24
         Email = false
-        //Validate email
         if (validateMailPattern(email)){
             icon = R.drawable.ic_baseline_mark_email_read_24
             Email = true
@@ -78,16 +75,13 @@ class Suscripcion02Fragment
         ValidateAllData()
     }
     private fun validateCradPattern(card: String): Boolean {
-        // Validate card with a valid one
         return card.length ==16
     }
     private fun validateCard(){
-        //User input
         val card = binding.tietTarjeta.text.toString()
 
         var icon : Int = R.drawable.credit_card_24px
         Card = false
-        //Validate password and password
         if (validateCradPattern(card)){
             icon = R.drawable.credit_score_24px
             Card = true
@@ -96,16 +90,12 @@ class Suscripcion02Fragment
         ValidateAllData()
     }
     private fun validateCVVPattern(CVV: String): Boolean {
-        // Validate card with a valid one
         return CVV.length ==3
     }
     private fun validateCVV(){
-        //User input
         val cvv = binding.tietCodigo.text.toString()
-
         var icon : Int = R.drawable.credit_card_24px
         CVV = false
-        //Validate password and password
         if (validateCVVPattern(cvv)){
             icon = R.drawable.credit_score_24px
             CVV = true
@@ -114,23 +104,25 @@ class Suscripcion02Fragment
         ValidateAllData()
     }
     private fun validateName(){
-        //User input
         val name = binding.tietNombre.text.toString()
+        var icon : Int = R.drawable.person_off_24px
         Name = false
-        //Validate email
         if (name.isNotEmpty()){
+            icon = R.drawable.person_24px
             Name = true
         }
+        binding.tilNombre.setStartIconDrawable(icon)
         ValidateAllData()
     }
     private fun validateLastName(){
-        //User input
         val lastname = binding.tietApellidos.text.toString()
+        var icon : Int = R.drawable.person_off_24px
         LastName = false
-        //Validate email
         if (lastname.isNotEmpty()){
+            icon = R.drawable.person_24px
             LastName = true
         }
+        binding.tilApellidos.setStartIconDrawable(icon)
         ValidateAllData()
     }
     private fun enableButton(b: Boolean) {
