@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:layout_weight="1"
+    android:background="@color/primaryTextColor">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/secondaryDarkColor"
+        android:text="Información de ubicación:"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+
+        />
+
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "10dp"
+        android:gravity="center"
+        android:text="NOMBRE DENTISTA"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/txtDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "10dp"
+        android:gravity="center"
+        android:text="DIRECCIÓN"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/txtRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "10dp"
+        android:gravity="center"
+        android:text="RATING"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <Button
+        android:id="@+id/butMasInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin = "10dp"
+        android:gravity="center"
+        android:text="MÁS INFORMACIÓN"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+</LinearLayout>
