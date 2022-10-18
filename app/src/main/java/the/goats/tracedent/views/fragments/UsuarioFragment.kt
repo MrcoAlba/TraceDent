@@ -31,11 +31,11 @@ class UsuarioFragment
 
 
         //Listeners
-        binding.btnSuscribirse.setOnClickListener                     { clientPressed(1) }
+        binding.btnSuscribirse.setOnClickListener                     { GetInfo(1) }
     }
 
     //Selected option
-    private fun clientPressed(option:Int){
+    private fun GetInfo(option:Int){
         //Save in memory that client card view was pressed
         val bundle : Bundle = Bundle()
         bundle.putInt("option", option)

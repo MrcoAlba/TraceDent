@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/til_tarjeta"/>
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_tarjeta"
@@ -39,7 +39,7 @@
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusBottomEnd="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        app:startIconDrawable="@drawable/credit_card_24px"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_fecha"
         android:layout_width="match_parent"
@@ -65,7 +66,7 @@
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusBottomEnd="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        app:startIconDrawable="@drawable/calendar_month_24px"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -74,6 +75,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_codigo"
         android:layout_width="match_parent"
@@ -91,7 +93,7 @@
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusBottomEnd="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        app:startIconDrawable="@drawable/credit_card_24px"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +119,7 @@
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusBottomEnd="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        app:startIconDrawable="@drawable/person_24px"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -137,12 +139,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_nombre"
-        app:layout_constraintBottom_toTopOf="@id/til_correo"
+        app:layout_constraintBottom_toTopOf="@id/til_email"
         app:boxCornerRadiusTopStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusBottomEnd="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        app:startIconDrawable="@drawable/person_24px"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -151,12 +153,12 @@
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_correo"
+        android:id="@+id/til_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="start"
-        android:hint="Correo"
+        android:hint="Ingresar correo electronico"
         android:textSize="16sp"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
@@ -167,13 +169,14 @@
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusBottomEnd="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_mail_24"
+        app:startIconDrawable="@drawable/ic_baseline_mail_outline_24"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_correo"
+            android:id="@+id/tiet_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_pagar"
@@ -181,13 +184,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
+        android:clickable="false"
+        android:enabled="false"
         android:text="Pagar S/. 10.00"
         android:textSize="16dp"
         android:textStyle="bold"
         app:cornerRadius="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_correo"
+        app:layout_constraintTop_toBottomOf="@id/til_email"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 
