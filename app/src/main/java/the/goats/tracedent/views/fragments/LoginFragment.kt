@@ -1,15 +1,31 @@
 package the.goats.tracedent.views.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+//import com.gtappdevelopers.kotlingfgproject.UserPostLogin
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import the.goats.tracedent.api.UserLoginResponse
+import the.goats.tracedent.api.Usuario
+import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
+import the.goats.tracedent.interfaces.RetrofitService
+import the.goats.tracedent.model.Dentist
+import the.goats.tracedent.model.UserPostLogin
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -20,6 +36,7 @@ class LoginFragment
     //At the moment, they are null variables
     private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
+    private lateinit var service : RetrofitService
 
 
 
@@ -27,6 +44,7 @@ class LoginFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Delegates
+        service = Common.retrofitService
         communicator    =   requireActivity() as Communicator
         login           =   requireActivity() as Credential.LogIn
         activityParent  =   requireActivity() as LoginActivity
@@ -48,8 +66,32 @@ class LoginFragment
         //Validate email and password
         if (validateCredentials(email,password)){
             //Firebase authenticati
-            Authentication(email, password)
+            Authentication(email,password)
         }
+    }
+
+    private fun getUserAccountInfo(email: String,contrasena: String){
+        service.getUserAccountInfo(UserPostLogin(email,contrasena)).enqueue(object: Callback<UserLoginResponse>{
+            override fun onResponse(
+                call: Call<UserLoginResponse>,
+                response: Response<UserLoginResponse>
+            ){
+                val user = (response.body() as UserLoginResponse)
+                saveUserAccountInfoOnDevice(user)
+            }
+
+            override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e("gaaa!",t.message.toString())
+            }
+        })
+    }
+
+    private fun saveUserAccountInfoOnDevice(user: UserLoginResponse){
+        val json = Gson().toJson(user)
+        Log.d("DDDDDDDDDDDD",json)
+        val prefs : SharedPreferences = activityParent.getSharedPreferences("app.TraceDent",0)
+        prefs.edit().putString("usuario",json).apply()
     }
     private fun Authentication(email: String, password: String){
         auth
