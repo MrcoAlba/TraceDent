@@ -39,8 +39,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             login2Main()
         }
     }
-
-
     override fun login2Main() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

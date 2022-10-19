@@ -36,11 +36,11 @@ class RegisterG6ClinicFragment
         //Firebase Auth
         auth = Firebase.auth
         //Listeners
-        binding.tietRsocial.doAfterTextChanged               { CheckAllComplete() }
-        binding.tietDir.doAfterTextChanged             { CheckAllComplete() }
-        binding.tietRuc.doAfterTextChanged               { CheckAllComplete() }
+        binding.tietRsocial.doAfterTextChanged              { CheckAllComplete() }
+        binding.tietDir.doAfterTextChanged                  { CheckAllComplete() }
+        binding.tietRuc.doAfterTextChanged                  { CheckAllComplete() }
         binding.tietDis.doAfterTextChanged                  { CheckAllComplete() }
-        binding.tietNum.doAfterTextChanged            { CheckAllComplete() }
+        binding.tietNum.doAfterTextChanged                  { CheckAllComplete() }
 
         binding.butContinuarG6.setOnClickListener           {
             CreateClinic()

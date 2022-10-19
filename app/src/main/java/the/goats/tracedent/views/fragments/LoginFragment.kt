@@ -70,7 +70,7 @@ class LoginFragment
         if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.count()>=6) {
             return true
         }else{
-            Toast.makeText(activityParent, "Las credenciales no son válidas",           Toast.LENGTH_SHORT).show()
+            Toast.makeText(activityParent, "Ingrese correctamente los campos solicitados",           Toast.LENGTH_SHORT).show()
         }
         return false
     }
