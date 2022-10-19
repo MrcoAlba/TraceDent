@@ -63,26 +63,11 @@ class LoginFragment
         }
     }
     private fun validateCredentials(email: String, password: String): Boolean {
-        // Validate email is not empty
-        if(email.isNotEmpty()){
-            // Validate email address with a valid one
-            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                // Validate password is not empty
-                if (password.isNotEmpty()){
-                    // Validate password length is 6 or longer due to Firebase length constraints
-                    if (password.count()>=6){
-                        return true
-                    }else{
-                        Toast.makeText(activityParent, "Las credenciales no son válidas",           Toast.LENGTH_SHORT).show()
-                    }
-                }else{
-                    Toast.makeText(activityParent, "Por favor ingrese una contraseña",              Toast.LENGTH_SHORT).show()
-                }
-            }else{
-                Toast.makeText(activityParent, "Por favor ingrese una dirección de correo válida",  Toast.LENGTH_SHORT).show()
-            }
+        // Validate email match the pattern and password is valid
+        if (Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.count()>=6) {
+            return true
         }else{
-            Toast.makeText(activityParent, "Por favor ingrese un correo",                           Toast.LENGTH_SHORT).show()
+            Toast.makeText(activityParent, "Las credenciales no son válidas",           Toast.LENGTH_SHORT).show()
         }
         return false
     }
