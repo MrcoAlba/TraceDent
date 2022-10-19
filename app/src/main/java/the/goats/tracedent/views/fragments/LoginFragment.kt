@@ -98,6 +98,7 @@ class LoginFragment
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, go to next activity
+                    getUserAccountInfo(email,password)
                     login.login2Main()
                 } else {
                     // If sign in fails, display a message to the user.
