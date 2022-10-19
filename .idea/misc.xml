@@ -3,24 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/drawable/credit_card_24px.xml" value="0.3245" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_login.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_map.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_register_g0.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_register_g1.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_register_g2.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_register_g3_client.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_register_g4_dentist.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_register_g5_dentist.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_search.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_suscripcion01.xml" value="0.33" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_suscripcion02.xml" value="0.3625" />
-        <entry key="..\:/2022-2/Ingenieria de Software 2/Proyecto TraceDent/TraceDent/app/src/main/res/layout/fragment_usuario.xml" value="0.3625" />
         <entry key="..\:/TempTrabajo/TraceDent/app/src/main/res/layout/activity_main.xml" value="0.31068840579710144" />
         <entry key="..\:/TempTrabajo/TraceDent/app/src/main/res/layout/fragment_login.xml" value="0.3211050724637681" />
-        <entry key="..\:/Users/Matias/Documents/Proyecto/TraceDent/app/src/main/res/layout/fragment_date_picker.xml" value="0.1956521739130435" />
-        <entry key="..\:/Users/Matias/Documents/Proyecto/TraceDent/app/src/main/res/layout/fragment_suscripcion02.xml" value="0.1956521739130435" />
+        <entry key="..\:/Users/Matias/Documents/Proyecto/TraceDent/app/src/main/res/layout/fragment_suscripcion01.xml" value="0.18840579710144928" />
+        <entry key="..\:/Users/Matias/Documents/Proyecto/TraceDent/app/src/main/res/layout/fragment_suscripcion02.xml" value="0.18840579710144928" />
+        <entry key="..\:/Users/Matias/Documents/Proyecto/TraceDent/app/src/main/res/layout/fragment_usuario.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1933876811594203" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.189209726443769" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.189209726443769" />

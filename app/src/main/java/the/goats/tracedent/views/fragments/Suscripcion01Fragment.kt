@@ -32,7 +32,7 @@ class Suscripcion01Fragment
 
 
         //Listeners
-        binding.btnSuscribirse.setOnClickListener                     { Continue(1) }
+        binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
     }
 
     //Selected option

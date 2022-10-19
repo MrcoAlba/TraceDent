@@ -25,6 +25,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     //At the moment, they are null variables
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Firebase Auth
@@ -50,6 +51,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             .build()
     }
     //Crate Retrofit instance
+
     fun CreacionUsuario(User: Usuario){
         val retrofitBuilder = GetRetrofit()
         val apiService = retrofitBuilder.create(ApiService::class.java)
