@@ -48,19 +48,22 @@ class LoginFragment
         //Validate email and password
         if (validateCredentials(email,password)){
             //Firebase authenticati
-            auth
-                .signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, go to next activity
-                        login.login2Main()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(activityParent, "Las credenciales no son válida",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
+            Authentication(email, password)
         }
+    }
+    private fun Authentication(email: String, password: String){
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, go to next activity
+                    login.login2Main()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(activityParent, "Las credenciales no son válida",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
     }
     private fun validateCredentials(email: String, password: String): Boolean {
         // Validate email match the pattern and password is valid
