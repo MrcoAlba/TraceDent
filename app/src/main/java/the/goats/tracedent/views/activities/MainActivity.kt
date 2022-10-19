@@ -39,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
+        containerView = binding.fcvMainActivity
 
         // NAVIGATION BAR
         binding.bottomNavigationView.setOnItemSelectedListener { selectNavigationOption(it) }

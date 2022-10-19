@@ -27,6 +27,7 @@ import the.goats.tracedent.R
 import the.goats.tracedent.adapter.MyDentistAdapter
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentMapBinding
+import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.model.Dentist
 import the.goats.tracedent.model.Test
@@ -46,6 +47,7 @@ class MapFragment
     private lateinit var txtNombre : TextView
     private lateinit var txtDireccion : TextView
     private lateinit var txtRating : TextView
+    private lateinit var butMasInfo : Button
 
     private var cantidadClicks = 0
 
@@ -62,6 +64,7 @@ class MapFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Delegates
+        communicator    =   requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
 
         //Firebase Analytics
@@ -76,6 +79,7 @@ class MapFragment
         txtNombre = activityParent.findViewById(R.id.txtNombre)
         txtDireccion = activityParent.findViewById(R.id.txtDireccion)
         txtRating = activityParent.findViewById(R.id.txtRating)
+        butMasInfo = activityParent.findViewById(R.id.butMasInfo)
         bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
 
 
@@ -196,6 +200,7 @@ class MapFragment
             ) {
                 Log.i(null, "Se llego hasta aqui")
                 Log.i(null, response.body().toString())
+                createMarkers(response.body()!!)
             }
 
             override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
@@ -207,7 +212,7 @@ class MapFragment
 
     }
 
-    private fun createMarkers(list : List<Dentist>) {
+    private fun createMarkers(list : MutableList<Dentist>) {
         list.map {
             val coordinates = LatLng(-12.08546, -76.97122)
             val marker = MarkerOptions().position(coordinates).title(it.nombres + " " + it.apellidos)
@@ -283,6 +288,22 @@ class MapFragment
            txtNombre.text = info.nombres + " " + info.apellidos
            txtDireccion.text = info.direccion
            txtRating.text = info.rating
+           butMasInfo.setOnClickListener{
+               val bundle : Bundle = Bundle()
+               bundle.putString("nombres", info.nombres)
+               bundle.putString("apellidos", info.apellidos)
+               bundle.putString("direccion", txtDireccion.text.toString())
+               bundle.putString("rating", txtRating.text.toString())
+               bundle.putString("correo", info.correo)
+               bundle.putString("distrito", info.distrito)
+
+               communicator.goToAnotherFragment(
+                   bundle,
+                   InfoDentistFragment(),
+                   activityParent.containerView,
+                   "MapFragment2InfoDentistFragment"
+               )
+           }
 
            if(bottomSheetFragment.visibility == View.VISIBLE) {
                bottomSheetFragment.visibility = View.GONE
