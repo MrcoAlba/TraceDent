@@ -13,7 +13,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-//import com.gtappdevelopers.kotlingfgproject.UserPostLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,7 +64,7 @@ class LoginFragment
         val password = binding.tietPassword.text.toString()
         //Validate email and password
         if (validateCredentials(email,password)){
-            //Firebase authenticati
+            //Firebase authentication
             Authentication(email,password)
         }
     }
