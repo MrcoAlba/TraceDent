@@ -26,6 +26,7 @@ class Suscripcion02Fragment
     private var LastName = false
     private var Date = false
 
+
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

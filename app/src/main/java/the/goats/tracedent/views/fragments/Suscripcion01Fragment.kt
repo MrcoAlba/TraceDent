@@ -29,10 +29,13 @@ class Suscripcion01Fragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion01Fragment", "onViewCreated")
-
-
+        val suscripcion = requireArguments().getBoolean("suscripcion")
+        if (suscripcion == true){
+            binding.btnSuscribirse.visibility = View.GONE
+            binding.tvCalcelarSusripcion.visibility = View.VISIBLE
+        }
         //Listeners
-        binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
+        //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
     }
 
     //Selected option

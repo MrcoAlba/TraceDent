@@ -37,9 +37,9 @@ class UsuarioFragment
         val prefs : SharedPreferences = activityParent.getSharedPreferences("app.TraceDent",0)
         val userJson = prefs.getString("usuario","")
         user = Gson().fromJson(userJson,UserLoginResponse::class.java)
-
+        val suscripcion = user.cuenta[0].suscripcion
         //Listeners
-        binding.btnSuscribirse.setOnClickListener                     { GetInfo(1) }
+        binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
 
         if (user.cuenta[0].tipoUsuario != 2){
             binding.btnSuscribirse.visibility = View.GONE
@@ -47,10 +47,10 @@ class UsuarioFragment
     }
 
     //Selected option
-    private fun GetInfo(option:Int){
+    private fun GetInfo(option:Boolean){
         //Save in memory that client card view was pressed
-        val bundle : Bundle = Bundle()
-        bundle.putInt("option", option)
+        val bundle = Bundle()
+        bundle.putBoolean("suscripcion", option)
         communicator
             .goToAnotherFragment(
                 bundle,
