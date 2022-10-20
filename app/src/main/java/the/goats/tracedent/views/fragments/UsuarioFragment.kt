@@ -1,7 +1,11 @@
 package the.goats.tracedent.views.fragments
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import com.google.gson.Gson
+import the.goats.tracedent.R
+import the.goats.tracedent.api.UserLoginResponse
 import the.goats.tracedent.databinding.FragmentRegisterG0Binding
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
@@ -15,6 +19,7 @@ class UsuarioFragment
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
+    private lateinit var user : UserLoginResponse
 
 
 
@@ -28,10 +33,17 @@ class UsuarioFragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
-
+        //Getting user
+        val prefs : SharedPreferences = activityParent.getSharedPreferences("app.TraceDent",0)
+        val userJson = prefs.getString("usuario","")
+        user = Gson().fromJson(userJson,UserLoginResponse::class.java)
 
         //Listeners
         binding.btnSuscribirse.setOnClickListener                     { GetInfo(1) }
+
+        if (user.cuenta[0].tipoUsuario != 2){
+            binding.btnSuscribirse.visibility = View.GONE
+        }
     }
 
     //Selected option
