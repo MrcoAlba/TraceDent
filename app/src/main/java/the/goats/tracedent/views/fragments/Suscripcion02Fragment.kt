@@ -60,7 +60,8 @@ class Suscripcion02Fragment
 
                             override fun afterTextChanged(s: Editable) {}
                         })
-        binding.tietFecha.doAfterTextChanged                { ValidateDate() }
+        binding.tietFecha.doAfterTextChanged                    { ValidateDate() }
+        binding.btnPagar.setOnClickListener                     { Continue(1) }
     }
 
     //Selected option
@@ -167,5 +168,18 @@ class Suscripcion02Fragment
     private fun enableButton(b: Boolean) {
         binding.btnPagar.isClickable = b
         binding.btnPagar.isEnabled = b
+    }
+
+    private fun Continue(option:Int){
+        //Save in memory that client card view was pressed
+        val bundle : Bundle = Bundle()
+        bundle.putInt("option", option)
+        communicator
+            .goToAnotherFragment(
+                bundle,
+                Suscripcion03Fragment(),
+                activityParent.containerView,
+                "Suscripcion02FragmentSuscripcion03Fragment"
+            )
     }
 }

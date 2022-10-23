@@ -1,22 +1,23 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import the.goats.tracedent.databinding.FragmentRegisterG0Binding
-import the.goats.tracedent.databinding.FragmentSuscripcion01Binding
-import the.goats.tracedent.databinding.FragmentUsuarioBinding
+import the.goats.tracedent.databinding.FragmentSuscripcion03Binding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
+import java.util.*
+import kotlin.math.log
 
-class Suscripcion01Fragment
-    : BaseFragment<FragmentSuscripcion01Binding>(FragmentSuscripcion01Binding::inflate)
+
+class Suscripcion03Fragment
+    : BaseFragment<FragmentSuscripcion03Binding>(FragmentSuscripcion03Binding::inflate)
 {
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
-
+    var change = false
 
 
 
@@ -28,28 +29,32 @@ class Suscripcion01Fragment
         activityParent  =   requireActivity() as MainActivity
 
         //Firebase Analytics
-        analyticEvent(requireActivity(), "Suscripcion01Fragment", "onViewCreated")
-        val suscripcion = requireArguments().getBoolean("suscripcion")
-        if (suscripcion == true){
-            binding.btnSuscribirse.visibility = View.GONE
-            binding.tvCalcelarSusripcion.visibility = View.VISIBLE
-        }
-        //Listeners
-        //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
-        binding.btnSuscribirse.setOnClickListener                       { Continue(1) }
-    }
+        analyticEvent(requireActivity(), "Suscripcion03Fragment", "onViewCreated")
+        ChangeView()
 
+
+        //Listeners
+
+        //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
+    }
+    private fun ChangeView(){
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                Continue(1)
+            }
+        }, 3000)
+    }
     //Selected option
     private fun Continue(option:Int){
-        //Save in memory that client card view was pressed
         val bundle : Bundle = Bundle()
         bundle.putInt("option", option)
         communicator
             .goToAnotherFragment(
                 bundle,
-                Suscripcion02Fragment(),
+                Suscripcion04Fragment(),
                 activityParent.containerView,
-                "Suscripcion01FragmentSuscripcion02Fragment"
+                "Suscripcion03FragmentSuscripcion04Fragment"
             )
+
     }
 }

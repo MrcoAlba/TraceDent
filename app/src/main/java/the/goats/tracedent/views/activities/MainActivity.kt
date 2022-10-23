@@ -51,11 +51,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         super.onCreate(savedInstanceState)
         transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
         containerView = binding.fcvMainActivity
-
         // NAVIGATION BAR
         binding.bottomNavigationView.setOnItemSelectedListener { selectNavigationOption(it) }
     }
-
     private fun selectNavigationOption(menuItem: MenuItem) : Boolean{
         val ft = supportFragmentManager.beginTransaction()
         when (menuItem.itemId) {
