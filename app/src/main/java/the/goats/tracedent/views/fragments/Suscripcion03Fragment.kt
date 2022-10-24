@@ -17,7 +17,6 @@ class Suscripcion03Fragment
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
-    var change = false
 
 
 
@@ -30,8 +29,9 @@ class Suscripcion03Fragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion03Fragment", "onViewCreated")
+        //activityParent.onBackPressed()
         ChangeView()
-
+        activityParent.back = true
 
         //Listeners
 

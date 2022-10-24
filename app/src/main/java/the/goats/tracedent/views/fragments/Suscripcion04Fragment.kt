@@ -29,7 +29,7 @@ class Suscripcion04Fragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion04Fragment", "onViewCreated")
-
+        activityParent.back = true
 
         //Listeners
 

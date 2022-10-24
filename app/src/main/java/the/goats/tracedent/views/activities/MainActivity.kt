@@ -3,24 +3,9 @@ package the.goats.tracedent.views.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.FragmentTransaction
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,8 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import the.goats.tracedent.R
 import the.goats.tracedent.api.DefaultResponse
-import the.goats.tracedent.api.Dentist
-import the.goats.tracedent.api.Usuario
 import the.goats.tracedent.databinding.ActivityMainBinding
 import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
@@ -46,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         MapFragment(),
         UsuarioFragment()
     )
+    var back = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +64,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+    override fun onBackPressed() {
+        if (back == false){
+            super.onBackPressed()
+        }else{
 
+        }
+    // Not calling **super**, disables back button in current screen.
+    }
     fun ChangesSubscription(){
         val retrofitBuilder = GetRetrofit()
         val apiService = retrofitBuilder.create(ApiService::class.java)
