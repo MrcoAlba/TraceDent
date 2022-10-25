@@ -8,6 +8,7 @@ import the.goats.tracedent.api.Dentist
 import the.goats.tracedent.api.Patient
 import the.goats.tracedent.api.DefaultResponse
 import the.goats.tracedent.api.Usuario
+import the.goats.tracedent.model.UserSuscription
 
 interface ApiService {
     @POST("usuarios")
@@ -23,5 +24,5 @@ interface ApiService {
     fun InsertClinic(@Body clinic: Clinic):Call<DefaultResponse>
     @PATCH("usuarios/{_id}")
     fun ChangeSuscription(@Path("_id") id: String?,
-                          @Field("suscripcion") suscripcion: Boolean): Call<DefaultResponse>
+                          @Body userSuscription: UserSuscription): Call<DefaultResponse>
 }

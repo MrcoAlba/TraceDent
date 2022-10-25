@@ -26,7 +26,7 @@ class Suscripcion01Fragment
         //Delegates
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
-
+        activityParent.back = false
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion01Fragment", "onViewCreated")
         val suscripcion = requireArguments().getBoolean("suscripcion")
