@@ -25,20 +25,21 @@ import the.goats.tracedent.R
 import the.goats.tracedent.databinding.ActivityMainBinding
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
+import the.goats.tracedent.views.fragments.AppointmentFragment
 import the.goats.tracedent.views.fragments.MapFragment
 import the.goats.tracedent.views.fragments.SearchFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), Credential.LogOut {
 
-    private val searchFragment = SearchFragment()
+    private val searchFragment = AppointmentFragment()
     private val principalFragments : List<Fragment> = listOf(
-        SearchFragment(),
+        AppointmentFragment(),
         MapFragment()
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
+        transactionFirstAndMainFragment(AppointmentFragment(), binding.fcvMainActivity)
 
         // NAVIGATION BAR
         binding.bottomNavigationView.setOnItemSelectedListener { selectNavigationOption(it) }

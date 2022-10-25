@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +29,7 @@ class SearchFragment
     private lateinit var layoutManager : LinearLayoutManager
     private lateinit var mService : RetrofitService
     private lateinit var adapter : MyDentistAdapter
+    private var filtro: String = "Nombre"
 
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,9 +50,23 @@ class SearchFragment
         binding.rvListadodata.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(requireContext())
         binding.rvListadodata.layoutManager = layoutManager
+        choiceChips()
         getAllDentistList()
     }
 
+    private fun choiceChips(){
+        binding.chipgroup
+            .setOnCheckedChangeListener {
+                    group, checkedId ->
+                    val chip:Chip?=group.findViewById(checkedId)
+                    if(chip?.isChecked==true){
+                        Toast.makeText(context,
+                            "Filtro "+chip.text,
+                            Toast.LENGTH_SHORT).show()
+                        filtro= chip.text as String
+                    }
+            }
+    }
     private fun getAllDentistList() {
         mService.getAllDentistsList().enqueue(object: Callback<MutableList<Dentist>> {
             override fun onResponse(
@@ -60,38 +76,87 @@ class SearchFragment
                 adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
                 adapter.notifyDataSetChanged()
                 binding.rvListadodata.adapter = adapter
-
-
             }
-
             override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.e("gaaa!",t.message.toString())
             }
-
-
         })
     }
     private fun getTheDentistList(query: String) {
-        mService.getDentistsList(query).enqueue(object: Callback<MutableList<Dentist>> {
-            override fun onResponse(
-                call: Call<MutableList<Dentist>>,
-                response: Response<MutableList<Dentist>>
-            ) {
-                adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
-                adapter.notifyDataSetChanged()
-                binding.rvListadodata.adapter = adapter
+        if (filtro=="Nombre") {
+            mService.getDentistsList(query).enqueue(object : Callback<MutableList<Dentist>> {
+                override fun onResponse(
+                    call: Call<MutableList<Dentist>>,
+                    response: Response<MutableList<Dentist>>
+                ) {
+                    adapter =
+                        MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
+                    adapter.notifyDataSetChanged()
+                    binding.rvListadodata.adapter = adapter
+                }
 
+                override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                    Log.e("gaaa!", t.message.toString())
+                }
+            })
+        }
+        else if (filtro=="Distrito") {
+            mService.getDentistsListD(query).enqueue(object : Callback<MutableList<Dentist>> {
+                override fun onResponse(
+                    call: Call<MutableList<Dentist>>,
+                    response: Response<MutableList<Dentist>>
+                ) {
+                    adapter =
+                        MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
+                    adapter.notifyDataSetChanged()
+                    binding.rvListadodata.adapter = adapter
+                }
 
-            }
+                override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                    Log.e("gaaa!", t.message.toString())
+                }
+            })
+        }
+        else if (filtro=="Rating Mayor") {
+            mService.getDentistsListRM(query).enqueue(object : Callback<MutableList<Dentist>> {
+                override fun onResponse(
+                    call: Call<MutableList<Dentist>>,
+                    response: Response<MutableList<Dentist>>
+                ) {
+                    adapter =
+                        MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
+                    adapter.notifyDataSetChanged()
+                    binding.rvListadodata.adapter = adapter
+                }
 
-            override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                Log.e("gaaa!",t.message.toString())
-            }
-        })
+                override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                    Log.e("gaaa!", t.message.toString())
+                }
+            })
+        }
+        else if (filtro=="Rating Menor") {
+            mService.getDentistsListRm(query).enqueue(object : Callback<MutableList<Dentist>> {
+                override fun onResponse(
+                    call: Call<MutableList<Dentist>>,
+                    response: Response<MutableList<Dentist>>
+                ) {
+                    adapter =
+                        MyDentistAdapter(requireContext(), response.body() as List<Dentist>, {})
+                    adapter.notifyDataSetChanged()
+                    binding.rvListadodata.adapter = adapter
+                }
+
+                override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                    Log.e("gaaa!", t.message.toString())
+                }
+            })
+        }
     }
-
     override fun onQueryTextSubmit(query: String?): Boolean {
         getTheDentistList(query?:"")
         binding.svSearcher.clearFocus()

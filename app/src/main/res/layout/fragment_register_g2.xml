@@ -93,6 +93,7 @@
     <!-- Create password button - btn_create_account               -->
 
     <!-- Create account     - tv_go_back                            -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_create_account"
         android:layout_width="match_parent"
@@ -107,7 +108,7 @@
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@id/tv_go_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_password2"
         app:layout_constraintVertical_bias="1.0" />
