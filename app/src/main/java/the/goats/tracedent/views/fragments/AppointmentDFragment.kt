@@ -31,6 +31,9 @@ class AppointmentDFragment
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
+    private var dia : Int =-1
+    private var mes : Int =-1
+    private var año : Int =-1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,14 +56,17 @@ class AppointmentDFragment
         //binding.btnDate.isClickable=true
         //binding.btnDate.isEnabled=true
         binding.btnDate.setOnClickListener{showDatePickerFragment()}
-
-
     }
     private fun showDatePickerFragment() {
         val datePicker = DatePickerFragment{day, month, year -> onDateSelected(day,month,year)}
         datePicker.show(activityParent.supportFragmentManager,"datepicker")
     }
     fun onDateSelected(day:Int,month:Int,year:Int){
-
+        val month2:Int=month+1
+        dia=day
+        mes=month2
+        año=year
+        binding.txtfecha.text = "Día $day/$month2/$year"
+        binding.txtfecha.visibility = View.VISIBLE
     }
 }
