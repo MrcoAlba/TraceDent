@@ -1,4 +1,4 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.Register
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent

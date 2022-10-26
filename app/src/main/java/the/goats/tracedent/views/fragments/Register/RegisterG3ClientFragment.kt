@@ -1,4 +1,4 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.Register
 
 import android.os.Bundle
 import android.view.View
