@@ -26,6 +26,9 @@ class AppointmentFragment
     private var mes : Int =-1
     private var año : Int =-1
     private var filtro: String = "vacio"
+    private val especialidades:MutableList<String> = mutableListOf()
+    private val especialidadesFijas:List<String> = listOf("Cirugia","Diseño de sonrisa","Odontologia")
+    private val dentistas:MutableList<String> = mutableListOf()
     private val horasdisponibles:MutableList<String> = mutableListOf()
     private var horas:List<String> = listOf("12:00am","12:30am",
                                             "01:00am","01:30am",
@@ -62,12 +65,8 @@ class AppointmentFragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "AppointmentFragment", "onViewCreated")
-
-
-        val especialidades= listOf("una","casa","bonita")
-        val adapters=ArrayAdapter(activityParent, R.layout.list_item_especialidad,especialidades)
-        //binding.autoCompleteEsp.adapter=adapters
-
+        especialidad()
+        dentista()
 
 
         //darle logica con lo de X tmb
@@ -76,6 +75,44 @@ class AppointmentFragment
         binding.btnDate.setOnClickListener{showDatePickerFragment()}
 
     }
+
+    private fun especialidad() {
+        especialidades.add("Odontologia")
+        especialidades.add("Cirugia")
+        especialidades.add("Diseño de sonrisa")
+        /*for (x:Int in 0 .. especialidadesFijas.size){
+            //condicion de get
+            if (especialidadesFijas[x]=="aa"){
+                especialidades.add(horas[x])
+            }
+        }*/
+
+        val adapters=ArrayAdapter(activityParent.baseContext, android.R.layout.simple_spinner_dropdown_item,especialidades)
+        binding.autoCompleteTextView.setAdapter(adapters)
+        binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+        Toast.makeText(context,
+            adapterView.getItemAtPosition(i).toString(),
+            Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun dentista() {
+        dentistas.add("Franco")
+        dentistas.add("Marco")
+        dentistas.add("Matias")
+        /*for (x:Int in 0 .. dentistas.size){
+            dentistas.add(horas[x])
+        }*/
+
+        val adapters=ArrayAdapter(activityParent.baseContext, android.R.layout.simple_spinner_dropdown_item,dentistas)
+        binding.autoCompleteTextView2.setAdapter(adapters)
+        binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
+            Toast.makeText(context,
+                adapterView.getItemAtPosition(i).toString(),
+                Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
     private fun showDatePickerFragment() {
         val datePicker = DatePickerFragment{day, month, year -> onDateSelected(day,month,year)}
         datePicker.show(activityParent.supportFragmentManager,"datepicker")
