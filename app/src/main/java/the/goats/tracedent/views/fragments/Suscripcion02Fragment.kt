@@ -47,8 +47,8 @@ class Suscripcion02Fragment
         service = Common.retrofitService
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion02Fragment", "onViewCreated")
-
-
+        val suscripcion = requireArguments().getBoolean("suscripcion")
+        val id = requireArguments().getString("idUsuario").toString()
         //Listeners
         binding.tietEmail.doAfterTextChanged                    { validateMail() }
         binding.tietTarjeta.doAfterTextChanged                  { validateCard() }
@@ -73,7 +73,7 @@ class Suscripcion02Fragment
                         })
         binding.tietFecha.doAfterTextChanged                    { ValidateDate() }
         binding.btnPagar.setOnClickListener                     { Continue(1)
-                                                                ChageSuscription(false)}
+                                                                ChageSuscription(id, suscripcion)}
     }
 
     //Selected option
@@ -181,8 +181,8 @@ class Suscripcion02Fragment
         binding.btnPagar.isClickable = b
         binding.btnPagar.isEnabled = b
     }
-    private fun ChageSuscription(state: Boolean){
-            service.ChangeSuscription("47dee870-5532-11ed-83cc-dfbc4e5760c7", UserSuscription(state)).enqueue(object:
+    private fun ChageSuscription(id: String, state: Boolean){
+            service.ChangeSuscription(id, UserSuscription(state)).enqueue(object:
             Callback<SusResponse> {
             override fun onResponse(
                 call: Call<SusResponse>,

@@ -1,7 +1,9 @@
 package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import the.goats.tracedent.databinding.FragmentRegisterG0Binding
 import the.goats.tracedent.databinding.FragmentSuscripcion01Binding
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
@@ -31,12 +33,23 @@ class Suscripcion01Fragment
         analyticEvent(requireActivity(), "Suscripcion01Fragment", "onViewCreated")
         val suscripcion = requireArguments().getBoolean("suscripcion")
         if (suscripcion == true){
-            binding.btnSuscribirse.visibility = View.GONE
+            enableButton(false)
+            binding.btnSuscribirse.text = "Usted ya esta suscrito"
             binding.tvCalcelarSusripcion.visibility = View.VISIBLE
+        }else{
+            enableButton(true)
+            binding.btnSuscribirse.text = "Suscribirse"
+            binding.tvCalcelarSusripcion.visibility = View.GONE
         }
         //Listeners
         //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
         binding.btnSuscribirse.setOnClickListener                       { Continue(1) }
+        binding.tvCalcelarSusripcion.setOnClickListener                 {
+            Toast.makeText(
+                activityParent,
+                "Cancelar renovación automatica",
+                Toast.LENGTH_SHORT
+            ).show()   }
     }
 
     //Selected option
@@ -51,5 +64,9 @@ class Suscripcion01Fragment
                 activityParent.containerView,
                 "Suscripcion01FragmentSuscripcion02Fragment"
             )
+    }
+    private fun enableButton(b: Boolean) {
+        binding.btnSuscribirse.isClickable = b
+        binding.btnSuscribirse.isEnabled = b
     }
 }

@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center_horizontal"
-        android:text="Calcelar suscripción"
+        android:text="Calcelar renovación automatica"
         android:visibility="invisible"
         android:textSize="16sp"
         android:textStyle="bold|italic"
