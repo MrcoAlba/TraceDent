@@ -99,7 +99,7 @@ class LoginFragment
         }
 
         saveUserOnCellphone(response.response,email)
-
+        //println(activityParent.getPreferences(Context.MODE_PRIVATE).getString(getString(R.string.SP_idUsuario),"AAAAAAA"))
         login.login2Main()
 
 
@@ -156,7 +156,7 @@ class LoginFragment
             )
     }
     private fun saveUserOnCellphone(user : LoginUserResponse,email:String){
-        val preferences = activityParent.getPreferences(Context.MODE_PRIVATE)
+        val preferences = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),Context.MODE_PRIVATE)
 
         with(preferences.edit()){
             putString(getString(R.string.SP_idUsuario),user.id_user)

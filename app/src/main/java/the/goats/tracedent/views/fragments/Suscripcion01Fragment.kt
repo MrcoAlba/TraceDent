@@ -30,7 +30,7 @@ class Suscripcion01Fragment
         activityParent.back = false
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion01Fragment", "onViewCreated")
-        val suscripcion = activityParent.getPreferences(Context.MODE_PRIVATE).getBoolean(getString(R.string.SP_estado_suscripcion),false)
+        val suscripcion = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),Context.MODE_PRIVATE).getBoolean(getString(R.string.SP_estado_suscripcion),false)
         Log.i("Hola", suscripcion.toString())
         if (suscripcion == true) {
             enableButton(false)
@@ -53,13 +53,6 @@ class Suscripcion01Fragment
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-    }
-
-    //Selected option
     private fun Continue(option: Int) {
         //Save in memory that client card view was pressed
         val bundle: Bundle = Bundle()

@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nuevo_cliente">Nuevo Cliente</string>
     <string name="nuevo_dentista">Nuevo Dentista</string>
+    <string name="Shared_Preferences">"TraceDentApp.IW2</string>
     <string name="SP_idUsuario">idUsuario</string>
     <string name="SP_estado_suscripcion">suscripcion</string>
     <string name="SP_user_type">tipo_usuario</string>

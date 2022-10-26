@@ -1,5 +1,6 @@
 package the.goats.tracedent.views.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -72,6 +73,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     // Not calling **super**, disables back button in current screen.
     }
+
+
 
 
 }

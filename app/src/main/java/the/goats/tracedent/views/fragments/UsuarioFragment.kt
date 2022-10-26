@@ -35,13 +35,15 @@ class UsuarioFragment
         //Firebase Analytics
         analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
         //Getting user
-        val tipo = activityParent.getPreferences(Context.MODE_PRIVATE).getString(getString(R.string.SP_user_type),"user")
+        val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
 
-        val suscripcion = false
+        val tipo = prefs.getString(getString(R.string.SP_user_type),"user")
+
+        val suscripcion = prefs.getBoolean(getString(R.string.SP_estado_suscripcion),false)
         //Listeners
         binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
 
-        if (tipo != "clinic" || tipo != "dentist"){
+        if (tipo == "patient"){
             binding.btnSuscribirse.visibility = View.GONE
         }
     }

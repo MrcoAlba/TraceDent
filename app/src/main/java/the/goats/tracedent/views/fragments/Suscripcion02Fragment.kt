@@ -41,6 +41,7 @@ class Suscripcion02Fragment
     private var Date = false
 
 
+
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,8 +51,7 @@ class Suscripcion02Fragment
         service = Common.retrofitService
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion02Fragment", "onViewCreated")
-        val suscripcion = requireArguments().getBoolean("suscripcion")
-        val id = requireArguments().getString("idUsuario").toString()
+
         //Listeners
         binding.tietEmail.doAfterTextChanged                    { validateMail() }
         binding.tietTarjeta.doAfterTextChanged                  { validateCard() }
@@ -75,8 +75,15 @@ class Suscripcion02Fragment
                             override fun afterTextChanged(s: Editable) {}
                         })
         binding.tietFecha.doAfterTextChanged                    { ValidateDate() }
-        binding.btnPagar.setOnClickListener                     { Continue(1)
-                                                                ChageSuscription(id, suscripcion)}
+        binding.btnPagar.setOnClickListener                     {
+
+            val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+
+            val id = prefs.getString(getString(R.string.SP_idUsuario),"0")
+            val suscripcion = prefs.getBoolean(getString(R.string.SP_estado_suscripcion),false)
+
+            ChageSuscription(id!!, suscripcion)
+        }
     }
 
     //Selected option
@@ -185,6 +192,7 @@ class Suscripcion02Fragment
         binding.btnPagar.isEnabled = b
     }
     private fun ChageSuscription(id: String, state: Boolean){
+            Log.i("Prueba1", "Hola")
             service.ChangeSuscription(id, UserSuscription(state)).enqueue(object:
             Callback<SusResponse> {
             override fun onResponse(
@@ -195,10 +203,10 @@ class Suscripcion02Fragment
             }
 
             override fun onFailure(call: Call<SusResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.i("gaaa!",t.message.toString())
             }
         })
+        Continue(1)
         saveSusOnCellphone()
     }
     private fun Continue(option:Int){
@@ -214,7 +222,7 @@ class Suscripcion02Fragment
             )
     }
     private fun saveSusOnCellphone(){
-        val pref = activityParent.getPreferences(Context.MODE_PRIVATE)
+        val pref = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),Context.MODE_PRIVATE)
         val prefsEditr = pref.edit()
         prefsEditr.putBoolean(getString(R.string.SP_estado_suscripcion), true)
         prefsEditr.commit()
