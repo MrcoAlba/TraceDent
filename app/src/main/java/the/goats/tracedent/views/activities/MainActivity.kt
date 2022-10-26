@@ -32,13 +32,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private val searchFragment = SearchFragment()
     private val principalFragments : List<Fragment> = listOf(
-        SearchFragment(),
-        MapFragment()
+        MapFragment(),
+        SearchFragment()
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
+        transactionFirstAndMainFragment(MapFragment(), binding.fcvMainActivity)
+
         containerView = binding.fcvMainActivity
 
         // NAVIGATION BAR
@@ -50,8 +51,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         when (menuItem.itemId) {
             //Here goes the transitions between fragments, each lines performs when an item is pressed
             R.id.booking_item   -> Log.d("BtmNavView", "Se presiono para pasar a las reservas")
-            R.id.search_item    -> ft.replace(binding.fcvMainActivity.id, principalFragments[0])
-            R.id.map_item       -> ft.replace(binding.fcvMainActivity.id, principalFragments[1])
+            R.id.search_item    -> ft.replace(binding.fcvMainActivity.id, principalFragments[1])
+            R.id.map_item       -> ft.replace(binding.fcvMainActivity.id, principalFragments[0])
             R.id.profile_item   -> Log.d("BtmNavView", "Se presiono para pasar al perfil")
             R.id.messaging_item -> Log.d("BtmNavView", "Se presiono para pasar a los chats")
             else -> {}

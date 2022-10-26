@@ -1,13 +1,8 @@
 package the.goats.tracedent.api
 
 data class Dentist (
-    val _id: String,
-    val correo : String,
-    val nombres: String,
-    val apellidos: String,
-    val direccion: String,
-    val distrito: String,
-    val numero: Number,
-    val genero: String,
-    val dni: Number
+    val id_dentist: String,
+    val ruc : String,
+    val rating: Float,
+    val person: Person
         )

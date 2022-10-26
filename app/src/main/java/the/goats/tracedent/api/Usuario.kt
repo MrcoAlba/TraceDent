@@ -1,8 +1,12 @@
 package the.goats.tracedent.api
 
 data class Usuario(
-    val idUsuario: String,
-    val correo: String,
-    val contrasena: String,
-    val tipoUsuario: Int
+    val id_user: String,
+    val user_type: String,
+    val phone_number : Long,
+    val subscription : Boolean,
+    val district : String,
+    val direction : String,
+    val latitude : Double,
+    val longitude : Double
 )

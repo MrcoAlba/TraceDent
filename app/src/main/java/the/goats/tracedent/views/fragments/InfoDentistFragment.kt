@@ -20,15 +20,19 @@ class InfoDentistFragment : BaseFragment<FragmentInfoDentistBinding>(FragmentInf
         communicator    =   requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
 
-        binding.butReservar.setOnClickListener      { }
+        binding.butReservarDentista.setOnClickListener      { }
+        binding.butRegresarDentista.setOnClickListener      { activityParent.onBackPressed() }
         fill()
     }
 
     private fun fill() {
-        binding.txtNombreDentista.text = requireArguments().getString("nombres") + " " + requireArguments().getString("apellidos")
-        binding.txtCorreoDentista.text = requireArguments().getString("correo")
-        binding.txtDireccionDentista.text = requireArguments().getString("direccion") + ", " + requireArguments().getString("distrito")
+        binding.txtNombreDentista.text = requireArguments().getString("first_name") + " " + requireArguments().getString("last_name")
+        binding.txtTelefonoDentista.text = requireArguments().getString("phone_number")
+        binding.txtDireccionDentista.text = requireArguments().getString("direction") + ", " + requireArguments().getString("district")
         binding.txtRatingDentista.text = requireArguments().getString("rating")
+        binding.txtGeneroDentista.text = requireArguments().getString("gender")
+        binding.txtDNIDentista.text = requireArguments().getString("dni")
+        binding.txtRUCDentista.text = requireArguments().getString("ruc")
     }
 
 
