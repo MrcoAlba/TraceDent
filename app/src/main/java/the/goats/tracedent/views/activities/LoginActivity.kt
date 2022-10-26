@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
 
     private fun checkIfUserExists() {
 
-        val preferences =   getPreferences(Context.MODE_PRIVATE)
+        val preferences =  getPreferences(Context.MODE_PRIVATE)
 
         if (preferences.getString(getString(R.string.SP_idUsuario),null) != null) {
             login2Main()

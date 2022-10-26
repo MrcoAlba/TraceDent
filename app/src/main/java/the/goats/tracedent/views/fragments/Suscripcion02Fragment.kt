@@ -1,27 +1,30 @@
 package the.goats.tracedent.views.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.contentcapture.ContentCaptureCondition
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
+import the.goats.tracedent.api.Login.Response.LoginUserResponse
 import the.goats.tracedent.api.SusResponse
-import the.goats.tracedent.api.UserLoginResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentSuscripcion02Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.model.UserPostLogin
 import the.goats.tracedent.model.UserSuscription
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
+
 
 class Suscripcion02Fragment
     : BaseFragment<FragmentSuscripcion02Binding>(FragmentSuscripcion02Binding::inflate)
@@ -196,6 +199,7 @@ class Suscripcion02Fragment
                 Log.i("gaaa!",t.message.toString())
             }
         })
+        saveSusOnCellphone()
     }
     private fun Continue(option:Int){
         //Save in memory that client card view was pressed
@@ -209,4 +213,12 @@ class Suscripcion02Fragment
                 "Suscripcion02FragmentSuscripcion03Fragment"
             )
     }
-}
+    private fun saveSusOnCellphone(){
+        val pref = activityParent.getPreferences(Context.MODE_PRIVATE)
+        val prefsEditr = pref.edit()
+        prefsEditr.putBoolean(getString(R.string.SP_estado_suscripcion), true)
+        prefsEditr.commit()
+        }
+
+    }
+

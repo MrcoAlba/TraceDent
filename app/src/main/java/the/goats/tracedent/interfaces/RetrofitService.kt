@@ -10,7 +10,6 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import the.goats.tracedent.api.Clinic
-import the.goats.tracedent.api.DefaultResponse
 import the.goats.tracedent.api.Login.Request.LoginRequest
 import the.goats.tracedent.api.Login.Response.LoginUserResponse
 import the.goats.tracedent.api.Patient
