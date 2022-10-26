@@ -16,6 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
 import the.goats.tracedent.api.Login.Request.LoginRequest
+import the.goats.tracedent.api.Login.Response.LoginResponse
 import the.goats.tracedent.api.Login.Response.LoginUserResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
@@ -27,6 +28,7 @@ import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
 import the.goats.tracedent.views.fragments.Login.ForgottenPassword1Fragment
 import the.goats.tracedent.views.fragments.Register.RegisterG0Fragment
+import kotlin.math.log
 
 class LoginFragment
     : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate)
@@ -65,17 +67,18 @@ class LoginFragment
         if (validateCredentials(email,password)) {
 
             mService.logUser(LoginRequest(email, password))
-                .enqueue(object : Callback<LoginUserResponse> {
+                .enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(
-                        call: Call<LoginUserResponse>,
-                        response: Response<LoginUserResponse>
+                        call: Call<LoginResponse>,
+                        response: Response<LoginResponse>
                     ) {
-                        saveUserOnCellphone((response.body() as LoginUserResponse))
-                        login.login2Main()
+                        val response = response.body() as LoginResponse
+                        processLogin(response,email)
                     }
 
-                    override fun onFailure(call: Call<LoginUserResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         // If sign in fails, display a message to the user.
+                        println("Failure")
                         Toast.makeText(
                             activityParent, "Las credenciales no son válidas",
                             Toast.LENGTH_SHORT
@@ -84,6 +87,22 @@ class LoginFragment
 
                 })
         }
+    }
+
+    private fun processLogin(response : LoginResponse,email: String){
+        if(response.cod == 0 || response.response == null){
+            Toast.makeText(
+                activityParent, "Las credenciales no son válidas",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        saveUserOnCellphone(response.response,email)
+
+        login.login2Main()
+
+
     }
 
     private fun validateCredentials(email: String, password: String): Boolean {
@@ -136,13 +155,16 @@ class LoginFragment
                 "Login2RegisterG0"
             )
     }
-    private fun saveUserOnCellphone(user : LoginUserResponse){
+    private fun saveUserOnCellphone(user : LoginUserResponse,email:String){
         val preferences = activityParent.getPreferences(Context.MODE_PRIVATE)
 
         with(preferences.edit()){
             putString(getString(R.string.SP_idUsuario),user.id_user)
             putString(getString(R.string.SP_user_type),user.user_type)
-            putString(getString(R.string.SP_mail),user.mail)
+            putString(getString(R.string.SP_mail),email)
+            putString(getString(R.string.SP_direction),user.direction)
+            putString(getString(R.string.SP_district),user.district)
+            putLong(getString(R.string.SP_phonenumber),user.phone_number)
             putBoolean(getString(R.string.SP_estado_suscripcion),user.subscription)
             commit()
         }

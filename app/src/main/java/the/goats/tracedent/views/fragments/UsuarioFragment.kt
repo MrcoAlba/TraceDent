@@ -36,10 +36,8 @@ class UsuarioFragment
         analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
         //Getting user
         val tipo = activityParent.getPreferences(Context.MODE_PRIVATE).getString(getString(R.string.SP_user_type),"user")
-        val prefs : SharedPreferences = activityParent.getSharedPreferences("app.TraceDent",0)
-        val userJson = prefs.getString("usuario","")
-        user = Gson().fromJson(userJson,UserLoginResponse::class.java)
-        val suscripcion = user.cuenta[0].suscripcion
+
+        val suscripcion = false
         //Listeners
         binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
 

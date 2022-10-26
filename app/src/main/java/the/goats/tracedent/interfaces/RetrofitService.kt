@@ -11,7 +11,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import the.goats.tracedent.api.Clinic
 import the.goats.tracedent.api.Login.Request.LoginRequest
-import the.goats.tracedent.api.Login.Response.LoginUserResponse
+import the.goats.tracedent.api.Login.Response.*
 import the.goats.tracedent.api.Patient
 import the.goats.tracedent.api.Usuario
 import the.goats.tracedent.model.Dentist
@@ -32,7 +32,7 @@ interface RetrofitService {
     ): Call<SusResponse>
 
     @POST("user/login")
-    fun logUser(@Body credentials : LoginRequest): Call<LoginUserResponse>
+    fun logUser(@Body credentials : LoginRequest): Call<LoginResponse>
 
     @POST("usuarios")
     fun InserUsert(@Body usuario: Usuario):Call<DefaultResponse>

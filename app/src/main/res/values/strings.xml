@@ -8,6 +8,9 @@
     <string name="SP_estado_suscripcion">suscripcion</string>
     <string name="SP_user_type">tipo_usuario</string>
     <string name="SP_mail">mail</string>
+    <string name="SP_district">distrito</string>
+    <string name="SP_direction">direccion</string>
+    <string name="SP_phonenumber">numeroTelef</string>
 
     <string-array name="Genders">
         <item>Masculino</item>

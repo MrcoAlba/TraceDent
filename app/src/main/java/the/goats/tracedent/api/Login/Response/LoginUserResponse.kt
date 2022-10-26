@@ -3,8 +3,10 @@ package the.goats.tracedent.api.Login.Response
 data class LoginUserResponse(
     val id_user : String,
     val user_type : String,
-    val mail : String,
     val subscription : Boolean,
+    val district : String,
+    val direction: String,
+    val phone_number : Long
 )
 
 /*
