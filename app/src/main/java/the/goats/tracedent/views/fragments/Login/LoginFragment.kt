@@ -1,7 +1,10 @@
 package the.goats.tracedent.views.fragments.Login
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -22,6 +25,7 @@ import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
+import the.goats.tracedent.views.fragments.Login.ForgottenPassword1Fragment
 import the.goats.tracedent.views.fragments.Register.RegisterG0Fragment
 
 class LoginFragment
@@ -48,7 +52,7 @@ class LoginFragment
         //Listeners
         mService = Common.retrofitService
         binding.btnLogin.setOnClickListener                     { login()               }
-        binding.tvForgottenPassword.setOnClickListener          {forgottenPassword()    }
+        binding.tvForgottenPassword.setOnClickListener          { forgottenPassword()   }
         binding.tvCreateAccount.setOnClickListener              { register()            }
     }
 

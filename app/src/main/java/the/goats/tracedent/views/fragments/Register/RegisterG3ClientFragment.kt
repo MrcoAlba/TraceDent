@@ -54,11 +54,13 @@ class RegisterG3ClientFragment
         val mail = requireArguments().getString("correo")
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
+        val suscripcion = false
         val id = auth.currentUser?.uid.toString()
         val user = Usuario(id
             , mail.toString()
             , password.toString()
-            , option)
+            , option
+            , suscripcion)
         activityParent.CreacionUsuario(user)
     }
     private fun CreatePatient(){
