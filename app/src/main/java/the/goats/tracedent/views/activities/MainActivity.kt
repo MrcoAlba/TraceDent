@@ -72,23 +72,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         }
     // Not calling **super**, disables back button in current screen.
     }
-    fun ChangesSubscription(){
-        val retrofitBuilder = GetRetrofit()
-        val apiService = retrofitBuilder.create(ApiService::class.java)
-        val call = apiService.ChangeSuscription("afa16899-e6d5-4968-a522-f76bb947a0ee", true)
-        call.enqueue(object : Callback<DefaultResponse> {
-            override fun onResponse(
-                call: Call<DefaultResponse>,
-                response: Response<DefaultResponse>
-            ) {
-                Toast.makeText(applicationContext, response.code().toString(), Toast.LENGTH_SHORT).show()
-                Log.i("onResponse","Se suscribio")
-            }
 
-            override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 
 }

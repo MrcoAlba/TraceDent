@@ -1,13 +1,12 @@
 package the.goats.tracedent.interfaces
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
+import the.goats.tracedent.api.DefaultResponse
 import the.goats.tracedent.api.UserLoginResponse
 import the.goats.tracedent.model.Dentist
 import the.goats.tracedent.model.UserPostLogin
+import the.goats.tracedent.model.UserSuscription
 
 interface RetrofitService {
     @GET("dentistas?")
@@ -16,4 +15,8 @@ interface RetrofitService {
     fun getAllDentistsList(): Call<MutableList<Dentist>>
     @POST("usuarios/login")
     fun getUserAccountInfo(@Body userPostLogin: UserPostLogin): Call<UserLoginResponse>
+    @GET("user/subs/{id_user}")
+    fun ChangeSuscription(@Path("id_user") id: String?,
+                          @Body userSuscription: UserSuscription
+    ): Call<DefaultResponse>
 }
