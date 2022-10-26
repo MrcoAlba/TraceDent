@@ -1,5 +1,6 @@
 package the.goats.tracedent.views.fragments
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -34,6 +35,7 @@ class UsuarioFragment
         //Firebase Analytics
         analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
         //Getting user
+        val tipo = activityParent.getPreferences(Context.MODE_PRIVATE).getString(getString(R.string.SP_user_type),"user")
         val prefs : SharedPreferences = activityParent.getSharedPreferences("app.TraceDent",0)
         val userJson = prefs.getString("usuario","")
         user = Gson().fromJson(userJson,UserLoginResponse::class.java)
@@ -41,7 +43,7 @@ class UsuarioFragment
         //Listeners
         binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
 
-        if (user.cuenta[0].tipoUsuario != 2){
+        if (tipo != "clinic" || tipo != "dentist"){
             binding.btnSuscribirse.visibility = View.GONE
         }
     }
