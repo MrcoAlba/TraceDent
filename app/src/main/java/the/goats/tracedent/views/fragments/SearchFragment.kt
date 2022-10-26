@@ -64,6 +64,8 @@ class SearchFragment
                             "Filtro "+chip.text,
                             Toast.LENGTH_SHORT).show()
                         filtro= chip.text as String
+                    }else{
+                        filtro="Nombre"
                     }
             }
     }

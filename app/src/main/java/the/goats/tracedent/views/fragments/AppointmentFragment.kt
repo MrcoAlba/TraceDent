@@ -25,7 +25,7 @@ class AppointmentFragment
     private var dia : Int =-1
     private var mes : Int =-1
     private var año : Int =-1
-    private var filtro: String = ""
+    private var filtro: String = "vacio"
     private val horasdisponibles:MutableList<String> = mutableListOf()
     private var horas:List<String> = listOf("12:00am","12:30am",
                                             "01:00am","01:30am",
@@ -79,6 +79,15 @@ class AppointmentFragment
     private fun showDatePickerFragment() {
         val datePicker = DatePickerFragment{day, month, year -> onDateSelected(day,month,year)}
         datePicker.show(activityParent.supportFragmentManager,"datepicker")
+    }
+    fun onDateSelected(day:Int,month:Int,year:Int){
+        val month2:Int=month+1
+        binding.txtfecha.text = "Día $day/$month2/$year"
+        //send a get request for the date
+        dia=day
+        mes=month2
+        año=year
+        binding.txtfecha.visibility = View.VISIBLE
         //request get para inflar el horasdisponibles
         /*for (x:Int in 0 .. horas.size){
             //condicion de get
@@ -91,29 +100,20 @@ class AppointmentFragment
         for (myString2 in horas/*debe ser horasdispinibles*/){
             createchoiceChips(myString2)
         }
-
-    }
-    fun onDateSelected(day:Int,month:Int,year:Int){
-        val month2:Int=month+1
-        binding.txtfecha.text = "Día $day/$month2/$year"
-        dia=day
-        mes=month2
-        año=year
-        binding.txtfecha.visibility = View.VISIBLE
+        choiceChips()
     }
 
     private fun createchoiceChips(name:String){
         val chip=Chip(context)
         chip.text=name
-        /*val chipDrawable = ChipDrawable.createFromAttributes(
-            context,
+        val chipDrawable = ChipDrawable.createFromAttributes(
+            activityParent,
             null,
             0,
-            the.goats.tracedent.R.style.CustomChipStyle
+            com.google.android.material.R.style.Widget_MaterialComponents_Chip_Choice
         )
-        chip.setChipDrawable(chipDrawable)*/
+        chip.setChipDrawable(chipDrawable)
         binding.chipgroup.addView(chip)
-        choiceChips()
     }
 
     private fun choiceChips(){
@@ -126,6 +126,11 @@ class AppointmentFragment
                         "Filtro "+chip.text,
                         Toast.LENGTH_SHORT).show()
                     filtro= chip.text as String
+                }else{
+                    filtro="vacio"
+                    Toast.makeText(context,
+                        "Filtro "+filtro,
+                        Toast.LENGTH_SHORT).show()
                 }
             }
     }

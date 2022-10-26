@@ -32,13 +32,14 @@
                 android:focusableInTouchMode="true"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
-                android:textSize="16dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:defaultQueryHint="Ingrese un dentista" />
         </LinearLayout>
 
         <HorizontalScrollView
             android:id="@+id/barrafiltros"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="5dp"
@@ -54,37 +55,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:singleSelection="true"
-                android:layout_marginHorizontal="15dp"
                 app:singleLine="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipNom"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre"
-                    android:textSize="12dp" />
+                    />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipDis"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Distrito"
-                    android:textSize="12dp" />
+                    />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipRm"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Especialidad"
-                    android:textSize="12dp" />
+                    />
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipRM"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rating Mayor"
-                    android:textSize="12dp" />
+                    />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
