@@ -1,5 +1,6 @@
 package the.goats.tracedent.views.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +13,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import the.goats.tracedent.R
 import the.goats.tracedent.api.*
 import the.goats.tracedent.databinding.ActivityLoginBinding
 import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
-import the.goats.tracedent.views.fragments.LoginFragment
+import the.goats.tracedent.views.fragments.Login.LoginFragment
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::inflate), Credential.LogIn {
 
@@ -35,7 +37,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     }
 
     private fun checkIfUserExists() {
-        if (auth.currentUser != null) {
+
+        val preferences =   getPreferences(Context.MODE_PRIVATE)
+
+        if (preferences.getString(getString(R.string.SP_idUsuario),null) != null) {
             login2Main()
         }
     }

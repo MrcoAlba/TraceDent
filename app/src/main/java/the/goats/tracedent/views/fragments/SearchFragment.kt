@@ -32,6 +32,7 @@ class SearchFragment
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //Delegates
         communicator    =   requireActivity() as Communicator
         logout          =   requireActivity() as Credential.LogOut
@@ -48,7 +49,7 @@ class SearchFragment
         binding.rvListadodata.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(requireContext())
         binding.rvListadodata.layoutManager = layoutManager
-        getAllDentistList()
+        //getAllDentistList()
     }
 
     private fun getAllDentistList() {

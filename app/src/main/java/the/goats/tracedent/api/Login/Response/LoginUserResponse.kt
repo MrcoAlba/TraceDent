@@ -1,10 +1,10 @@
-package the.goats.tracedent.api
+package the.goats.tracedent.api.Login.Response
 
-data class Usuario(
-    val id_user: String,
-    val correo: String,
-    val contrasena: String,
-    val tipoUsuario: Int
+data class LoginUserResponse(
+    val id_user : String,
+    val user_type : String,
+    val mail : String,
+    val subscription : Boolean,
 )
 
 /*
@@ -19,4 +19,5 @@ data class Usuario(
     "direction": "direccionc08",
     "latitude": -12.08,
     "longitude": -77.08
-}*/
+}
+ */

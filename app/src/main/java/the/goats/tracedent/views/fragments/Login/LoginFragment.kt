@@ -1,5 +1,6 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.Login
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
@@ -7,11 +8,21 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import the.goats.tracedent.R
+import the.goats.tracedent.api.Login.Request.LoginRequest
+import the.goats.tracedent.api.Login.Response.LoginUserResponse
+import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
+import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
+import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
+import the.goats.tracedent.views.fragments.Register.RegisterG0Fragment
 
 class LoginFragment
     : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate)
@@ -20,7 +31,7 @@ class LoginFragment
     //At the moment, they are null variables
     private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
-
+    private lateinit var mService : RetrofitService
 
 
     //Fragment Lifecycle
@@ -35,8 +46,9 @@ class LoginFragment
         //Firebase Auth
         auth = Firebase.auth
         //Listeners
+        mService = Common.retrofitService
         binding.btnLogin.setOnClickListener                     { login()               }
-        binding.tvForgottenPassword.setOnClickListener          { forgottenPassword()   }
+        binding.tvForgottenPassword.setOnClickListener          {forgottenPassword()    }
         binding.tvCreateAccount.setOnClickListener              { register()            }
     }
 
@@ -46,22 +58,30 @@ class LoginFragment
         val email = binding.tietEmail.text.toString()
         val password = binding.tietPassword.text.toString()
         //Validate email and password
-        if (validateCredentials(email,password)){
-            //Firebase authenticati
-            auth
-                .signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, go to next activity
+        if (validateCredentials(email,password)) {
+
+            mService.logUser(LoginRequest(email, password))
+                .enqueue(object : Callback<LoginUserResponse> {
+                    override fun onResponse(
+                        call: Call<LoginUserResponse>,
+                        response: Response<LoginUserResponse>
+                    ) {
+                        saveUserOnCellphone((response.body() as LoginUserResponse))
                         login.login2Main()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(activityParent, "Las credenciales no son válida",
-                            Toast.LENGTH_SHORT).show()
                     }
-                }
+
+                    override fun onFailure(call: Call<LoginUserResponse>, t: Throwable) {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(
+                            activityParent, "Las credenciales no son válidas",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                })
         }
     }
+
     private fun validateCredentials(email: String, password: String): Boolean {
         // Validate email is not empty
         if(email.isNotEmpty()){
@@ -112,4 +132,17 @@ class LoginFragment
                 "Login2RegisterG0"
             )
     }
+    private fun saveUserOnCellphone(user : LoginUserResponse){
+        val preferences = activityParent.getPreferences(Context.MODE_PRIVATE)
+
+        with(preferences.edit()){
+            putString(getString(R.string.SP_idUsuario),user.id_user)
+            putString(getString(R.string.SP_user_type),user.user_type)
+            putString(getString(R.string.SP_mail),user.mail)
+            putBoolean(getString(R.string.SP_estado_suscripcion),user.subscription)
+            commit()
+        }
+
+    }
+
 }
