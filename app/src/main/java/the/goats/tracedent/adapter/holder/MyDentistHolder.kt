@@ -11,8 +11,8 @@ class MyDentistHolder (
     val binding = ItemDentistBinding.bind(view)
 
     fun bind(dentist: Dentist){
-        binding.tvDistrito.text = dentist.distrito
-        binding.tvNombre.text = dentist.nombres
-        binding.tvRating.text = dentist.rating
+        binding.tvDistrito.text = dentist.person!!.user!!.district
+        binding.tvNombre.text = dentist.person!!.first_name + " " + dentist.person!!.last_name
+        binding.tvRating.text = dentist.rating.toString()
     }
 }

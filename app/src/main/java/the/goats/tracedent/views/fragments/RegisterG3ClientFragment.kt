@@ -55,21 +55,29 @@ class RegisterG3ClientFragment
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
         val id = auth.currentUser?.uid.toString()
+        val phonenumber = binding.tietNumeroContacto.text.toString()
+        val address = binding.tietDireccion.text.toString()
+
         val user = Usuario(id
-            , mail.toString()
-            , password.toString()
-            , option)
+            , "patient"
+            , phonenumber.toLong()
+            , false
+            , ""
+            , address
+            , 15.0
+            , 15.0
+            )
         activityParent.CreacionUsuario(user)
     }
     private fun CreatePatient(){
         val mail = requireArguments().getString("correo").toString()
         val name = binding.tietNombre.text.toString()
         val lastname = binding.tietApellido.text.toString()
-        val address = binding.tietDireccion.text.toString()
-        val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
         val gender = binding.tietGenero.text.toString()
         val dni = binding.tietDni.text.toString().toInt()
         val id = auth.currentUser?.uid.toString()
+        val phonenumber = binding.tietNumeroContacto.text.toString().toInt()
+        val address = binding.tietDireccion.text.toString()
         val patient = Patient(id, mail, name, lastname, address, phonenumber, gender, dni)
         activityParent.CreatePatient(patient)
     }
