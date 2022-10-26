@@ -6,10 +6,20 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import the.goats.tracedent.R
+import the.goats.tracedent.api.SusResponse
+import the.goats.tracedent.api.UserLoginResponse
+import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentSuscripcion02Binding
 import the.goats.tracedent.interfaces.Communicator
+import the.goats.tracedent.interfaces.RetrofitService
+import the.goats.tracedent.model.UserPostLogin
+import the.goats.tracedent.model.UserSuscription
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -19,6 +29,7 @@ class Suscripcion02Fragment
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
+    private lateinit var service : RetrofitService
     private var Email = false
     private var Card = false
     private var CVV = false
@@ -33,7 +44,7 @@ class Suscripcion02Fragment
         //Delegates
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
-
+        service = Common.retrofitService
         //Firebase Analytics
         analyticEvent(requireActivity(), "Suscripcion02Fragment", "onViewCreated")
 
@@ -61,7 +72,8 @@ class Suscripcion02Fragment
                             override fun afterTextChanged(s: Editable) {}
                         })
         binding.tietFecha.doAfterTextChanged                    { ValidateDate() }
-        binding.btnPagar.setOnClickListener                     { Continue(1) }
+        binding.btnPagar.setOnClickListener                     { Continue(1)
+                                                                ChageSuscription(false)}
     }
 
     //Selected option
@@ -169,7 +181,22 @@ class Suscripcion02Fragment
         binding.btnPagar.isClickable = b
         binding.btnPagar.isEnabled = b
     }
+    private fun ChageSuscription(state: Boolean){
+            service.ChangeSuscription("47dee870-5532-11ed-83cc-dfbc4e5760c7", UserSuscription(state)).enqueue(object:
+            Callback<SusResponse> {
+            override fun onResponse(
+                call: Call<SusResponse>,
+                response: Response<SusResponse>
+            ){
+                Log.i("onResponse","Se cambio el bool")
+            }
 
+            override fun onFailure(call: Call<SusResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.i("gaaa!",t.message.toString())
+            }
+        })
+    }
     private fun Continue(option:Int){
         //Save in memory that client card view was pressed
         val bundle : Bundle = Bundle()

@@ -22,7 +22,5 @@ interface ApiService {
 
     @POST("clinicas")
     fun InsertClinic(@Body clinic: Clinic):Call<DefaultResponse>
-    @PATCH("usuarios/{_id}")
-    fun ChangeSuscription(@Path("_id") id: String?,
-                          @Body userSuscription: UserSuscription): Call<DefaultResponse>
+
 }

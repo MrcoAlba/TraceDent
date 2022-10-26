@@ -48,7 +48,7 @@ class SearchFragment
         binding.rvListadodata.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(requireContext())
         binding.rvListadodata.layoutManager = layoutManager
-        getAllDentistList()
+        //getAllDentistList()
     }
 
     private fun getAllDentistList() {
