@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.RegisterG6ClinicFragment">
+    tools:context=".views.fragments.Register.RegisterG6ClinicFragment">
 
     <TextView
         android:id="@+id/tv_textoInicialG8_2"

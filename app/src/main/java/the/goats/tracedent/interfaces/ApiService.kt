@@ -1,13 +1,14 @@
 package the.goats.tracedent.interfaces
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.Response
+import retrofit2.http.*
 import the.goats.tracedent.api.Clinic
 import the.goats.tracedent.api.Dentist
 import the.goats.tracedent.api.Patient
 import the.goats.tracedent.api.DefaultResponse
 import the.goats.tracedent.api.Usuario
+import the.goats.tracedent.model.UserSuscription
 
 interface ApiService {
     @POST("usuarios")
@@ -21,4 +22,5 @@ interface ApiService {
 
     @POST("clinicas")
     fun InsertClinic(@Body clinic: Clinic):Call<DefaultResponse>
+
 }
