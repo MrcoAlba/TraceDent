@@ -205,12 +205,14 @@ class MapFragment
     }
 
     private fun createMarkers1(list : MutableList<Clinic>) {
-        list.map {
-            val coordinates = LatLng(it.user!!.latitude!!, it.user!!.longitude!!)
-            val marker = MarkerOptions().position(coordinates).title(it.company_name)
-            val marker_ : Marker? = gmMap.addMarker(marker)
-            marker_!!.tag = it
-            //Log.i(null, it.user!!.latitude.toString() + " " + it.user!!.longitude)
+        if(list.size>0){
+            list.map {
+                val coordinates = LatLng(it.user!!.latitude!!, it.user!!.longitude!!)
+                val marker = MarkerOptions().position(coordinates).title(it.company_name)
+                val marker_ : Marker? = gmMap.addMarker(marker)
+                marker_!!.tag = it
+                //Log.i(null, it.user!!.latitude.toString() + " " + it.user!!.longitude)
+            }
         }
     }
 
@@ -240,6 +242,8 @@ class MapFragment
            txtRating.text = info.rating.toString()
            butMasInfo.setOnClickListener{
                val bundle : Bundle = Bundle()
+               bundle.putString("id", info.id_dentist)
+               bundle.putString("first_name", infoPerson.first_name)
                bundle.putString("first_name", infoPerson.first_name)
                bundle.putString("last_name", infoPerson.last_name)
                bundle.putString("direction", txtDireccion.text.toString())
@@ -274,6 +278,7 @@ class MapFragment
            txtRating.text = info.rating.toString()
            butMasInfo.setOnClickListener{
                val bundle : Bundle = Bundle()
+               bundle.putString("id", info.id_clinic)
                bundle.putString("company_name",info.company_name )
                bundle.putString("direction", txtDireccion.text.toString())
                bundle.putString("rating", txtRating.text.toString())

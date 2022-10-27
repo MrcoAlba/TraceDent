@@ -10,17 +10,44 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipgroupTipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:singleSelection="true"
+            app:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/linearBusqueda"
+            android:visibility="gone"
+            >
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDenFut"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dentistas"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCliFut"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clinicas"
+                />
+        </com.google.android.material.chip.ChipGroup>
         <LinearLayout
             android:id="@+id/linearBusqueda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginVertical="35dp"
+            android:layout_marginVertical="25dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/chipgroupTipo">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/sv_searcher"
@@ -34,12 +61,12 @@
                 android:singleLine="true"
                 android:maxLines="1"
                 android:ellipsize="end"
-                app:defaultQueryHint="Ingrese un dentista" />
+                app:defaultQueryHint="Ingrese un nombre" />
         </LinearLayout>
 
         <HorizontalScrollView
             android:id="@+id/barrafiltros"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="5dp"
@@ -49,43 +76,79 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             >
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipgroup"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
-                app:singleLine="true">
+                >
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:singleSelection="true"
+                    app:singleLine="true">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDen"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dentistas"
+                        />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCli"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clinicas"
+                        />
+                </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroupFuturo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipDis"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Distrito"
-                    />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipRm"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Especialidad"
-                    />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipRM"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rating Mayor"
-                    />
-            </com.google.android.material.chip.ChipGroup>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:singleSelection="true"
+                    app:singleLine="true"
+                    android:visibility="gone">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipNom"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre"
+                        />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDis"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Distrito"
+                        />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRm"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Especialidad"
+                        />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipRM"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rating Mayor"
+                        />
+                </com.google.android.material.chip.ChipGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </HorizontalScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -162,6 +225,15 @@
             tools:listitem="@layout/item_dentist" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <include
+        android:id="@+id/bottomsheet"
+        layout="@layout/bottomsheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

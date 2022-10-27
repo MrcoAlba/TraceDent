@@ -7,26 +7,28 @@
     android:layout_weight="1"
     android:background="@color/primaryTextColor">
 
-    <TextView
+    <Button
+        android:id="@+id/butMasInfo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/secondaryDarkColor"
+        android:layout_margin = "10dp"
+        android:gravity="center"
         android:text="Información de ubicación:"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
-
+        android:backgroundTint="@color/secondaryDarkColor"
+        android:textStyle="bold"
+        android:clickable="false"
+        android:enabled="false"
         />
 
     <TextView
         android:id="@+id/txtNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin = "10dp"
+        android:layout_margin = "5dp"
         android:gravity="center"
         android:text="NOMBRE USUARIO"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
         android:textStyle="bold"
         />
 
@@ -34,22 +36,20 @@
         android:id="@+id/txtDireccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin = "10dp"
+        android:layout_margin = "5dp"
         android:gravity="center"
         android:text="DIRECCIÓN"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
         android:textStyle="bold"
         />
     <TextView
         android:id="@+id/txtRating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin = "10dp"
+        android:layout_margin = "5dp"
         android:gravity="center"
         android:text="RATING"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
         android:textStyle="bold"
         />
 
@@ -61,7 +61,6 @@
         android:gravity="center"
         android:text="MÁS INFORMACIÓN"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
         android:textStyle="bold"
         />
 

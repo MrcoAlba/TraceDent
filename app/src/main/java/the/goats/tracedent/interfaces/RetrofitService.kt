@@ -7,19 +7,11 @@ import the.goats.tracedent.model.Clinic
 import the.goats.tracedent.model.Dentist
 
 interface RetrofitService {
-    @GET("dentistas?")
+    @GET("dentists?")
     fun getDentistsList(@Query("name")name:String): Call<MutableList<Dentist>>
-<<<<<<< HEAD
-    @GET("distrito>?")
-    fun getDentistsListD(@Query("name")name:String): Call<MutableList<Dentist>>
-    @GET("ranking>?")
-    fun getDentistsListRM(@Query("name")name:String): Call<MutableList<Dentist>>
-    @GET("especialidad?")
-    fun getDentistsListRm(@Query("name")name:String): Call<MutableList<Dentist>>
-    @GET("dentistas")
-=======
+    @GET("clinic?")
+    fun getClinicList(@Query("name")name:String): Call<MutableList<Clinic>>
     @GET("dentist")
->>>>>>> origin/FeatureD2_Mapa
     fun getAllDentistsList(): Call<MutableList<Dentist>>
     @GET("clinic")
     fun getAllClinicsList(): Call<MutableList<Clinic>>
