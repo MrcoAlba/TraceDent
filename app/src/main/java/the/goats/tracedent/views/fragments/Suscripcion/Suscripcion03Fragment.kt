@@ -1,22 +1,20 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.Suscripcion
 
 import android.os.Bundle
 import android.view.View
 import the.goats.tracedent.databinding.FragmentSuscripcion03Binding
-import the.goats.tracedent.databinding.FragmentSuscripcion04Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 import java.util.*
 
 
-class Suscripcion04Fragment
-    : BaseFragment<FragmentSuscripcion04Binding>(FragmentSuscripcion04Binding::inflate)
+class Suscripcion03Fragment
+    : BaseFragment<FragmentSuscripcion03Binding>(FragmentSuscripcion03Binding::inflate)
 {
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
-
 
 
 
@@ -28,15 +26,22 @@ class Suscripcion04Fragment
         activityParent  =   requireActivity() as MainActivity
 
         //Firebase Analytics
-        analyticEvent(requireActivity(), "Suscripcion04Fragment", "onViewCreated")
+        analyticEvent(requireActivity(), "Suscripcion03Fragment", "onViewCreated")
+        //activityParent.onBackPressed()
+        ChangeView()
         activityParent.back = true
 
         //Listeners
 
         //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
-        binding.btnSuscribirse.setOnClickListener                       { Continue(1) }
     }
-
+    private fun ChangeView(){
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                Continue(1)
+            }
+        }, 3000)
+    }
     //Selected option
     private fun Continue(option:Int){
         val bundle : Bundle = Bundle()
@@ -44,9 +49,9 @@ class Suscripcion04Fragment
         communicator
             .goToAnotherFragment(
                 bundle,
-                UsuarioFragment(),
+                Suscripcion04Fragment(),
                 activityParent.containerView,
-                "Suscripcion03FragmentUsuarioFragment"
+                "Suscripcion03FragmentSuscripcion04Fragment"
             )
 
     }

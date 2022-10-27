@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.Suscripcion01Fragment">
+    tools:context=".views.fragments.Suscripcion.Suscripcion01Fragment">
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/siv_sus_image"
         android:layout_width="match_parent"
@@ -58,21 +58,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_information"
-        app:layout_constraintBottom_toBottomOf="@id/tv_calcelar_susripcion"/>
+        app:layout_constraintBottom_toBottomOf="@id/tv_cancelar_susripcion"/>
+
     <TextView
-        android:id="@+id/tv_calcelar_susripcion"
+        android:id="@+id/tv_cancelar_susripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center_horizontal"
-        android:text="Calcelar renovación automatica"
-        android:visibility="invisible"
+        android:text="Cancelar renovación automatica"
         android:textSize="16sp"
         android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_suscribirse"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_suscribirse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

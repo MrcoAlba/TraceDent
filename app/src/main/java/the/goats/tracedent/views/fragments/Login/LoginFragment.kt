@@ -3,8 +3,6 @@ package the.goats.tracedent.views.fragments.Login
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -15,20 +13,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.Login.Request.LoginRequest
-import the.goats.tracedent.api.Login.Response.LoginResponse
-import the.goats.tracedent.api.Login.Response.LoginUserResponse
+import the.goats.tracedent.api.Login.Request.LoginPhase1
+import the.goats.tracedent.api.Login.Request.LoginPhase2
+import the.goats.tracedent.api.Login.Response.Phase1.LoginResponsePhase1
+import the.goats.tracedent.api.Login.Response.Phase1.LoginUserResponse
+import the.goats.tracedent.api.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
-import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.base.BaseFragment
-import the.goats.tracedent.views.fragments.Login.ForgottenPassword1Fragment
 import the.goats.tracedent.views.fragments.Register.RegisterG0Fragment
-import kotlin.math.log
 
 class LoginFragment
     : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate)
@@ -66,17 +63,17 @@ class LoginFragment
         //Validate email and password
         if (validateCredentials(email,password)) {
 
-            mService.logUser(LoginRequest(email, password))
-                .enqueue(object : Callback<LoginResponse> {
+            mService.logUser(LoginPhase1(email, password))
+                .enqueue(object : Callback<LoginResponsePhase1> {
                     override fun onResponse(
-                        call: Call<LoginResponse>,
-                        response: Response<LoginResponse>
+                        call: Call<LoginResponsePhase1>,
+                        response: Response<LoginResponsePhase1>
                     ) {
-                        val response = response.body() as LoginResponse
+                        val response = response.body() as LoginResponsePhase1
                         processLogin(response,email)
                     }
 
-                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<LoginResponsePhase1>, t: Throwable) {
                         // If sign in fails, display a message to the user.
                         println("Failure")
                         Toast.makeText(
@@ -89,8 +86,9 @@ class LoginFragment
         }
     }
 
-    private fun processLogin(response : LoginResponse,email: String){
+    private fun processLogin(response : LoginResponsePhase1, email: String){
         if(response.cod == 0 || response.response == null){
+            println("FAILLL")
             Toast.makeText(
                 activityParent, "Las credenciales no son válidas",
                 Toast.LENGTH_SHORT
@@ -98,8 +96,16 @@ class LoginFragment
             return
         }
 
-        saveUserOnCellphone(response.response,email)
-        //println(activityParent.getPreferences(Context.MODE_PRIVATE).getString(getString(R.string.SP_idUsuario),"AAAAAAA"))
+
+        if(response.response.user_type == "patient"){
+            loginPhase2Patient(response.response,email)
+            return
+        }
+
+        val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+
+        saveUserOnCellphone(response.response,email,prefs)
+
         login.login2Main()
 
 
@@ -155,10 +161,44 @@ class LoginFragment
                 "Login2RegisterG0"
             )
     }
-    private fun saveUserOnCellphone(user : LoginUserResponse,email:String){
-        val preferences = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),Context.MODE_PRIVATE)
 
-        with(preferences.edit()){
+    private fun loginPhase2Patient(user : LoginUserResponse,email:String){
+        mService.logPatient(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponsePatient>{
+
+            override fun onResponse(
+                call: Call<LoginPhase2ResponsePatient>,
+                response: Response<LoginPhase2ResponsePatient>
+            ) {
+
+                val response = response.body() as LoginPhase2ResponsePatient
+
+                if(response.cod == 0 || response.response == null){
+                    Toast.makeText(
+                        activityParent, "Las credenciales no son válidas",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+
+                val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+                saveUserOnCellphone(user,email,prefs)
+
+                prefs.edit().putString(getString(R.string.SP_Patient_id),response.response.id_patient).commit()
+
+                login.login2Main()
+
+
+            }
+
+            override fun onFailure(call: Call<LoginPhase2ResponsePatient>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+
+    private fun saveUserOnCellphone(user : LoginUserResponse, email:String,prefs : SharedPreferences){
+        with(prefs.edit()){
             putString(getString(R.string.SP_idUsuario),user.id_user)
             putString(getString(R.string.SP_user_type),user.user_type)
             putString(getString(R.string.SP_mail),email)

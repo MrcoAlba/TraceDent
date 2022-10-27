@@ -2,16 +2,18 @@ package the.goats.tracedent.interfaces
 
 import retrofit2.Call
 import retrofit2.http.*
-import the.goats.tracedent.api.DefaultResponse
-import the.goats.tracedent.api.SusResponse
-import the.goats.tracedent.api.UserLoginResponse
+import the.goats.tracedent.api.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import the.goats.tracedent.api.Clinic
-import the.goats.tracedent.api.Login.Request.LoginRequest
-import the.goats.tracedent.api.Login.Response.*
+import the.goats.tracedent.api.Login.Request.LoginPhase1
+import the.goats.tracedent.api.Login.Request.LoginPhase2
+import the.goats.tracedent.api.Login.Response.Phase1.LoginResponsePhase1
+import the.goats.tracedent.api.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
+import the.goats.tracedent.api.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
+import the.goats.tracedent.api.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
 import the.goats.tracedent.api.Patient
 import the.goats.tracedent.api.Usuario
 import the.goats.tracedent.model.Dentist
@@ -31,8 +33,27 @@ interface RetrofitService {
                           @Body userSuscription: UserSuscription
     ): Call<SusResponse>
 
+
+
+
+    //LOGIN
     @POST("user/login")
-    fun logUser(@Body credentials : LoginRequest): Call<LoginResponse>
+    fun logUser(@Body credentials : LoginPhase1): Call<LoginResponsePhase1>
+
+    @POST("patient/login")
+    fun logPatient(@Body id : LoginPhase2 ): Call<LoginPhase2ResponsePatient>
+
+    @POST("clinic/login")
+    fun logClinic(@Body id : LoginPhase2 ): Call<LoginPhase2ResponseClinic>
+
+    @POST("dentist/login")
+    fun logDentist(@Body id : LoginPhase2 ): Call<LoginPhase2ResponseDentist>
+
+
+
+
+
+    //REGISTER
 
     @POST("usuarios")
     fun InserUsert(@Body usuario: Usuario):Call<DefaultResponse>

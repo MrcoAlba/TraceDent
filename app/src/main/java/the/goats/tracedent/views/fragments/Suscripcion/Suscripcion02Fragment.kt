@@ -1,21 +1,17 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.Suscripcion
 
 import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.view.contentcapture.ContentCaptureCondition
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.Login.Response.LoginUserResponse
 import the.goats.tracedent.api.SusResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentSuscripcion02Binding

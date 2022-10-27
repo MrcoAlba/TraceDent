@@ -1,4 +1,4 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.Suscripcion
 
 import android.content.Context
 import android.os.Bundle
@@ -6,14 +6,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import the.goats.tracedent.R
-import the.goats.tracedent.databinding.FragmentRegisterG0Binding
 import the.goats.tracedent.databinding.FragmentSuscripcion01Binding
-import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
-import kotlin.math.log
 
 class Suscripcion01Fragment
     : BaseFragment<FragmentSuscripcion01Binding>(FragmentSuscripcion01Binding::inflate) {
@@ -35,16 +31,16 @@ class Suscripcion01Fragment
         if (suscripcion == true) {
             enableButton(false)
             binding.btnSuscribirse.text = "Usted ya esta suscrito"
-            binding.tvCalcelarSusripcion.visibility = View.VISIBLE
+            binding.tvCancelarSusripcion.visibility = View.VISIBLE
         } else {
             enableButton(true)
             binding.btnSuscribirse.text = "Suscribirse"
-            binding.tvCalcelarSusripcion.visibility = View.GONE
+            binding.tvCancelarSusripcion.visibility = View.GONE
         }
         //Listeners
         //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
         binding.btnSuscribirse.setOnClickListener { Continue(1) }
-        binding.tvCalcelarSusripcion.setOnClickListener {
+        binding.tvCancelarSusripcion.setOnClickListener {
             Toast.makeText(
                 activityParent,
                 "Cancelar renovación automatica",

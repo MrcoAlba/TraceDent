@@ -1,18 +1,14 @@
 package the.goats.tracedent.views.fragments
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import com.google.gson.Gson
 import the.goats.tracedent.R
 import the.goats.tracedent.api.UserLoginResponse
-import the.goats.tracedent.databinding.FragmentRegisterG0Binding
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
+import the.goats.tracedent.views.fragments.Suscripcion.Suscripcion01Fragment
 
 class UsuarioFragment
     : BaseFragment<FragmentUsuarioBinding>(FragmentUsuarioBinding::inflate)

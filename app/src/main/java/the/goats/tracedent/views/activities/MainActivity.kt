@@ -34,6 +34,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        println(getSharedPreferences(getString(R.string.Shared_Preferences),0).getString(getString(R.string.SP_Patient_id),"sadasdasdsadasd"))
+
+
         transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
         containerView = binding.fcvMainActivity
         // NAVIGATION BAR

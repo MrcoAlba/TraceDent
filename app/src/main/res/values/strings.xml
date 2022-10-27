@@ -12,6 +12,7 @@
     <string name="SP_district">distrito</string>
     <string name="SP_direction">direccion</string>
     <string name="SP_phonenumber">numeroTelef</string>
+    <string name="SP_Patient_id">id_paciente</string>
 
     <string-array name="Genders">
         <item>Masculino</item>
