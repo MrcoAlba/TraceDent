@@ -17,6 +17,8 @@ import the.goats.tracedent.api.Login.Request.LoginPhase1
 import the.goats.tracedent.api.Login.Request.LoginPhase2
 import the.goats.tracedent.api.Login.Response.Phase1.LoginResponsePhase1
 import the.goats.tracedent.api.Login.Response.Phase1.LoginUserResponse
+import the.goats.tracedent.api.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
+import the.goats.tracedent.api.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
 import the.goats.tracedent.api.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
@@ -69,17 +71,18 @@ class LoginFragment
                         call: Call<LoginResponsePhase1>,
                         response: Response<LoginResponsePhase1>
                     ) {
+                        if (response.body() == null){
+                            showErrorCredentials()
+                            return
+                        }
+
                         val response = response.body() as LoginResponsePhase1
                         processLogin(response,email)
                     }
 
                     override fun onFailure(call: Call<LoginResponsePhase1>, t: Throwable) {
                         // If sign in fails, display a message to the user.
-                        println("Failure")
-                        Toast.makeText(
-                            activityParent, "Las credenciales no son válidas",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showErrorCredentials()
                     }
 
                 })
@@ -88,11 +91,7 @@ class LoginFragment
 
     private fun processLogin(response : LoginResponsePhase1, email: String){
         if(response.cod == 0 || response.response == null){
-            println("FAILLL")
-            Toast.makeText(
-                activityParent, "Las credenciales no son válidas",
-                Toast.LENGTH_SHORT
-            ).show()
+            showErrorCredentials()
             return
         }
 
@@ -102,12 +101,12 @@ class LoginFragment
             return
         }
 
-        val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+        if(response.response.user_type == "dentist"){
+            loginPhase2Dentist(response.response,email)
+            return
+        }
 
-        saveUserOnCellphone(response.response,email,prefs)
-
-        login.login2Main()
-
+        loginPhase2Clinic(response.response,email)
 
     }
 
@@ -136,6 +135,15 @@ class LoginFragment
         return false
     }
 
+    //Mostrar Toast Credenciales erroneas
+    private fun showErrorCredentials(){
+        println("FAILLL")
+        Toast.makeText(
+            activityParent, "Las credenciales no son válidas",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     //ForgottenPassword
     private fun forgottenPassword() {
         //Save in memory that client card view was pressed
@@ -162,6 +170,7 @@ class LoginFragment
             )
     }
 
+    //Login fase 2 paciente
     private fun loginPhase2Patient(user : LoginUserResponse,email:String){
         mService.logPatient(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponsePatient>{
 
@@ -170,13 +179,15 @@ class LoginFragment
                 response: Response<LoginPhase2ResponsePatient>
             ) {
 
+                if (response.body() == null){
+                    showErrorCredentials()
+                    return
+                }
+
                 val response = response.body() as LoginPhase2ResponsePatient
 
                 if(response.cod == 0 || response.response == null){
-                    Toast.makeText(
-                        activityParent, "Las credenciales no son válidas",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showErrorCredentials()
                     return
                 }
 
@@ -191,7 +202,92 @@ class LoginFragment
             }
 
             override fun onFailure(call: Call<LoginPhase2ResponsePatient>, t: Throwable) {
-                TODO("Not yet implemented")
+                showErrorCredentials()
+            }
+        })
+    }
+
+    //Login fase 2 dentist
+    private fun loginPhase2Dentist(user : LoginUserResponse,email:String){
+        mService.logDentist(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponseDentist>{
+
+            override fun onResponse(
+                call: Call<LoginPhase2ResponseDentist>,
+                response: Response<LoginPhase2ResponseDentist>
+            ) {
+
+                if (response.body() == null){
+                    showErrorCredentials()
+                    return
+                }
+
+                val response = response.body() as LoginPhase2ResponseDentist
+
+                if(response.cod == 0 || response.response == null){
+                    showErrorCredentials()
+                    return
+                }
+
+                val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+                saveUserOnCellphone(user,email,prefs)
+
+                with(prefs.edit()){
+                    putString(getString(R.string.SP_Dentist_id),response.response.id_dentist)
+                    putString(getString(R.string.SP_Dentist_ruc),response.response.ruc)
+                    putFloat(getString(R.string.SP_Dentist_rating),response.response.rating)
+                    commit()
+                }
+
+                login.login2Main()
+
+
+            }
+
+            override fun onFailure(call: Call<LoginPhase2ResponseDentist>, t: Throwable) {
+                showErrorCredentials()
+            }
+        })
+    }
+
+    //Login fase 2 clinic
+    private fun loginPhase2Clinic(user : LoginUserResponse,email:String){
+        mService.logClinic(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponseClinic>{
+
+            override fun onResponse(
+                call: Call<LoginPhase2ResponseClinic>,
+                response: Response<LoginPhase2ResponseClinic>
+            ) {
+
+                if (response.body() == null){
+                    showErrorCredentials()
+                    return
+                }
+
+                val response = response.body() as LoginPhase2ResponseClinic
+
+                if(response.cod == 0 || response.response == null){
+                    showErrorCredentials()
+                    return
+                }
+
+                val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+                saveUserOnCellphone(user,email,prefs)
+
+                with(prefs.edit()){
+                    putString(getString(R.string.SP_Clinic_id),response.response.id_clinic)
+                    putString(getString(R.string.SP_Clinic_ruc),response.response.ruc)
+                    putString(getString(R.string.SP_Clinic_companyName),response.response.company_name)
+                    putFloat(getString(R.string.SP_Clinic_rating),response.response.rating)
+                    commit()
+                }
+
+                login.login2Main()
+
+
+            }
+
+            override fun onFailure(call: Call<LoginPhase2ResponseClinic>, t: Throwable) {
+                showErrorCredentials()
             }
         })
     }

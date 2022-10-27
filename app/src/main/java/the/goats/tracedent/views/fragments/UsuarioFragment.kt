@@ -6,6 +6,7 @@ import the.goats.tracedent.R
 import the.goats.tracedent.api.UserLoginResponse
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
+import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 import the.goats.tracedent.views.fragments.Suscripcion.Suscripcion01Fragment
@@ -18,15 +19,14 @@ class UsuarioFragment
     private lateinit var activityParent : MainActivity
     private lateinit var user : UserLoginResponse
 
-
-
-
+    //Fragment Lifecycle
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Delegates
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
+        logout          =   requireActivity() as Credential.LogOut
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
@@ -38,6 +38,7 @@ class UsuarioFragment
         val suscripcion = prefs.getBoolean(getString(R.string.SP_estado_suscripcion),false)
         //Listeners
         binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
+        binding.btnCerrarSesion.setOnClickListener                    {  SignOut()          }
 
         if (tipo == "patient"){
             binding.btnSuscribirse.visibility = View.GONE
@@ -57,4 +58,18 @@ class UsuarioFragment
                 "UsuarioSuscripcion01Fragment"
             )
     }
+
+    private fun SignOut(){
+
+        val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+
+         if (prefs.edit().clear().commit()){
+             logout.Main2Login()
+         }
+
+
+
+    }
+
+
 }

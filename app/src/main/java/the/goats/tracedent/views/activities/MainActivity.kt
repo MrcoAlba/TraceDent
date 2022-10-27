@@ -42,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         containerView = binding.fcvMainActivity
         // NAVIGATION BAR
         binding.bottomNavigationView.setOnItemSelectedListener { selectNavigationOption(it) }
+
     }
     private fun selectNavigationOption(menuItem: MenuItem) : Boolean{
         val ft = supportFragmentManager.beginTransaction()
@@ -63,6 +64,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
+
+
     private fun GetRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://tracedent-api.herokuapp.com/api/")

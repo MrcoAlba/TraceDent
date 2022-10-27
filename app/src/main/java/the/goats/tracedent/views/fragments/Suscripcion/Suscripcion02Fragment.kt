@@ -196,14 +196,15 @@ class Suscripcion02Fragment
                 response: Response<SusResponse>
             ){
                 Log.i("onResponse","Se cambio el bool")
+                Continue(1)
+                saveSusOnCellphone()
             }
 
             override fun onFailure(call: Call<SusResponse>, t: Throwable) {
-                Log.i("gaaa!",t.message.toString())
+                Log.i("=============",t.message.toString())
             }
         })
-        Continue(1)
-        saveSusOnCellphone()
+
     }
     private fun Continue(option:Int){
         //Save in memory that client card view was pressed
