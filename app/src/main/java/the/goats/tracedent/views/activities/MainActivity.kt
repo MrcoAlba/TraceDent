@@ -24,7 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        transactionFirstAndMainFragment(MapFragment(), binding.fcvMainActivity)
+        transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
 
         containerView = binding.fcvMainActivity
 

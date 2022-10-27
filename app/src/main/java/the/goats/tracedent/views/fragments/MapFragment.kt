@@ -53,6 +53,17 @@ class MapFragment
         val camera_zoom = 15
     }
 
+    override fun onStart() {
+        super.onStart()
+        txtNombre = activityParent.findViewById(R.id.txtNombre)
+        txtDireccion = activityParent.findViewById(R.id.txtDireccion)
+        txtRating = activityParent.findViewById(R.id.txtRating)
+        butMasInfo = activityParent.findViewById(R.id.butMasInfo)
+        bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
+
+    }
+
+
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,6 +86,7 @@ class MapFragment
         butMasInfo = activityParent.findViewById(R.id.butMasInfo)
         bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
 
+        enableLocation()
 
     }
 
@@ -103,6 +115,8 @@ class MapFragment
         getAllDentistList()
         getAllClinicList()
 
+        Log.i("", "Se llega hasta aquí")
+
     }
 
 
@@ -113,8 +127,10 @@ class MapFragment
         if(!::gmMap.isInitialized) return
         if(isLocationPermissionGranted()) {
             gmMap.isMyLocationEnabled = true
+            gmMap.setOnMarkerClickListener(this)
         }else {
             requestLocationPermission()
+            gmMap.setOnMarkerClickListener(this)
         }
     }
 
@@ -152,6 +168,7 @@ class MapFragment
             Toast.makeText(activityParent.applicationContext, "Para activar la localización ve a ajustes y acepte los permisos",
             Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun onMyLocationButtonClick(): Boolean {

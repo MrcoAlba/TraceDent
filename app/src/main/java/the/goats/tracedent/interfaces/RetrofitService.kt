@@ -7,7 +7,7 @@ import the.goats.tracedent.model.Clinic
 import the.goats.tracedent.model.Dentist
 
 interface RetrofitService {
-    @GET("dentists/search?")
+    @GET("dentist/search?")
     fun getDentistsList(@Query("name")name:String): Call<MutableList<Dentist>>
     @GET("clinics/search?")
     fun getClinicList(@Query("company_name")name:String): Call<MutableList<Clinic>>
