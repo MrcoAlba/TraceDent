@@ -18,13 +18,13 @@ import the.goats.tracedent.databinding.ActivityMainBinding
 import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
+import the.goats.tracedent.views.fragments.AppointmentFragment
 import the.goats.tracedent.views.fragments.MapFragment
 import the.goats.tracedent.views.fragments.SearchFragment
 import the.goats.tracedent.views.fragments.UsuarioFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), Credential.LogOut {
 
-    private val searchFragment = SearchFragment()
     private val principalFragments : List<Fragment> = listOf(
         SearchFragment(),
         MapFragment(),
@@ -34,11 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        println(getSharedPreferences(getString(R.string.Shared_Preferences),0).getString(getString(R.string.SP_Patient_id),"sadasdasdsadasd"))
-
-
-        transactionFirstAndMainFragment(SearchFragment(), binding.fcvMainActivity)
+        transactionFirstAndMainFragment(MapFragment(), binding.fcvMainActivity)
         containerView = binding.fcvMainActivity
         // NAVIGATION BAR
         binding.bottomNavigationView.setOnItemSelectedListener { selectNavigationOption(it) }

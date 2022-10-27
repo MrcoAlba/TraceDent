@@ -21,6 +21,7 @@ class RegisterG6ClinicFragment
     //At the moment, they are null variables
     private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
+    private lateinit var user : Usuario
 
 
 
@@ -56,24 +57,21 @@ class RegisterG6ClinicFragment
         val mail = requireArguments().getString("correo")
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
-        val suscripcion = false
+        val phonenumber = binding.tietNum.text.toString()
         val id = auth.currentUser?.uid.toString()
-        val user = Usuario(id
-            , mail.toString()
-            , password.toString()
-            , option
-            , suscripcion)
+        val district = binding.tietDis.text.toString()
+        val address = binding.tietDir.text.toString()
+        user = Usuario(id,"clinic",phonenumber.toLong(),false,district, address, 15.0, 15.0)
+
         activityParent.CreacionUsuario(user)
     }
     private fun CreateClinic(){
         val mail = requireArguments().getString("correo").toString()
         val razon = binding.tietRsocial.text.toString()
-        val address = binding.tietDir.text.toString()
-        val disrict = binding.tietDis.text.toString()
-        val phonenumber = binding.tietNum.text.toString().toInt()
         val ruc = binding.tietRuc.text.toString().toLong()
         val id = auth.currentUser?.uid.toString()
-        val clinic = Clinic(id, mail, razon, address, disrict, phonenumber, ruc)
+        val rating = 0f
+        val clinic = Clinic(id, razon, ruc.toString(), rating, user)
         activityParent.CreateClinic(clinic)
     }
 

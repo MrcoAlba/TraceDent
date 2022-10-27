@@ -8,6 +8,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import the.goats.tracedent.api.Dentist
 import the.goats.tracedent.api.Usuario
+import the.goats.tracedent.api.Person
 import the.goats.tracedent.databinding.FragmentRegisterG4DentistBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
@@ -21,6 +22,8 @@ class RegisterG4DentistFragment
     //At the moment, they are null variables
     private lateinit var activityParent : LoginActivity
     private lateinit var auth: FirebaseAuth
+    private lateinit var user : Usuario
+    private lateinit var person: Person
 
 
 
@@ -50,21 +53,37 @@ class RegisterG4DentistFragment
             confirmar() }
         //Lifecycle necessary functions
         CreateUser()
+        CreatePerson()
     }
 
     private fun CreateUser(){
         val mail = requireArguments().getString("correo")
         val password = requireArguments().getString("password")
         val option = requireArguments().getInt("option")
-        val suscripcion = false
+        val phonenumber = binding.tietNumeroContacto.text.toString()
         val id = auth.currentUser?.uid.toString()
-        val user = Usuario(id
-            , mail.toString()
-            , password.toString()
-            , option
-            , suscripcion)
+        val district = binding.tietDisitrito.text.toString().uppercase()
+        val address = binding.tietDireccion.text.toString()
+        user = Usuario(id
+            , "dentist"
+            , phonenumber.toLong()
+            , false
+            , district
+            , address
+            , 15.0
+            , 15.0)
         activityParent.CreacionUsuario(user)
     }
+    private fun CreatePerson() {
+        val name = binding.tietNombre.text.toString()
+        val id = auth.currentUser?.uid.toString()
+        val lastname = binding.tietApellido.text.toString()
+        val gender = binding.tietGenero.text.toString()
+        val dni = binding.tietDni.text.toString()
+
+        person = Person(id,name, lastname, gender, dni.toLong(), user)
+    }
+
     private fun CreateDentist(){
         val mail = requireArguments().getString("correo").toString()
         val name = binding.tietNombre.text.toString()
@@ -75,7 +94,7 @@ class RegisterG4DentistFragment
         val dni = binding.tietDni.text.toString().toInt()
         val district = binding.tietDisitrito.text.toString().uppercase()
         val id = auth.currentUser?.uid.toString()
-        val dentist = Dentist(id, mail, name, lastname,address, district, phonenumber, gender, dni)
+        val dentist = Dentist(id, dni.toString(), 0f, person)
         activityParent.CreateDentist(dentist)
 
     }
