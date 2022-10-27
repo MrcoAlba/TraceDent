@@ -64,14 +64,15 @@ class SearchFragment
         layoutManager = LinearLayoutManager(requireContext())
         binding.rvListadodata.layoutManager = layoutManager
         binding.chipgroup.check(binding.chipDen.id)
-        choiceChips()
-        getAllDentistList()
-
         txtNombre = activityParent.findViewById(R.id.txtNombre)
         txtDireccion = activityParent.findViewById(R.id.txtDireccion)
         txtRating = activityParent.findViewById(R.id.txtRating)
         butMasInfo = activityParent.findViewById(R.id.butMasInfo)
         bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
+
+        getAllDentistList()
+        choiceChips()
+
     }
 
     private fun choiceChips(){
@@ -88,6 +89,7 @@ class SearchFragment
                         }
                     }else{
                         filtro="Dentistas"
+                        binding.chipgroup.check(binding.chipDen.id)
                         getAllDentistList()
                         Toast.makeText(context,
                             "Filtro vacio",
@@ -102,14 +104,17 @@ class SearchFragment
                 response: Response<MutableList<Dentist>>
             ) {
                 adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>) {
-                    getOnClickDentist(it)
+                    try {
+                        getOnClickDentist(it)
+                    }catch (ex : Exception){
+                        Toast.makeText(activityParent.baseContext, "No se encontro su busqueda",
+                            Toast.LENGTH_SHORT).show()}
                 }
                 adapter.notifyDataSetChanged()
                 binding.rvListadodata.adapter = adapter
             }
             override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                Log.e("gaaa!",t.message.toString())
             }
         })
     }
@@ -120,15 +125,18 @@ class SearchFragment
                 response: Response<MutableList<Clinic>>
             ) {
                 adapter2 = MyClinicAdapter(requireContext(), response.body() as List<Clinic>) {
-                    getOnClickClinic(it)
+                    try {
+                        getOnClickClinic(it)
+                    }catch (ex : Exception){
+                        Toast.makeText(activityParent.baseContext, "No se encontro su busqueda",
+                            Toast.LENGTH_SHORT).show()}
                 }
-                adapter.notifyDataSetChanged()
-                binding.rvListadodata.adapter = adapter
+                adapter2.notifyDataSetChanged()
+                binding.rvListadodata.adapter = adapter2
             }
 
             override fun onFailure(call: Call<MutableList<Clinic>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                Log.e("gaaa!", t.message.toString())
             }
         })
     }
@@ -140,14 +148,17 @@ class SearchFragment
                     response: Response<MutableList<Dentist>>
                 ) {
                     adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>) {
-                        getOnClickDentist(it)
+                        try {
+                            getOnClickDentist(it)
+                        }catch (ex : Exception){
+                            Toast.makeText(activityParent.baseContext, "No se encontro su busqueda",
+                                Toast.LENGTH_SHORT).show()}
                     }
                     adapter.notifyDataSetChanged()
                     binding.rvListadodata.adapter = adapter
                 }
 
                 override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                     Log.e("gaaa!", t.message.toString())
                 }
             })
@@ -159,14 +170,17 @@ class SearchFragment
                     response: Response<MutableList<Clinic>>
                 ) {
                     adapter2 = MyClinicAdapter(requireContext(), response.body() as List<Clinic>) {
-                        getOnClickClinic(it)
+                        try {
+                            getOnClickClinic(it)
+                        }catch (ex : Exception){
+                            Toast.makeText(activityParent.baseContext, "No se encontro su busqueda",
+                                Toast.LENGTH_SHORT).show()}
                     }
-                    adapter.notifyDataSetChanged()
-                    binding.rvListadodata.adapter = adapter
+                    adapter2.notifyDataSetChanged()
+                    binding.rvListadodata.adapter = adapter2
                 }
 
                 override fun onFailure(call: Call<MutableList<Clinic>>, t: Throwable) {
-                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                     Log.e("gaaa!", t.message.toString())
                 }
             })
@@ -179,10 +193,9 @@ class SearchFragment
         txtNombre.text = infoPerson!!.first_name + " " + infoPerson!!.last_name
         txtDireccion.text = infoUser!!.direction
         txtRating.text = info.rating.toString()
-        butMasInfo.setOnClickListener{
+        /*butMasInfo.setOnClickListener{*/
             val bundle : Bundle = Bundle()
             bundle.putString("id", info.id_dentist)
-            bundle.putString("first_name", infoPerson.first_name)
             bundle.putString("first_name", infoPerson.first_name)
             bundle.putString("last_name", infoPerson.last_name)
             bundle.putString("direction", txtDireccion.text.toString())
@@ -199,17 +212,13 @@ class SearchFragment
                 activityParent.containerView,
                 "MapFragment2InfoDentistFragment"
             )
-        }
-        println("siuuuuu")
+        /*}
         if(bottomSheetFragment.visibility == View.VISIBLE) {
             bottomSheetFragment.visibility = View.GONE
-            println("siuuuuu2222222")
         }
         else{
             bottomSheetFragment.visibility = View.VISIBLE
-            println("siuuuuu33333")
-        }
-        println("nouuuuuuuuuu")
+        }*/
     }
     private fun getOnClickClinic(it:Clinic){
         val info : Clinic = it as Clinic
@@ -217,7 +226,7 @@ class SearchFragment
         txtNombre.text = info.company_name
         txtDireccion.text = infoUser!!.direction
         txtRating.text = info.rating.toString()
-        butMasInfo.setOnClickListener{
+        /*butMasInfo.setOnClickListener{*/
             val bundle : Bundle = Bundle()
             bundle.putString("id", info.id_clinic)
             bundle.putString("company_name",info.company_name )
@@ -233,13 +242,13 @@ class SearchFragment
                 activityParent.containerView,
                 "MapFragment2InfoDentistFragment"
             )
-        }
+        /*}
         if(bottomSheetFragment.visibility == View.VISIBLE) {
             bottomSheetFragment.visibility = View.GONE
         }
         else{
             bottomSheetFragment.visibility = View.VISIBLE
-        }
+        }*/
     }
     override fun onQueryTextSubmit(query: String?): Boolean {
         getTheList(query?:"")

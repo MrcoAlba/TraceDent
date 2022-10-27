@@ -2,15 +2,21 @@ package the.goats.tracedent.views.fragments
 
 /*import android.R*/
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentAppointmentBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
+import the.goats.tracedent.interfaces.RetrofitService
+import the.goats.tracedent.model.Dentist
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 import java.util.*
@@ -25,6 +31,9 @@ class AppointmentFragment
     private var dia : Int =-1
     private var mes : Int =-1
     private var año : Int =-1
+    private var fecha: String = ""
+    private lateinit var dentistaelegido: Dentist
+    private lateinit var mService : RetrofitService
     private var filtro: String = "vacio"
     private val especialidades:MutableList<String> = mutableListOf()
     private val especialidadesFijas:List<String> = listOf("Cirugia","Diseño de sonrisa","Odontologia")
@@ -65,51 +74,68 @@ class AppointmentFragment
 
         //Firebase Analytics
         analyticEvent(requireActivity(), "AppointmentFragment", "onViewCreated")
-        especialidad()
         dentista()
 
-
-        //darle logica con lo de X tmb
-        //binding.btnDate.isClickable=true
-        //binding.btnDate.isEnabled=true
         binding.btnDate.setOnClickListener{showDatePickerFragment()}
+        binding.btnReservar.setOnClickListener {Toast.makeText(activityParent.baseContext,"Reserva exitosa",Toast.LENGTH_SHORT).show()}
 
-    }
-
-    private fun especialidad() {
-        especialidades.add("Odontologia")
-        especialidades.add("Cirugia")
-        especialidades.add("Diseño de sonrisa")
-        /*for (x:Int in 0 .. especialidadesFijas.size){
-            //condicion de get
-            if (especialidadesFijas[x]=="aa"){
-                especialidades.add(horas[x])
-            }
-        }*/
-
-        val adapters=ArrayAdapter(activityParent.baseContext, android.R.layout.simple_spinner_dropdown_item,especialidades)
-        binding.autoCompleteTextView.setAdapter(adapters)
-        binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
-        Toast.makeText(context,
-            adapterView.getItemAtPosition(i).toString(),
-            Toast.LENGTH_SHORT).show()
-        }
     }
     private fun dentista() {
-        dentistas.add("Franco")
-        dentistas.add("Marco")
-        dentistas.add("Matias")
-        /*for (x:Int in 0 .. dentistas.size){
-            dentistas.add(horas[x])
-        }*/
+        mService.getTheDentistsInAClinic(requireArguments().getString("id")!!).enqueue(object : Callback<MutableList<Dentist>> {
+            override fun onResponse(
+                call: Call<MutableList<Dentist>>,
+                response: Response<MutableList<Dentist>>) {
+                val dentista: MutableList<Dentist> = response.body()!!
+                val nombredentista:MutableList<String> = mutableListOf()
+                for (x:Int in 0 .. dentista.size){
+                    nombredentista.add(dentista[x].person?.first_name.toString())
+                }
+                val adapters = ArrayAdapter(
+                    activityParent.baseContext,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    nombredentista
+                )
+                binding.autoCompleteTextView2.setAdapter(adapters)
+                binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
+                    binding.autoCompleteTextView.isClickable=true
+                    binding.autoCompleteTextView.isEnabled=true
+                    especialidad(dentista[i])
+                }
+            }
+            override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+                binding.autoCompleteTextView.isClickable=false
+                binding.autoCompleteTextView.isEnabled=false
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e("gaaa!", t.message.toString())
+            }
+        })
+    }
 
-        val adapters=ArrayAdapter(activityParent.baseContext, android.R.layout.simple_spinner_dropdown_item,dentistas)
-        binding.autoCompleteTextView2.setAdapter(adapters)
-        binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
-            Toast.makeText(context,
-                adapterView.getItemAtPosition(i).toString(),
-                Toast.LENGTH_SHORT).show()
-        }
+    private fun especialidad(dentista:Dentist) {
+        dentistaelegido= dentista
+        mService.getTheEspecialidadInADentists(dentista.id_dentist!!).enqueue(object : Callback<MutableList<String>> {
+            override fun onResponse(
+                call: Call<MutableList<String>>,
+                response: Response<MutableList<String>>) {
+                val especialidad: MutableList<String> = response.body()!!
+                val adapters = ArrayAdapter(
+                    activityParent.baseContext,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    especialidad
+                )
+                binding.autoCompleteTextView.setAdapter(adapters)
+                binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+                    binding.btnDate.isClickable=true
+                    binding.btnDate.isEnabled=true
+                }
+            }
+            override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                binding.btnDate.isClickable=true
+                binding.btnDate.isEnabled=true
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e("gaaa!", t.message.toString())
+            }
+        })
     }
 
 
@@ -124,17 +150,29 @@ class AppointmentFragment
         dia=day
         mes=month2
         año=year
+        fecha="$day/$month2/$year"
         binding.txtfecha.visibility = View.VISIBLE
-        //request get para inflar el horasdisponibles
-        /*for (x:Int in 0 .. horas.size){
-            //condicion de get
-            if (horas[x]=="aa"){
-                horasdisponibles.add(horas[x])
-            }
-        }*/
 
-        //deberia inflarse con lo de horasdisponibles, CAMBIAR LUEGO
-        for (myString2 in horas/*debe ser horasdispinibles*/){
+        mService.getTheScheduleOfAClinicDentistById(requireArguments().getString("id")!!,dentistaelegido.id_dentist!!,fecha).enqueue(object : Callback<MutableList<String>> {
+            override fun onResponse(
+                call: Call<MutableList<String>>,
+                response: Response<MutableList<String>>) {
+                val captador: MutableList<String> = response.body()!!
+                for (x:Int in 0 .. horas.size){
+                    for (n:Int in 0 .. captador.size){
+                        if (x.toString()==captador[n]){
+                            horasdisponibles.add(horas[x])
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e("gaaa!", t.message.toString())
+            }
+        })
+
+        for (myString2 in horasdisponibles) {
             createchoiceChips(myString2)
         }
         choiceChips()

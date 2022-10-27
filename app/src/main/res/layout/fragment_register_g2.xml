@@ -103,7 +103,6 @@
         android:enabled="false"
         android:gravity="center"
         android:text="Crear cuenta"
-        android:textSize="16dp"
         android:textStyle="bold"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toTopOf="@id/tv_go_back"

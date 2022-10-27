@@ -48,6 +48,8 @@
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="false"
+                android:enabled="false"
                 android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -67,8 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="fecha"
-        android:clickable="true"
-        android:enabled="true"
+        android:clickable="false"
+        android:enabled="false"
         app:icon="@drawable/ic_baseline_calendar_today_24"
         app:iconGravity="end"
         android:textSize="16dp"
@@ -130,7 +132,8 @@
         android:layout_margin="15dp"
         android:text="GUARDAR CITA"
         android:textSize="16dp"
-
+        android:clickable="false"
+        android:enabled="false"
         android:textStyle="bold"
         app:cornerRadius="30dp"
         app:layout_constraintStart_toStartOf="parent"

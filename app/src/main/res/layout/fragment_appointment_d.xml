@@ -15,26 +15,20 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="15dp"
         >
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/autoCompleteDen"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txtNombreDentista"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="NOMBRE DE DENTISTA"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/autoCompleteEsp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:hint="Seleccione un dentista"
-            app:endIconMode="clear_text"
-            >
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="none"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+            />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/autoCompleteEsp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -44,13 +38,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoCompleteDen"
-            android:hint="Seleccione una especialidad"
-            app:endIconMode="clear_text">
+            app:layout_constraintTop_toBottomOf="@+id/txtNombreDentista"
+            android:hint="Seleccione una especialidad">
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="false"
+                android:enabled="false"
                 android:inputType="none"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -70,8 +65,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="fecha"
-            android:clickable="true"
-            android:enabled="true"
+            android:clickable="false"
+            android:enabled="false"
             app:icon="@drawable/ic_baseline_calendar_today_24"
             app:iconGravity="end"
             android:textSize="16dp"
@@ -109,7 +104,6 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_margin="15dp"
-            android:layout_marginTop="5dp"
             android:scrollbars="none"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/btn_reservar"
@@ -121,82 +115,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:singleSelection="true"
-                android:layout_margin="15dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom2"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom3"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom4"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom5"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom6"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom7"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom8"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom0"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNom9"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="12dp" />
-
             </com.google.android.material.chip.ChipGroup>
         </ScrollView>
         <com.google.android.material.button.MaterialButton
@@ -206,6 +128,7 @@
             android:layout_margin="15dp"
             android:text="GUARDAR CITA"
             android:textSize="16dp"
+
             android:textStyle="bold"
             app:cornerRadius="30dp"
             app:layout_constraintStart_toStartOf="parent"

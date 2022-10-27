@@ -20,8 +20,22 @@ class InfoClinicFragment : BaseFragment<FragmentInfoClinicBinding>(FragmentInfoC
         super.onViewCreated(view, savedInstanceState)
         communicator    =   requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
+        val bundle : Bundle = Bundle()
+        bundle.putString("id", requireArguments().getString("id"))
+        bundle.putString("company_name", requireArguments().getString("company_name"))
+        bundle.putString("direction", requireArguments().getString("direction"))
+        bundle.putString("rating", requireArguments().getString("rating"))
+        bundle.putString("phone_number", requireArguments().getString("phone_number"))
+        bundle.putString("district", requireArguments().getString("district"))
+        bundle.putString("ruc", requireArguments().getString("ruc"))
 
-        binding.butReservarClinica.setOnClickListener      { }
+        binding.butReservarClinica.setOnClickListener      {
+            communicator.goToAnotherFragment(
+            bundle,
+            AppointmentFragment(),
+            activityParent.containerView,
+            "AppointmentFragment")
+        }
         binding.butRegresarClinica.setOnClickListener      { activityParent.onBackPressed() }
         fill()
     }

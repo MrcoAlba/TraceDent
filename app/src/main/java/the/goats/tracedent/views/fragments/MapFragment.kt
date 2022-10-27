@@ -78,9 +78,6 @@ class MapFragment
 
     }
 
-
-
-
     private fun createFragment(){
         try {
             val supportMapFragment =
@@ -90,8 +87,6 @@ class MapFragment
             Log.e(TAG, "onCreateView", e);
             throw e;
         }
-       // bottomSheetFragment = BottomSheetFragment()
-
     }
     override fun onMapReady(googleMap: GoogleMap) {
         gmMap = googleMap
