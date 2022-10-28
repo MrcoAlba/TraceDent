@@ -60,7 +60,7 @@ interface RetrofitService {
     fun getAllClinicsList(): Call<MutableList<Clinic>>
 
     @GET("clinic/recruit/")
-    fun getTheDentistsInAClinic(@Query("id")id:String): Call<MutableList<Dentist>>
+    fun getTheDentistsInAClinic(@Query("id")id:String): Call<MutableList<Recruitment>>
 
     @GET("dentist/speciality/")
     fun getTheEspecialidadInADentists(@Query("id")id_dentist:String): Call<MutableList<String>>

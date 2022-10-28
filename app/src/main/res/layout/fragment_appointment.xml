@@ -48,7 +48,8 @@
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:clickable="false"
+                android:enabled="false"
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -67,8 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="fecha"
-        android:clickable="false"
-        android:enabled="false"
+
         app:icon="@drawable/ic_baseline_calendar_today_24"
         app:iconGravity="end"
         android:textSize="16dp"

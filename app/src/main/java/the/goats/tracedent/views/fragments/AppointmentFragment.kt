@@ -17,6 +17,7 @@ import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.api.Dentist
+import the.goats.tracedent.api.Recruitment
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
@@ -84,14 +85,83 @@ class AppointmentFragment
 
     }
     private fun dentista() {
-        mService.getTheDentistsInAClinic(requireArguments().getString("id")!!).enqueue(object : Callback<MutableList<Dentist>> {
+
+        val nombredentista:MutableList<String> = mutableListOf()
+        nombredentista.add("NOMBRE02")
+        nombredentista.add("NOMBRE02")
+        val adapters = ArrayAdapter(
+            activityParent.baseContext,
+            android.R.layout.simple_spinner_dropdown_item,
+            nombredentista
+        )
+        binding.autoCompleteTextView2.setAdapter(adapters)
+        binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
+            binding.autoCompleteTextView.isClickable=true
+            binding.autoCompleteTextView.isEnabled=true
+            especialidad2()
+        }
+        mService.getTheDentistsInAClinic("84fbc310-5639-11ed-916a-4bf9f16e0836").enqueue(object : Callback<MutableList<Recruitment>> {
             override fun onResponse(
-                call: Call<MutableList<Dentist>>,
-                response: Response<MutableList<Dentist>>) {
-                val dentista: MutableList<Dentist> = response.body()!!
+                call: Call<MutableList<Recruitment>>,
+                response: Response<MutableList<Recruitment>>
+            ) {
+                try {
+                    val dentista: List<Recruitment> = response.body() as List<Recruitment>
+                    val nombredentista:MutableList<String> = mutableListOf()
+                    for (x:Int in 0 .. dentista.size){
+                        nombredentista.add(dentista[x].dentist.person?.first_name.toString())
+                    }
+                    val adapters = ArrayAdapter(
+                        activityParent.baseContext,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        nombredentista
+                    )
+                    binding.autoCompleteTextView2.setAdapter(adapters)
+                    binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
+                        binding.autoCompleteTextView.isClickable=true
+                        binding.autoCompleteTextView.isEnabled=true
+                        especialidad(dentista[i].dentist)
+                    }
+                }catch(e: Exception) {
+                    println(response.body())
+                    println(e.message)
+                }
+
+
+            }
+            override fun onFailure(call: Call<MutableList<Recruitment>>, t: Throwable) {
+                binding.autoCompleteTextView.isClickable=false
+                binding.autoCompleteTextView.isEnabled=false
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e("gaaa!", t.message.toString())
+            }
+        })
+    }
+    private fun especialidad2() {
+        val especialidad: MutableList<String> = mutableListOf("Odontologia", "Diseño de sonrisa","Cirugia")
+        val adapters = ArrayAdapter(
+            activityParent.baseContext,
+            android.R.layout.simple_spinner_dropdown_item,
+            especialidad
+        )
+        binding.autoCompleteTextView.setAdapter(adapters)
+        binding.autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
+            binding.btnDate.isClickable = true
+            binding.btnDate.isEnabled = true
+        }
+    }
+
+
+    /*private fun dentista() {
+        mService.getTheDentistsInAClinic("84fbc310-5639-11ed-916a-4bf9f16e0836").enqueue(object : Callback<MutableList<Recruitment>> {
+            override fun onResponse(
+                call: Call<MutableList<Recruitment>>,
+                response: Response<MutableList<Recruitment>>
+            ) {
+                val dentista: MutableList<Recruitment> = response.body()!!
                 val nombredentista:MutableList<String> = mutableListOf()
                 for (x:Int in 0 .. dentista.size){
-                    nombredentista.add(dentista[x].person?.first_name.toString())
+                    nombredentista.add(dentista[x].dentist.person?.first_name.toString())
                 }
                 val adapters = ArrayAdapter(
                     activityParent.baseContext,
@@ -102,10 +172,11 @@ class AppointmentFragment
                 binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
                     binding.autoCompleteTextView.isClickable=true
                     binding.autoCompleteTextView.isEnabled=true
-                    especialidad(dentista[i])
+                    especialidad(dentista[i].dentist)
                 }
+
             }
-            override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<Recruitment>>, t: Throwable) {
                 binding.autoCompleteTextView.isClickable=false
                 binding.autoCompleteTextView.isEnabled=false
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
@@ -113,7 +184,7 @@ class AppointmentFragment
             }
         })
     }
-
+*/
     private fun especialidad(dentista:Dentist) {
         val especialidad: MutableList<String> = mutableListOf("Odontologia","Diseño de sonrisa")
         val adapters = ArrayAdapter(
@@ -133,6 +204,7 @@ class AppointmentFragment
                 response: Response<MutableList<String>>) {
                 val especialidad: MutableList<String> = response.body()!!
                 especialidad.add("Odontologia")
+                especialidad.add("Diseño de sonrisa")
                 val adapters = ArrayAdapter(
                     activityParent.baseContext,
                     android.R.layout.simple_spinner_dropdown_item,

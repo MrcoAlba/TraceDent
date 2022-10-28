@@ -134,7 +134,7 @@ class SearchFragment
                 }
             }
             override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+
             }
         })
     }
@@ -163,7 +163,7 @@ class SearchFragment
             }
 
             override fun onFailure(call: Call<MutableList<Clinic>>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+
             }
         })
     }

@@ -98,8 +98,8 @@ class AppointmentDFragment
             override fun onResponse(
                 call: Call<MutableList<Dentist>>,
                 response: Response<MutableList<Dentist>>) {
-                /*val dentista: MutableList<Dentist> = response.body()!!
-                especialidad(dentista[0])*/
+                val dentista: MutableList<Dentist> = response.body()!!
+                especialidad(dentista[0])
                 println(response.body())
             }
             override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
