@@ -14,6 +14,7 @@ import the.goats.tracedent.api.OLDAPI.Login.Response.Phase1.LoginResponsePhase1
 import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
 import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
 import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
+import the.goats.tracedent.api.nuevoApi.NewApiResponse
 import the.goats.tracedent.model.UserPostLogin
 import the.goats.tracedent.model.UserSuscription
 
@@ -51,8 +52,12 @@ interface RetrofitService {
     //RESERVAS Y MAP
     @GET("clinics/search?")
     fun getClinicList(@Query("company_name")name:String): Call<MutableList<Clinic>>
-    @GET("dentist")
-    fun getAllDentistsList(): Call<MutableList<Dentist>>
+    @GET("dentist?")
+    fun getAllDentistsList(@Query("offset")offset:String,
+                           @Query("limit")limit:String,
+                           @Query("name")name:String,
+                           @Query("latitude")latitude: String,
+                           @Query("longitude")longitude: String): Call<NewApiResponse<Dentist>>
     @GET("clinic")
     fun getAllClinicsList(): Call<MutableList<Clinic>>
 

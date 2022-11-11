@@ -25,6 +25,7 @@ import the.goats.tracedent.api.OLDAPI.Clinic
 import the.goats.tracedent.api.OLDAPI.Dentist
 import the.goats.tracedent.api.OLDAPI.Person
 import the.goats.tracedent.api.OLDAPI.Usuario
+import the.goats.tracedent.api.nuevoApi.NewApiResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentMapBinding
 import the.goats.tracedent.interfaces.Communicator
@@ -180,17 +181,17 @@ class MapFragment
     }
 
     private fun getAllDentistList() {
-        mService.getAllDentistsList().enqueue(object: Callback<MutableList<Dentist>> {
+        mService.getAllDentistsList(limit = "30", offset = "0", name = "", latitude = "", longitude = "").enqueue(object: Callback<NewApiResponse<Dentist>> {
             override fun onResponse(
-                call: Call<MutableList<Dentist>>,
-                response: Response<MutableList<Dentist>>
+                call: Call<NewApiResponse<Dentist>>,
+                response: Response<NewApiResponse<Dentist>>
             ) {
                 Log.i(null, "Se llego hasta aqui")
                 Log.i(null, response.body().toString())
                 createMarkers(response.body()!!)
             }
 
-            override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+            override fun onFailure(call: Call<NewApiResponse<Dentist>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.e("gaaa!",t.message.toString())
             }
@@ -227,7 +228,9 @@ class MapFragment
         }
     }
 
-    private fun createMarkers(list : MutableList<Dentist>) {
+    private fun createMarkers(response : NewApiResponse<Dentist>) {
+        val list = response.data
+
         list.map {
             val coordinates = LatLng(it.person!!.user!!.latitude!!, it.person!!.user!!.longitude!!)
             val marker = MarkerOptions().position(coordinates).title(it.person!!.first_name + " " + it.person!!.last_name)

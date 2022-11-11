@@ -24,6 +24,7 @@ import the.goats.tracedent.api.OLDAPI.Clinic
 import the.goats.tracedent.api.OLDAPI.Dentist
 import the.goats.tracedent.api.OLDAPI.Person
 import the.goats.tracedent.api.OLDAPI.Usuario
+import the.goats.tracedent.api.nuevoApi.NewApiResponse
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -110,10 +111,10 @@ class SearchFragment
             }
     }
     private fun getAllDentistList() {
-        mService.getAllDentistsList().enqueue(object: Callback<MutableList<Dentist>> {
+        mService.getAllDentistsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object: Callback<NewApiResponse<Dentist>> {
             override fun onResponse(
-                call: Call<MutableList<Dentist>>,
-                response: Response<MutableList<Dentist>>
+                call: Call<NewApiResponse<Dentist>>,
+                response: Response<NewApiResponse<Dentist>>
             ) {
                 try {
                     adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>) {
@@ -133,7 +134,7 @@ class SearchFragment
 
                 }
             }
-            override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
+            override fun onFailure(call: Call<NewApiResponse<Dentist>>, t: Throwable) {
 
             }
         })
