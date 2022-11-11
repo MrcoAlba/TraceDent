@@ -3,8 +3,6 @@ package the.goats.tracedent.views.fragments
 import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +10,6 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -24,11 +21,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.adapter.MyDentistAdapter
-import the.goats.tracedent.api.Clinic
-import the.goats.tracedent.api.Dentist
-import the.goats.tracedent.api.Person
-import the.goats.tracedent.api.Usuario
+import the.goats.tracedent.api.OLDAPI.Clinic
+import the.goats.tracedent.api.OLDAPI.Dentist
+import the.goats.tracedent.api.OLDAPI.Person
+import the.goats.tracedent.api.OLDAPI.Usuario
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentMapBinding
 import the.goats.tracedent.interfaces.Communicator

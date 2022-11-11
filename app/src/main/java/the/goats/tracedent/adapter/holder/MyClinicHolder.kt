@@ -3,8 +3,7 @@ package the.goats.tracedent.adapter.holder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import the.goats.tracedent.databinding.ItemDentistBinding
-import the.goats.tracedent.api.Clinic
-import the.goats.tracedent.api.Dentist
+import the.goats.tracedent.api.OLDAPI.Clinic
 
 class MyClinicHolder (
     view: View

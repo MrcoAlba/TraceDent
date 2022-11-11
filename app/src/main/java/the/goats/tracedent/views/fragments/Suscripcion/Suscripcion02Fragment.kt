@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.SusResponse
+import the.goats.tracedent.api.OLDAPI.SusResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentSuscripcion02Binding
 import the.goats.tracedent.interfaces.Communicator

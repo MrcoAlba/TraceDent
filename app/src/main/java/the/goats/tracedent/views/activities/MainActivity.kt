@@ -1,24 +1,16 @@
 package the.goats.tracedent.views.activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import the.goats.tracedent.R
-import the.goats.tracedent.api.DefaultResponse
 import the.goats.tracedent.databinding.ActivityMainBinding
-import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.base.BaseActivity
-import the.goats.tracedent.views.fragments.AppointmentFragment
 import the.goats.tracedent.views.fragments.MapFragment
 import the.goats.tracedent.views.fragments.SearchFragment
 import the.goats.tracedent.views.fragments.UsuarioFragment

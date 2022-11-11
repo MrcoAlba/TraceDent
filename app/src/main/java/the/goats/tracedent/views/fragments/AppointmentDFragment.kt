@@ -1,38 +1,23 @@
 package the.goats.tracedent.views.fragments
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import the.goats.tracedent.R
-import the.goats.tracedent.api.Dentist
+import the.goats.tracedent.api.OLDAPI.Dentist
 import the.goats.tracedent.common.Common
-import the.goats.tracedent.databinding.FragmentAppointmentBinding
 import the.goats.tracedent.databinding.FragmentAppointmentDBinding
-import the.goats.tracedent.databinding.FragmentLoginBinding
-import the.goats.tracedent.databinding.FragmentSearchBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.views.activities.LoginActivity
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
-import java.util.*
 
 
 class AppointmentDFragment

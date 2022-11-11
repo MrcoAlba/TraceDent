@@ -11,17 +11,15 @@ import com.google.android.material.chip.ChipDrawable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import the.goats.tracedent.R
 import the.goats.tracedent.databinding.FragmentAppointmentBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.api.Dentist
-import the.goats.tracedent.api.Recruitment
+import the.goats.tracedent.api.OLDAPI.Dentist
+import the.goats.tracedent.api.OLDAPI.Recruitment
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
-import java.util.*
 
 
 class AppointmentFragment
@@ -185,7 +183,7 @@ class AppointmentFragment
         })
     }
 */
-    private fun especialidad(dentista:Dentist) {
+    private fun especialidad(dentista: Dentist) {
         val especialidad: MutableList<String> = mutableListOf("Odontologia","Diseño de sonrisa")
         val adapters = ArrayAdapter(
             activityParent.baseContext,

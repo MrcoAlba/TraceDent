@@ -1,4 +1,4 @@
-package the.goats.tracedent.api
+package the.goats.tracedent.api.OLDAPI
 
 data class Dentist (
     val id_dentist: String,

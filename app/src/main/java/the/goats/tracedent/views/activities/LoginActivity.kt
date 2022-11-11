@@ -14,7 +14,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import the.goats.tracedent.R
-import the.goats.tracedent.api.*
+import the.goats.tracedent.api.OLDAPI.*
 import the.goats.tracedent.databinding.ActivityLoginBinding
 import the.goats.tracedent.interfaces.ApiService
 import the.goats.tracedent.interfaces.Credential

@@ -3,7 +3,7 @@ package the.goats.tracedent.views.fragments
 import android.os.Bundle
 import android.view.View
 import the.goats.tracedent.R
-import the.goats.tracedent.api.UserLoginResponse
+import the.goats.tracedent.api.OLDAPI.UserLoginResponse
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential

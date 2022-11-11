@@ -20,10 +20,10 @@ import the.goats.tracedent.databinding.FragmentSearchBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.api.Clinic
-import the.goats.tracedent.api.Dentist
-import the.goats.tracedent.api.Person
-import the.goats.tracedent.api.Usuario
+import the.goats.tracedent.api.OLDAPI.Clinic
+import the.goats.tracedent.api.OLDAPI.Dentist
+import the.goats.tracedent.api.OLDAPI.Person
+import the.goats.tracedent.api.OLDAPI.Usuario
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -229,7 +229,7 @@ class SearchFragment
             })
         }
     }
-    private fun getOnClickDentist(it:Dentist){
+    private fun getOnClickDentist(it: Dentist){
         try {
             val info: Dentist = it
             val infoPerson: Person? = it.person
@@ -267,7 +267,7 @@ class SearchFragment
             bottomSheetFragment.visibility = View.VISIBLE
         }*/
     }
-    private fun getOnClickClinic(it:Clinic){
+    private fun getOnClickClinic(it: Clinic){
         try {
             val info: Clinic = it
             val infoUser: Usuario? = it.user

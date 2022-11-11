@@ -1,4 +1,4 @@
-package the.goats.tracedent.api.Login.Response.Phase1
+package the.goats.tracedent.api.OLDAPI.Login.Response.Phase1
 
 data class LoginUserResponse(
     val id_user : String,

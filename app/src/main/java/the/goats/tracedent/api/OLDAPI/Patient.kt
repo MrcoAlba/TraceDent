@@ -1,4 +1,4 @@
-package the.goats.tracedent.api
+package the.goats.tracedent.api.OLDAPI
 
 data class Patient(
     val _id: String,

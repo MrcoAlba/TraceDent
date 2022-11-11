@@ -1,6 +1,5 @@
 package the.goats.tracedent.views.fragments.Login
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
@@ -13,13 +12,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.Login.Request.LoginPhase1
-import the.goats.tracedent.api.Login.Request.LoginPhase2
-import the.goats.tracedent.api.Login.Response.Phase1.LoginResponsePhase1
-import the.goats.tracedent.api.Login.Response.Phase1.LoginUserResponse
-import the.goats.tracedent.api.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
-import the.goats.tracedent.api.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
-import the.goats.tracedent.api.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
+import the.goats.tracedent.api.OLDAPI.Login.Request.LoginPhase1
+import the.goats.tracedent.api.OLDAPI.Login.Request.LoginPhase2
+import the.goats.tracedent.api.OLDAPI.Login.Response.Phase1.LoginResponsePhase1
+import the.goats.tracedent.api.OLDAPI.Login.Response.Phase1.LoginUserResponse
+import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
+import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
+import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.interfaces.Communicator
@@ -171,7 +170,7 @@ class LoginFragment
     }
 
     //Login fase 2 paciente
-    private fun loginPhase2Patient(user : LoginUserResponse,email:String){
+    private fun loginPhase2Patient(user : LoginUserResponse, email:String){
         mService.logPatient(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponsePatient>{
 
             override fun onResponse(
@@ -208,7 +207,7 @@ class LoginFragment
     }
 
     //Login fase 2 dentist
-    private fun loginPhase2Dentist(user : LoginUserResponse,email:String){
+    private fun loginPhase2Dentist(user : LoginUserResponse, email:String){
         mService.logDentist(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponseDentist>{
 
             override fun onResponse(
@@ -250,7 +249,7 @@ class LoginFragment
     }
 
     //Login fase 2 clinic
-    private fun loginPhase2Clinic(user : LoginUserResponse,email:String){
+    private fun loginPhase2Clinic(user : LoginUserResponse, email:String){
         mService.logClinic(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponseClinic>{
 
             override fun onResponse(
@@ -293,7 +292,7 @@ class LoginFragment
     }
 
 
-    private fun saveUserOnCellphone(user : LoginUserResponse, email:String,prefs : SharedPreferences){
+    private fun saveUserOnCellphone(user : LoginUserResponse, email:String, prefs : SharedPreferences){
         with(prefs.edit()){
             putString(getString(R.string.SP_idUsuario),user.id_user)
             putString(getString(R.string.SP_user_type),user.user_type)

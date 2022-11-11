@@ -1,4 +1,4 @@
-package the.goats.tracedent.api.Login.Response.Phase2.Patient
+package the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Patient
 
 data class LoginPhase2ResponsePatient (
     val cod : Int,
