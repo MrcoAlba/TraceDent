@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.fragments.RegisterG3ClientFragment">
+    tools:context=".views.fragments.Register.RegisterG3ClientFragment">
 
     <TextView
         android:id="@+id/tv_textoInicialG5_2"
@@ -221,7 +221,6 @@
         android:id="@+id/but_confirmar_G5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
         android:text="CONFIRMAR"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -233,7 +232,6 @@
         android:id="@+id/buttonReturn_G5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
         android:text="REGRESAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

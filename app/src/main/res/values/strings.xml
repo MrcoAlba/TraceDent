@@ -4,6 +4,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nuevo_cliente">Nuevo Cliente</string>
     <string name="nuevo_dentista">Nuevo Dentista</string>
+    <string name="Shared_Preferences">"TraceDentApp.IW2</string>
+    <string name="SP_idUsuario">idUsuario</string>
+    <string name="SP_estado_suscripcion">suscripcion</string>
+    <string name="SP_user_type">tipo_usuario</string>
+    <string name="SP_mail">mail</string>
+    <string name="SP_district">distrito</string>
+    <string name="SP_direction">direccion</string>
+    <string name="SP_phonenumber">numeroTelef</string>
+    <string name="SP_Patient_id">id_paciente</string>
+    <string name="SP_Dentist_id">id_dentista</string>
+    <string name="SP_Dentist_ruc">ruc_dentista</string>
+    <string name="SP_Dentist_rating">rating_dentista</string>
+    <string name="SP_Clinic_id">id_clinica</string>
+    <string name="SP_Clinic_companyName">razon_social</string>
+    <string name="SP_Clinic_rating">rating_clinica</string>
+    <string name="SP_Clinic_ruc">ruc_clinica</string>
 
     <string-array name="Genders">
         <item>Masculino</item>
