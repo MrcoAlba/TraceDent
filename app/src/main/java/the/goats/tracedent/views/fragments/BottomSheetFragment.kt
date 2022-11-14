@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.w3c.dom.Text
 import the.goats.tracedent.R
 import the.goats.tracedent.views.activities.MainActivity
-import the.goats.tracedent.views.base.BaseFragment
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
 
