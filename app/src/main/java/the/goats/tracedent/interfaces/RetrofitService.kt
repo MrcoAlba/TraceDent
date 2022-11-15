@@ -6,14 +6,14 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import the.goats.tracedent.api.nuevoApi.*
 import the.goats.tracedent.api.OLDAPI.*
-import the.goats.tracedent.api.OLDAPI.Clinic
-import the.goats.tracedent.api.OLDAPI.Login.Request.LoginPhase1
-import the.goats.tracedent.api.OLDAPI.Login.Request.LoginPhase2
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase1.LoginResponsePhase1
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
+import the.goats.tracedent.api.nuevoApi.Login.Request.LoginPhase1
+import the.goats.tracedent.api.nuevoApi.Login.Request.LoginPhase2
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase1.LoginPhase1Response
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Clinic.LoginResponsePhase2Clinic
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Dentist.LoginResponsePhase2Dentist
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Patient.LoginResponsePhase2Patient
 import the.goats.tracedent.api.nuevoApi.NewApiResponse
 import the.goats.tracedent.model.UserPostLogin
 import the.goats.tracedent.model.UserSuscription
@@ -31,13 +31,13 @@ interface RetrofitService {
 
     //LOGIN
     @POST("user/login")
-    fun logUser(@Body credentials : LoginPhase1): Call<LoginResponsePhase1>
+    fun logUser(@Body credentials : LoginPhase1): Call<LoginPhase1Response>
     @POST("patient/login")
-    fun logPatient(@Body id : LoginPhase2): Call<LoginPhase2ResponsePatient>
+    fun logPatient(@Body id : LoginPhase2): Call<LoginResponsePhase2Patient>
     @POST("clinic/login")
-    fun logClinic(@Body id : LoginPhase2): Call<LoginPhase2ResponseClinic>
+    fun logClinic(@Body id : LoginPhase2): Call<LoginResponsePhase2Clinic>
     @POST("dentist/login")
-    fun logDentist(@Body id : LoginPhase2): Call<LoginPhase2ResponseDentist>
+    fun logDentist(@Body id : LoginPhase2): Call<LoginResponsePhase2Dentist>
 
     //REGISTER
     @POST("usuarios")
