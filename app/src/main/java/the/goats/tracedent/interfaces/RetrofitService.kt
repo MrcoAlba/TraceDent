@@ -59,7 +59,11 @@ interface RetrofitService {
                            @Query("latitude")latitude: String,
                            @Query("longitude")longitude: String): Call<NewApiResponse<Dentist>>
     @GET("clinic")
-    fun getAllClinicsList(): Call<MutableList<Clinic>>
+    fun getAllClinicsList(@Query("offset")offset:String,
+                          @Query("limit")limit:String,
+                          @Query("name")name:String,
+                          @Query("latitude")latitude: String,
+                          @Query("longitude")longitude: String): Call<NewApiResponse<Clinic>>
 
     @GET("clinic/recruit/")
     fun getTheDentistsInAClinic(@Query("id")id:String): Call<MutableList<Recruitment>>

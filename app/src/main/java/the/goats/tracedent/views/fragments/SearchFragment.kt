@@ -140,10 +140,10 @@ class SearchFragment
         })
     }
     private fun getAllClinicList() {
-        mService.getAllClinicsList().enqueue(object : Callback<MutableList<Clinic>> {
+        mService.getAllClinicsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object : Callback<NewApiResponse<Clinic>> {
             override fun onResponse(
-                call: Call<MutableList<Clinic>>,
-                response: Response<MutableList<Clinic>>
+                call: Call<NewApiResponse<Clinic>>,
+                response: Response<NewApiResponse<Clinic>>
             ) {
                 try {
                     adapter2 = MyClinicAdapter(requireContext(), response.body() as List<Clinic>) {
@@ -163,7 +163,7 @@ class SearchFragment
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<Clinic>>, t: Throwable) {
+            override fun onFailure(call: Call<NewApiResponse<Clinic>>, t: Throwable) {
 
             }
         })

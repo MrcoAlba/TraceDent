@@ -10,6 +10,9 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -46,6 +49,9 @@ class MapFragment
     private lateinit var txtDireccion : TextView
     private lateinit var txtRating : TextView
     private lateinit var butMasInfo : Button
+    private lateinit var latitude : String
+    private lateinit var longitude : String
+    private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
 
 
     companion object {
@@ -80,11 +86,16 @@ class MapFragment
         //Lifecycle necessary functions
         createFragment()
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activityParent)
+
         txtNombre = activityParent.findViewById(R.id.txtNombre)
         txtDireccion = activityParent.findViewById(R.id.txtDireccion)
         txtRating = activityParent.findViewById(R.id.txtRating)
         butMasInfo = activityParent.findViewById(R.id.butMasInfo)
         bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
+
+        latitude = ""
+        longitude = ""
 
         enableLocation()
 
@@ -107,6 +118,14 @@ class MapFragment
         gmMap.setOnMyLocationClickListener(this)
         enableLocation()
         //gmMap.setOnMapLongClickListener(this)
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+            if(it != null) {
+                val ubicacion = LatLng(it.latitude, it.longitude)
+                latitude = it.latitude.toString()
+                longitude = it.longitude.toString()
+                gmMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion, 18f))
+            }
+        }
 
         gmMap.setOnMarkerClickListener(this)
         gmMap.uiSettings.isZoomControlsEnabled = true
@@ -180,8 +199,10 @@ class MapFragment
         Toast.makeText(activityParent.applicationContext, "Estás en ${p0.latitude}, ${p0.longitude}", Toast.LENGTH_SHORT).show()
     }
 
+
+
     private fun getAllDentistList() {
-        mService.getAllDentistsList(limit = "30", offset = "0", name = "", latitude = "", longitude = "").enqueue(object: Callback<NewApiResponse<Dentist>> {
+        mService.getAllDentistsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<NewApiResponse<Dentist>> {
             override fun onResponse(
                 call: Call<NewApiResponse<Dentist>>,
                 response: Response<NewApiResponse<Dentist>>
@@ -201,22 +222,23 @@ class MapFragment
     }
 
     private fun getAllClinicList() {
-        mService.getAllClinicsList().enqueue(object: Callback<MutableList<Clinic>> {
+        mService.getAllClinicsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<NewApiResponse<Clinic>> {
             override fun onResponse(
-                call: Call<MutableList<Clinic>>,
-                response: Response<MutableList<Clinic>>
+                call: Call<NewApiResponse<Clinic>>,
+                response: Response<NewApiResponse<Clinic>>
             ) {
                 createMarkers1(response.body()!!)
             }
 
-            override fun onFailure(call: Call<MutableList<Clinic>>, t: Throwable) {
+            override fun onFailure(call: Call<NewApiResponse<Clinic>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.e("gaaa!",t.message.toString())
             }
         })
     }
 
-    private fun createMarkers1(list : MutableList<Clinic>) {
+    private fun createMarkers1(response : NewApiResponse<Clinic>) {
+        val list = response.data
         if(list.size>0){
             list.map {
                 val coordinates = LatLng(it.user!!.latitude!!, it.user!!.longitude!!)
