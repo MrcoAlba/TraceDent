@@ -12,13 +12,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.OLDAPI.Login.Request.LoginPhase1
-import the.goats.tracedent.api.OLDAPI.Login.Request.LoginPhase2
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase1.LoginResponsePhase1
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase1.LoginUserResponse
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Clinic.LoginPhase2ResponseClinic
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Dentist.LoginPhase2ResponseDentist
-import the.goats.tracedent.api.OLDAPI.Login.Response.Phase2.Patient.LoginPhase2ResponsePatient
+import the.goats.tracedent.api.nuevoApi.Login.Request.LoginPhase1
+import the.goats.tracedent.api.nuevoApi.Login.Request.LoginPhase2
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase1.LoginPhase1Response
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase1.LoginPhase1ResponseData
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Clinic.LoginResponsePhase2Clinic
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Dentist.LoginResponsePhase2Dentist
+import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Patient.LoginResponsePhase2Patient
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentLoginBinding
 import the.goats.tracedent.interfaces.Communicator
@@ -65,21 +65,21 @@ class LoginFragment
         if (validateCredentials(email,password)) {
 
             mService.logUser(LoginPhase1(email, password))
-                .enqueue(object : Callback<LoginResponsePhase1> {
+                .enqueue(object : Callback<LoginPhase1Response> {
                     override fun onResponse(
-                        call: Call<LoginResponsePhase1>,
-                        response: Response<LoginResponsePhase1>
+                        call: Call<LoginPhase1Response>,
+                        response: Response<LoginPhase1Response>
                     ) {
                         if (response.body() == null){
                             showErrorCredentials()
                             return
                         }
 
-                        val response = response.body() as LoginResponsePhase1
+                        val response = response.body() as LoginPhase1Response
                         processLogin(response,email)
                     }
 
-                    override fun onFailure(call: Call<LoginResponsePhase1>, t: Throwable) {
+                    override fun onFailure(call: Call<LoginPhase1Response>, t: Throwable) {
                         // If sign in fails, display a message to the user.
                         showErrorCredentials()
                     }
@@ -88,24 +88,24 @@ class LoginFragment
         }
     }
 
-    private fun processLogin(response : LoginResponsePhase1, email: String){
-        if(response.cod == 0 || response.response == null){
+    private fun processLogin(response : LoginPhase1Response, email: String){
+        if(response.message != "OK" ){
             showErrorCredentials()
             return
         }
 
 
-        if(response.response.user_type == "patient"){
-            loginPhase2Patient(response.response,email)
+        if(response.data.user_type == "patient"){
+            loginPhase2Patient(response.data,email)
             return
         }
 
-        if(response.response.user_type == "dentist"){
-            loginPhase2Dentist(response.response,email)
+        if(response.data.user_type == "dentist"){
+            loginPhase2Dentist(response.data,email)
             return
         }
 
-        loginPhase2Clinic(response.response,email)
+        loginPhase2Clinic(response.data,email)
 
     }
 
@@ -170,12 +170,12 @@ class LoginFragment
     }
 
     //Login fase 2 paciente
-    private fun loginPhase2Patient(user : LoginUserResponse, email:String){
-        mService.logPatient(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponsePatient>{
+    private fun loginPhase2Patient(user : LoginPhase1ResponseData, email:String){
+        mService.logPatient(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginResponsePhase2Patient>{
 
             override fun onResponse(
-                call: Call<LoginPhase2ResponsePatient>,
-                response: Response<LoginPhase2ResponsePatient>
+                call: Call<LoginResponsePhase2Patient>,
+                response: Response<LoginResponsePhase2Patient>
             ) {
 
                 if (response.body() == null){
@@ -183,9 +183,9 @@ class LoginFragment
                     return
                 }
 
-                val response = response.body() as LoginPhase2ResponsePatient
+                val response = response.body() as LoginResponsePhase2Patient
 
-                if(response.cod == 0 || response.response == null){
+                if(response.message != "OK"){
                     showErrorCredentials()
                     return
                 }
@@ -193,26 +193,26 @@ class LoginFragment
                 val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
                 saveUserOnCellphone(user,email,prefs)
 
-                prefs.edit().putString(getString(R.string.SP_Patient_id),response.response.id_patient).commit()
+                prefs.edit().putString(getString(R.string.SP_Patient_id),response.data.id_patient).commit()
 
                 login.login2Main()
 
 
             }
 
-            override fun onFailure(call: Call<LoginPhase2ResponsePatient>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponsePhase2Patient>, t: Throwable) {
                 showErrorCredentials()
             }
         })
     }
 
     //Login fase 2 dentist
-    private fun loginPhase2Dentist(user : LoginUserResponse, email:String){
-        mService.logDentist(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponseDentist>{
+    private fun loginPhase2Dentist(user : LoginPhase1ResponseData, email:String){
+        mService.logDentist(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginResponsePhase2Dentist>{
 
             override fun onResponse(
-                call: Call<LoginPhase2ResponseDentist>,
-                response: Response<LoginPhase2ResponseDentist>
+                call: Call<LoginResponsePhase2Dentist>,
+                response: Response<LoginResponsePhase2Dentist>
             ) {
 
                 if (response.body() == null){
@@ -220,9 +220,9 @@ class LoginFragment
                     return
                 }
 
-                val response = response.body() as LoginPhase2ResponseDentist
+                val response = response.body() as LoginResponsePhase2Dentist
 
-                if(response.cod == 0 || response.response == null){
+                if(response.message != "OK"){
                     showErrorCredentials()
                     return
                 }
@@ -231,9 +231,9 @@ class LoginFragment
                 saveUserOnCellphone(user,email,prefs)
 
                 with(prefs.edit()){
-                    putString(getString(R.string.SP_Dentist_id),response.response.id_dentist)
-                    putString(getString(R.string.SP_Dentist_ruc),response.response.ruc)
-                    putFloat(getString(R.string.SP_Dentist_rating),response.response.rating)
+                    putString(getString(R.string.SP_Dentist_id),response.data.id_dentist)
+                    putString(getString(R.string.SP_Dentist_ruc),response.data.ruc)
+                    putFloat(getString(R.string.SP_Dentist_rating),response.data.rating)
                     commit()
                 }
 
@@ -242,19 +242,19 @@ class LoginFragment
 
             }
 
-            override fun onFailure(call: Call<LoginPhase2ResponseDentist>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponsePhase2Dentist>, t: Throwable) {
                 showErrorCredentials()
             }
         })
     }
 
     //Login fase 2 clinic
-    private fun loginPhase2Clinic(user : LoginUserResponse, email:String){
-        mService.logClinic(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginPhase2ResponseClinic>{
+    private fun loginPhase2Clinic(user : LoginPhase1ResponseData, email:String){
+        mService.logClinic(LoginPhase2(user.id_user)).enqueue(object: Callback<LoginResponsePhase2Clinic>{
 
             override fun onResponse(
-                call: Call<LoginPhase2ResponseClinic>,
-                response: Response<LoginPhase2ResponseClinic>
+                call: Call<LoginResponsePhase2Clinic>,
+                response: Response<LoginResponsePhase2Clinic>
             ) {
 
                 if (response.body() == null){
@@ -262,9 +262,9 @@ class LoginFragment
                     return
                 }
 
-                val response = response.body() as LoginPhase2ResponseClinic
+                val response = response.body() as LoginResponsePhase2Clinic
 
-                if(response.cod == 0 || response.response == null){
+                if(response.message != "OK"){
                     showErrorCredentials()
                     return
                 }
@@ -273,10 +273,10 @@ class LoginFragment
                 saveUserOnCellphone(user,email,prefs)
 
                 with(prefs.edit()){
-                    putString(getString(R.string.SP_Clinic_id),response.response.id_clinic)
-                    putString(getString(R.string.SP_Clinic_ruc),response.response.ruc)
-                    putString(getString(R.string.SP_Clinic_companyName),response.response.company_name)
-                    putFloat(getString(R.string.SP_Clinic_rating),response.response.rating)
+                    putString(getString(R.string.SP_Clinic_id),response.data.id_clinic)
+                    putString(getString(R.string.SP_Clinic_ruc),response.data.ruc)
+                    putString(getString(R.string.SP_Clinic_companyName),response.data.company_name)
+                    putFloat(getString(R.string.SP_Clinic_rating),response.data.rating)
                     commit()
                 }
 
@@ -285,14 +285,14 @@ class LoginFragment
 
             }
 
-            override fun onFailure(call: Call<LoginPhase2ResponseClinic>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponsePhase2Clinic>, t: Throwable) {
                 showErrorCredentials()
             }
         })
     }
 
 
-    private fun saveUserOnCellphone(user : LoginUserResponse, email:String, prefs : SharedPreferences){
+    private fun saveUserOnCellphone(user : LoginPhase1ResponseData, email:String, prefs : SharedPreferences){
         with(prefs.edit()){
             putString(getString(R.string.SP_idUsuario),user.id_user)
             putString(getString(R.string.SP_user_type),user.user_type)

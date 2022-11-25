@@ -1,6 +1,5 @@
 package the.goats.tracedent.views.fragments
 
-/*import android.R*/
 import android.os.Bundle
 import android.util.Log
 import android.view.View
