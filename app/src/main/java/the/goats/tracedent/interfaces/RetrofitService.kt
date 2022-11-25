@@ -78,6 +78,11 @@ interface RetrofitService {
     fun getTheScheduleDentistById(@Query("id_dentist")id_dentist:String,@Query("dia")dia:String):
             Call<MutableList<String>>
 
+
+    @GET("patient/search/id?")
+    fun getPatient(@Query("id_cita")id_cita:String):
+            Call<NewApiResponse<Patient>>
+
     @GET("dentist/search/id?")
     fun getTheScheduleOfAClinicDentistById(@Query("id_clinic")id_clinic:String,
                                            @Query("id_dentist")id_dentist:String,
