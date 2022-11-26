@@ -18,8 +18,7 @@
         android:backgroundTint="@color/secondaryDarkColor"
         android:textStyle="bold"
         android:clickable="false"
-        android:enabled="false"
-        />
+        android:enabled="false"/>
 
     <TextView
         android:id="@+id/txtNombre"
@@ -29,8 +28,7 @@
         android:gravity="center"
         android:text="NOMBRE USUARIO"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/txtDireccion"
@@ -40,8 +38,7 @@
         android:gravity="center"
         android:text="DIRECCIÓN"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/txtRating"
         android:layout_width="match_parent"
@@ -50,8 +47,7 @@
         android:gravity="center"
         android:text="RATING"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/butMasInfo"
@@ -61,7 +57,6 @@
         android:gravity="center"
         android:text="MÁS INFORMACIÓN"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
 
 </LinearLayout>

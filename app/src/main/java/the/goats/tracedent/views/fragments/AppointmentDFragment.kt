@@ -10,7 +10,6 @@ import com.google.android.material.chip.ChipDrawable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import the.goats.tracedent.api.OLDAPI.Dentist
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentAppointmentDBinding
 import the.goats.tracedent.interfaces.Communicator

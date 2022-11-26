@@ -25,8 +25,6 @@ class Suscripcion03Fragment
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
 
-        //Firebase Analytics
-        analyticEvent(requireActivity(), "Suscripcion03Fragment", "onViewCreated")
         //activityParent.onBackPressed()
         ChangeView()
         activityParent.back = true

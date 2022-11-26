@@ -24,9 +24,7 @@ class Suscripcion01Fragment
         communicator = requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
         activityParent.back = false
-        //Firebase Analytics
-        analyticEvent(requireActivity(), "Suscripcion01Fragment", "onViewCreated")
-        val suscripcion = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),Context.MODE_PRIVATE).getBoolean(getString(R.string.SP_estado_suscripcion),false)
+        val suscripcion = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),Context.MODE_PRIVATE).getBoolean(getString(R.string.sp_subscription),false)
         Log.i("Hola", suscripcion.toString())
         if (suscripcion == true) {
             enableButton(false)

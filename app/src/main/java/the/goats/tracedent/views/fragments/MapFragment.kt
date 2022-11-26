@@ -24,11 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.OLDAPI.Clinic
-import the.goats.tracedent.api.OLDAPI.Dentist
-import the.goats.tracedent.api.OLDAPI.Person
-import the.goats.tracedent.api.OLDAPI.Usuario
-import the.goats.tracedent.api.nuevoApi.NewApiResponse
+import the.goats.tracedent.api.ApiResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentMapBinding
 import the.goats.tracedent.interfaces.Communicator
@@ -202,17 +198,17 @@ class MapFragment
 
 
     private fun getAllDentistList() {
-        mService.getAllDentistsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<NewApiResponse<Dentist>> {
+        mService.getAllDentistsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<ApiResponse<Dentist>> {
             override fun onResponse(
-                call: Call<NewApiResponse<Dentist>>,
-                response: Response<NewApiResponse<Dentist>>
+                call: Call<ApiResponse<Dentist>>,
+                response: Response<ApiResponse<Dentist>>
             ) {
                 Log.i(null, "Se llego hasta aqui")
                 Log.i(null, response.body().toString())
                 createMarkers(response.body()!!)
             }
 
-            override fun onFailure(call: Call<NewApiResponse<Dentist>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.e("gaaa!",t.message.toString())
             }
@@ -222,22 +218,22 @@ class MapFragment
     }
 
     private fun getAllClinicList() {
-        mService.getAllClinicsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<NewApiResponse<Clinic>> {
+        mService.getAllClinicsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<ApiResponse<Clinic>> {
             override fun onResponse(
-                call: Call<NewApiResponse<Clinic>>,
-                response: Response<NewApiResponse<Clinic>>
+                call: Call<ApiResponse<Clinic>>,
+                response: Response<ApiResponse<Clinic>>
             ) {
                 createMarkers1(response.body()!!)
             }
 
-            override fun onFailure(call: Call<NewApiResponse<Clinic>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.e("gaaa!",t.message.toString())
             }
         })
     }
 
-    private fun createMarkers1(response : NewApiResponse<Clinic>) {
+    private fun createMarkers1(response : ApiResponse<Clinic>) {
         val list = response.data
         if(list.size>0){
             list.map {
@@ -250,7 +246,7 @@ class MapFragment
         }
     }
 
-    private fun createMarkers(response : NewApiResponse<Dentist>) {
+    private fun createMarkers(response : ApiResponse<Dentist>) {
         val list = response.data
 
         list.map {

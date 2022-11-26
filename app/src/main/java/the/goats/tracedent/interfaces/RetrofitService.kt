@@ -6,86 +6,247 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
-import the.goats.tracedent.api.nuevoApi.*
-import the.goats.tracedent.api.OLDAPI.*
-import the.goats.tracedent.api.nuevoApi.Login.Request.LoginPhase1
-import the.goats.tracedent.api.nuevoApi.Login.Request.LoginPhase2
-import the.goats.tracedent.api.nuevoApi.Login.Response.Phase1.LoginPhase1Response
-import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Clinic.LoginResponsePhase2Clinic
-import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Dentist.LoginResponsePhase2Dentist
-import the.goats.tracedent.api.nuevoApi.Login.Response.Phase2.Patient.LoginResponsePhase2Patient
-import the.goats.tracedent.api.nuevoApi.NewApiResponse
-import the.goats.tracedent.model.UserPostLogin
-import the.goats.tracedent.model.UserSuscription
+import the.goats.tracedent.api.*
+import the.goats.tracedent.api.clinic.*
+import the.goats.tracedent.api.dentist.*
+import the.goats.tracedent.api.patient.*
+import the.goats.tracedent.api.user.*
+import the.goats.tracedent.model.*
+
 
 interface RetrofitService {
-    @GET("dentist/search?")
-    fun getDentistsList(@Query("name")name:String): Call<MutableList<Dentist>>
-
-    @POST("usuarios/login")
-    fun getUserAccountInfo(@Body userPostLogin: UserPostLogin): Call<UserLoginResponse>
-    @PATCH("user/sub/{id_user}")
-    fun ChangeSuscription(@Path("id_user") id: String?,
-                          @Body userSuscription: UserSuscription
-    ): Call<SusResponse>
-
-    //LOGIN
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- -----  ----- ----- ----- USERS ----- ----- ----- ----- ----- ----- ----- -
+    /** ----- ----- ----- ----- ----- ----- Email check existence ----- ----- ----- ----- ----- - */
+    @GET("user/email/{mail}")
+    fun emailCheckExistance
+                (@Path("mail") mail: String?)
+    : Call<ApiResponse<Int>>
+    /** ----- ----- ----- ----- ----- ----- Login Mail Password ----- ----- ----- ----- ----- --- */
     @POST("user/login")
-    fun logUser(@Body credentials : LoginPhase1): Call<LoginPhase1Response>
+    fun loginMailPass
+                (@Body userLoginPhase1Credentials : UserLoginPhase1)
+    : Call<ApiResponse<User>>
+    /** ----- ----- ----- ----- ----- ----- Patch user subscription by id ----- ----- ----- ----- */
+    @PATCH("user/subs/{id}")
+    fun patchUserSubById
+                (@Path("id") id: String?)
+    : Call<ApiResponse<Int>>
+    /** ----- ----- ----- ----- ----- ----- Update user by id ----- ----- ----- ----- ----- ----- */
+    @PATCH("user/update/{id}")
+    fun updateUserById
+                (@Body userUpdateData : UserUpdateData,
+                 @Path("id") id: String?)
+    : Call<ApiResponse<Int>>
+    //  ----- ----- ----- -----  ----- ----- ----- USERS ----- ----- ----- ----- ----- ----- ----- -
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- -----  ----- ----- ----- PATIENT ----- ----- ----- ----- ----- ----- -----
+    /** ----- ----- ----- ----- ----- ----- Get patient by id ----- ----- ----- ----- ----- ----- */
+    @GET("patient/{id}?")
+    fun getPatientById
+                (@Path("id") id: String?)
+    : Call<ApiResponse<Patient>>
+    /** ----- ----- ----- ----- ----- ----- Post patient ----- ----- ----- ----- ----- ----- ---- */
+    @POST("patient")
+    fun postPatient
+                (@Body patient: PatientCreation)
+    : Call<ApiResponse<PatientCreated>>
+    /** ----- ----- ----- ----- ----- ----- Log In by IdUser ----- ----- ----- ----- ----- -----  */
     @POST("patient/login")
-    fun logPatient(@Body id : LoginPhase2): Call<LoginResponsePhase2Patient>
-    @POST("clinic/login")
-    fun logClinic(@Body id : LoginPhase2): Call<LoginResponsePhase2Clinic>
-    @POST("dentist/login")
-    fun logDentist(@Body id : LoginPhase2): Call<LoginResponsePhase2Dentist>
-
-    //REGISTER
-    @POST("usuarios")
-    fun InserUsert(@Body usuario: Usuario):Call<DefaultResponse>
-    @POST("pacientes")
-    fun InserPatient(@Body patient: Patient):Call<DefaultResponse>
-    @POST("dentistas")
-    fun InserDentist(@Body dentist: Dentist):Call<DefaultResponse>
-    @POST("clinicas")
-    fun InsertClinic(@Body clinic: Clinic):Call<DefaultResponse>
-
-    //RESERVAS Y MAP
-    @GET("clinics/search?")
-    fun getClinicList(@Query("company_name")name:String): Call<MutableList<Clinic>>
+    fun patientLoginByIdUser
+                (@Body patientLoginIdUser : PatientLoginIdUser)
+    : Call<ApiResponse<Patient>>
+    //  ----- ----- ----- -----  ----- ----- ----- PATIENT ----- ----- ----- ----- ----- ----- -----
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- ----- ----- ----- ----- DENTIST ----- ----- ----- ----- ----- ----- -----
+    /** ----- ----- ----- ----- ----- ----- Get all dentist ----- ----- ----- ----- ----- -----   */
     @GET("dentist?")
-    fun getAllDentistsList(@Query("offset")offset:String,
-                           @Query("limit")limit:String,
-                           @Query("name")name:String,
-                           @Query("latitude")latitude: String,
-                           @Query("longitude")longitude: String): Call<NewApiResponse<Dentist>>
-    @GET("clinic")
-    fun getAllClinicsList(@Query("offset")offset:String,
-                          @Query("limit")limit:String,
-                          @Query("name")name:String,
-                          @Query("latitude")latitude: String,
-                          @Query("longitude")longitude: String): Call<NewApiResponse<Clinic>>
-
-    @GET("clinic/recruit/")
-    fun getTheDentistsInAClinic(@Query("id")id:String): Call<MutableList<Recruitment>>
-
-    @GET("dentist/speciality/")
-    fun getTheEspecialidadInADentists(@Query("id")id_dentist:String): Call<MutableList<String>>
-
-    @GET("dentist/")
-    fun getTheDentistById(@Query("id")name:String): Call<MutableList<Dentist>>
-
-    @GET("dentist/search/id?")
-    fun getTheScheduleDentistById(@Query("id_dentist")id_dentist:String,@Query("dia")dia:String):
-            Call<MutableList<String>>
-
-
-    @GET("patient/search/id?")
-    fun getPatient(@Query("id_cita")id_cita:String):
-            Call<NewApiResponse<Patient>>
-
-    @GET("dentist/search/id?")
-    fun getTheScheduleOfAClinicDentistById(@Query("id_clinic")id_clinic:String,
-                                           @Query("id_dentist")id_dentist:String,
-                                           @Query("dia")dia:String):
-            Call<MutableList<String>>
+    fun getAllDentistsList
+               (@Query("limit")limit:String,
+                @Query("offset")offset:String,
+                @Query("name")name:String,
+                @Query("latitude")latitude: String,
+                @Query("longitude")longitude: String)
+    : Call<ApiResponse<Dentist>>
+    /** ----- ----- ----- ----- ----- ----- Get dentist by id ----- ----- ----- ----- ----- ----- */
+    @GET("dentist/{id}?")
+    fun getDentistById
+                (@Path("id") id: String?)
+    : Call<ApiResponse<Dentist>>
+    /** ----- ----- ----- ----- ----- ----- Get dentist by id all specialities ----- ----- -----  */
+    @GET("dentist/specialities/{id}?")
+    fun getDentistByIdAllSpecialities
+                (@Path("id") id: String?,
+                 @Query("limit")limit:String,
+                 @Query("offset")offset:String,
+                 @Query("name")name:String)
+    : Call<ApiResponse<DentistSpecialities>>
+    /** ----- ----- ----- ----- ----- ----- Search dentist by id ----- ----- ----- ----- ----- -- */
+    @GET("dentist/{id}")
+    fun searchDentistById
+                (@Path("id") id: String?)
+    : Call<ApiResponse<Dentist>>
+    /** ----- ----- ----- ----- ----- ----- Post dentist ----- ----- ----- ----- ----- ----- ---- */
+    @POST("dentist")
+    fun postDentist
+                (@Body dentist: DentistCreation)
+    : Call<ApiResponse<DentistCreated>>
+    /** ----- ----- ----- ----- ----- ----- Log In by IdUser ----- ----- ----- ----- ----- -----  */
+    @POST("dentist/login")
+    fun dentistLoginByIdUser
+                (@Body dentistLoginIdUser : DentistLoginIdUser)
+    : Call<ApiResponse<Dentist>>
+    /** ----- ----- ----- ----- ----- ----- Add speciality to dentist by id ----- ----- ----- --- */
+    @POST("dentist/speciality")
+    fun addSpecialityToDentistById
+                (@Body dentistSpecialityInformation: DentistSpecialityAddition)
+    : Call<ApiResponse<DentistSpecialityAdded>>
+    //  ----- ----- ----- ----- ----- ----- ----- DENTIST ----- ----- ----- ----- ----- ----- -----
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- ----- ----- ----- ----- CLINIC ----- ----- ----- ----- ----- ----- ----- -
+    /** ----- ----- ----- ----- ----- ----- Get all clinic ----- ----- ----- ----- ----- ----- -- */
+    @GET("clinic?")
+    fun getAllClinicsList
+                (@Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("name")name:String,
+                 @Query("latitude")latitude: String,
+                 @Query("longitude")longitude: String)
+    : Call<ApiResponse<Clinic>>
+    /** ----- ----- ----- ----- ----- ----- Get clinic by id ----- ----- ----- ----- ----- ----- */
+    @GET("clinic/{id}?")
+    fun getClinicById
+                (@Path("id") id: String?)
+            : Call<ApiResponse<Clinic>>
+    /** ----- ----- ----- ----- ----- ----- Get all recruits by id clinic ----- ----- ----- ----- */
+    @GET("clinic/recruits/{id}?")
+    fun getAllRecruitsByIdClinic
+                (@Path("id")id:String?,
+                 @Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("name")name:String)
+    : Call<ApiResponse<Clinic>>
+    /** ----- ----- ----- ----- ----- ----- Get all dentist by id clinic ----- ----- ----- -----  */
+    @GET("clinic/dentists/{id}?")
+    fun getAllDentistByIdClinic
+                (@Path("id")id:String?,
+                 @Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("name")name:String)
+    : Call<ApiResponse<Clinic>>
+    /** ----- ----- ----- ----- ----- ----- Post clinic ----- ----- ----- ----- ----- ----- ----- */
+    @POST("clinic")
+    fun postClinic
+                (@Body clinic: ClinicCreation)
+    : Call<ApiResponse<ClinicCreated>>
+    /** ----- ----- ----- ----- ----- ----- Log In by IdUser ----- ----- ----- ----- ----- -----  */
+    @POST("clinic/login")
+    fun clinicLoginByIdUser
+                (@Body clinicLoginIdUser : ClinicLoginIdUser)
+    : Call<ApiResponse<Clinic>>
+    /** ----- ----- ----- ----- ----- ----- Clinic recruit dentist ----- ----- ----- ----- -----  */
+    @POST("clinic/recruit/{id}")
+    fun clinicRecruitDentist
+                (@Path("id")id:String?,
+                 @Body clinicRecruitDentistIdSend : ClinicRecruitDentistIdSend)
+    : Call<ApiResponse<ClinicRecruitDentistIdResponse>>
+    //  ----- ----- ----- ----- ----- ----- ----- CLINIC ----- ----- ----- ----- ----- ----- ----- -
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- ----- ----- ----- ----- DENTIST SPECIALITIES ----- ----- ----- ----- -----
+    /** ----- ----- ----- ----- ----- ----- Get all dentist specialities relations ----- ----- -  */
+    @GET("dentistspeciality?")
+    fun getAllDentistSpecialitiesRelations
+                (@Query("offset")offset:String,
+                 @Query("limit")limit:String)
+    : Call<ApiResponse<DentistSpecialities>>
+    //  ----- ----- ----- ----- ----- ----- ----- DENTIST SPECIALITIES ----- ----- ----- ----- -----
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- ----- ----- ----- ----- RECRUITMENTS ----- ----- ----- ----- ----- ----- -
+    /** ----- ----- ----- ----- ----- ----- Get all recruitments ----- ----- ----- ----- ----- -  */
+    @GET("recruitment?")
+    fun getAllRecruitments
+                (@Query("offset")offset:String,
+                 @Query("limit")limit:String)
+    : Call<ApiResponse<DentistSpecialities>>
+    //  ----- ----- ----- ----- ----- ----- ----- RECRUITMENTS ----- ----- ----- ----- ----- ----- -
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    //  ----- ----- ----- ----- ----- ----- ----- SCHEDULE ----- ----- ----- ----- ----- ----- -----
+    /** ----- ----- ----- ----- ----- ----- Get all schedules ----- ----- ----- ----- ----- ----  */
+    @GET("schedule?")
+    fun getAllSchedule
+                (@Query("offset")offset:String,
+                 @Query("limit")limit:String)
+    : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist id ----- ----- ----- --  */
+    @GET("schedule/dentist/{id}?")
+    fun getAllScheduleByDentistId
+                (@Path("id")id:String?,
+                 @Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("status")status:Int,
+                 @Query("id_clinic")id_clinic:String)
+    : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist id ----- ----- ----- --  */
+    @GET("schedule/patient/{id}?")
+    fun getAllScheduleByPatientId
+                (@Path("id")id:String?,
+                 @Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("status")status:Int,
+                 @Query("id_clinic")id_clinic:String)
+    : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- S0 Create an schedule for dentist by id and clinic id */
+    @POST("schedule/dentist/0")
+    fun createAnScheduleForDentistByIdAndClinicId
+                (@Body schedule : Schedule)
+    : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- S1 Dentist cancels schedule ----- ----- ----- ----- - */
+    @POST("schedule/dentist/1")
+    fun s1dentistCancelSchedule
+                (@Body schedule : Schedule)
+    : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- S2 Patient intents schedule ----- ----- ----- ----- - */
+    @POST("schedule/patient/2")
+    fun s2patientIntentSchedule
+                (@Body schedule : Schedule)
+    : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- S3 Patient chooses schedule ----- ----- ----- ----- - */
+    @POST("schedule/patient/3")
+    fun s3patientChoosesSchedule
+                (@Body schedule : Schedule)
+    : Call<ApiResponse<Schedule>>
+    //  ----- ----- ----- ----- ----- ----- ----- SCHEDULE ----- ----- ----- ----- ----- ----- -----
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
+    // *********************************************************************************************
 }

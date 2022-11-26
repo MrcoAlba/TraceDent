@@ -1,9 +1,9 @@
 package the.goats.tracedent.model
 
-class Clinic {
-    var id_clinic: String? = null
-    var company_name : String? = null
-    var ruc: String? = null
-    var rating: Float? = null
-    var user : Usuario? = null
-}
+data class Clinic (
+    val id_clinic: String?,
+    val company_name : String?,
+    val ruc: String?,
+    val rating: Float?,
+    val user : User?
+)

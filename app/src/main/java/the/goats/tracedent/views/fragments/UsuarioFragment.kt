@@ -3,7 +3,7 @@ package the.goats.tracedent.views.fragments
 import android.os.Bundle
 import android.view.View
 import the.goats.tracedent.R
-import the.goats.tracedent.api.OLDAPI.UserLoginResponse
+import the.goats.tracedent.api.user.UserLoginResponse
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
@@ -31,11 +31,11 @@ class UsuarioFragment
         //Firebase Analytics
         analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
         //Getting user
-        val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+        val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
 
-        val tipo = prefs.getString(getString(R.string.SP_user_type),"user")
+        val tipo = prefs.getString(getString(R.string.sp_user_type),"user")
 
-        val suscripcion = prefs.getBoolean(getString(R.string.SP_estado_suscripcion),false)
+        val suscripcion = prefs.getBoolean(getString(R.string.sp_subscription),false)
         //Listeners
         binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
         binding.btnCerrarSesion.setOnClickListener                    {  SignOut()          }
@@ -61,7 +61,7 @@ class UsuarioFragment
 
     private fun SignOut(){
 
-        val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+        val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
 
          if (prefs.edit().clear().commit()){
              logout.Main2Login()

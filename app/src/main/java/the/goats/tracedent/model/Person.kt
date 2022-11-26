@@ -1,11 +1,10 @@
 package the.goats.tracedent.model
 
-
-class Person {
-    var id_person : String? = null
-    var first_name : String? = null
-    var last_name : String? = null
-    var gender : String? = null
-    var dni: Long? = null
-    var user: Usuario? = null
-}
+data class Person (
+    val id_person : String?,
+    val first_name : String?,
+    val last_name : String?,
+    val gender : String?,
+    val dni: Long?,
+    val user: User?
+)

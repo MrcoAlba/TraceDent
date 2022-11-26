@@ -1,29 +1,40 @@
 <resources>
     <string name="app_name">TraceDent</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nuevo_cliente">Nuevo Cliente</string>
     <string name="nuevo_dentista">Nuevo Dentista</string>
-    <string name="Shared_Preferences">"TraceDentApp.IW2</string>
-    <string name="SP_idUsuario">idUsuario</string>
-    <string name="SP_estado_suscripcion">suscripcion</string>
-    <string name="SP_user_type">tipo_usuario</string>
-    <string name="SP_mail">mail</string>
-    <string name="SP_district">distrito</string>
-    <string name="SP_direction">direccion</string>
-    <string name="SP_phonenumber">numeroTelef</string>
-    <string name="SP_Patient_id">id_paciente</string>
-    <string name="SP_Dentist_id">id_dentista</string>
-    <string name="SP_Dentist_ruc">ruc_dentista</string>
-    <string name="SP_Dentist_rating">rating_dentista</string>
-    <string name="SP_Clinic_id">id_clinica</string>
-    <string name="SP_Clinic_companyName">razon_social</string>
-    <string name="SP_Clinic_rating">rating_clinica</string>
-    <string name="SP_Clinic_ruc">ruc_clinica</string>
 
-    <string-array name="Genders">
-        <item>Masculino</item>
-        <item>Femenino</item>
-        <item>Otro</item>
-    </string-array>
+    <string name="sp_shared_preferences">"TraceDentApp.IW2</string>
+
+    <string name="sp_user_id"               >sp_user_id</string>
+    <string name="sp_patient_id"            >sp_patient_id</string>
+    <string name="sp_dentist_id"            >sp_dentist_id</string>
+    <string name="sp_clinic_id"             >sp_clinic_id</string>
+    <string name="sp_person_id"             >sp_person_id</string>
+
+    <string name="sp_dentist_ruc"           >sp_dentist_ruc</string>
+    <string name="sp_dentist_rating"        >sp_dentist_rating</string>
+
+    <string name="sp_clinic_company_name"   >sp_clinic_company_name</string>
+    <string name="sp_clinic_rating"         >sp_clinic_rating</string>
+    <string name="sp_clinic_ruc"            >sp_clinic_ruc</string>
+
+    <string name="sp_first_name"            >sp_first_name</string>
+    <string name="sp_last_name"             >sp_last_name</string>
+    <string name="sp_gender"                >sp_gender</string>
+    <string name="sp_dni"                   >sp_dni</string>
+
+    <string name="sp_user_type"             >sp_user_type</string>
+    <string name="sp_phone_number"          >sp_phone_number</string>
+    <string name="sp_subscription"          >sp_subscription</string>
+    <string name="sp_district"              >sp_district</string>
+    <string name="sp_direction"             >sp_direction</string>
+    <string name="sp_latitude"              >sp_latitude</string>
+    <string name="sp_longitude"             >sp_longitude</string>
+
+    <string name="sp_mail"                  >sp_mail</string>
+
+    <string name="api_link">https://tracedent.herokuapp.com/</string>
+
+
 </resources>

@@ -2,20 +2,14 @@ package the.goats.tracedent.views.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import the.goats.tracedent.R
-import the.goats.tracedent.api.OLDAPI.Clinic
-import the.goats.tracedent.api.OLDAPI.Patient
-import the.goats.tracedent.api.nuevoApi.NewApiResponse
+import the.goats.tracedent.model.Patient
+import the.goats.tracedent.api.ApiResponse
 import the.goats.tracedent.common.Common
-import the.goats.tracedent.databinding.FragmentInfoDentistBinding
 import the.goats.tracedent.databinding.FragmentInfoPatientBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.RetrofitService
@@ -47,15 +41,15 @@ class InfoPatientFragment : BaseFragment<FragmentInfoPatientBinding>(FragmentInf
 
 
     private fun obtenerPaciente(id_cita : String) {
-        mService.getPatient(id_cita = id_cita).enqueue(object: Callback<NewApiResponse<Patient>> {
+        mService.getPatient(id_cita = id_cita).enqueue(object: Callback<ApiResponse<Patient>> {
             override fun onResponse(
-                call: Call<NewApiResponse<Patient>>,
-                response: Response<NewApiResponse<Patient>>
+                call: Call<ApiResponse<Patient>>,
+                response: Response<ApiResponse<Patient>>
             ) {
                 fill(response.body()!!)
             }
 
-            override fun onFailure(call: Call<NewApiResponse<Patient>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<Patient>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 Log.e("gaaa!",t.message.toString())
             }
@@ -65,7 +59,7 @@ class InfoPatientFragment : BaseFragment<FragmentInfoPatientBinding>(FragmentInf
 
 
 
-    private fun fill(response : NewApiResponse<Patient>) {
+    private fun fill(response : ApiResponse<Patient>) {
 
         var lista = response.data
 

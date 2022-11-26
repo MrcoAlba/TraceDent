@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.viewbinding.ViewBinding
 import the.goats.tracedent.R
 import the.goats.tracedent.interfaces.Communicator
+import the.goats.tracedent.interfaces.RetrofitService
 
 abstract class BaseActivity<VB : ViewBinding>(
     // A lambda to get the Activity"Name"Binding::inflate so the layout can be bound
@@ -15,9 +16,9 @@ abstract class BaseActivity<VB : ViewBinding>(
 ) : AppCompatActivity(), Communicator {
 
     //ViewBinding of type VB -> Activity"Name"Binding
-    lateinit var binding: VB
-
-    lateinit var containerView : FragmentContainerView
+    lateinit var binding        : VB
+    lateinit var containerView  : FragmentContainerView
+    lateinit var mService       : RetrofitService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +26,9 @@ abstract class BaseActivity<VB : ViewBinding>(
         setContentView(binding.root)
         actionBar?.hide()
     }
-
-    // If you go from activityA to activityB, activityA is gonna be destroyed
+    /**
+     * If you go from activityA to activityB, activityA is gonna be destroyed
+     */
     override fun onStop() {
         super.onStop()
         finish()
@@ -69,5 +71,31 @@ abstract class BaseActivity<VB : ViewBinding>(
         fragment.arguments = bundle
         transactionReplaceFragment(fragment, containerView, transactionName)
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,12 +12,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import the.goats.tracedent.R
-import the.goats.tracedent.api.OLDAPI.SusResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentSuscripcion02Binding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.model.UserSuscription
+import the.goats.tracedent.api.user.UserSuscription
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -73,10 +72,10 @@ class Suscripcion02Fragment
         binding.tietFecha.doAfterTextChanged                    { ValidateDate() }
         binding.btnPagar.setOnClickListener                     {
 
-            val prefs = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),0)
+            val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
 
-            val id = prefs.getString(getString(R.string.SP_idUsuario),"0")
-            val suscripcion = prefs.getBoolean(getString(R.string.SP_estado_suscripcion),false)
+            val id = prefs.getString(getString(R.string.sp_user_id),"0")
+            val suscripcion = prefs.getBoolean(getString(R.string.sp_subscription),false)
 
             ChageSuscription(id!!, suscripcion)
         }
@@ -219,9 +218,9 @@ class Suscripcion02Fragment
             )
     }
     private fun saveSusOnCellphone(){
-        val pref = activityParent.getSharedPreferences(getString(R.string.Shared_Preferences),Context.MODE_PRIVATE)
+        val pref = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),Context.MODE_PRIVATE)
         val prefsEditr = pref.edit()
-        prefsEditr.putBoolean(getString(R.string.SP_estado_suscripcion), true)
+        prefsEditr.putBoolean(getString(R.string.sp_subscription), true)
         prefsEditr.commit()
         }
 

@@ -14,8 +14,7 @@ import the.goats.tracedent.databinding.FragmentAppointmentBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.api.OLDAPI.Dentist
-import the.goats.tracedent.api.OLDAPI.Recruitment
+import the.goats.tracedent.model.Recruitment
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import the.goats.tracedent.R
 import the.goats.tracedent.adapter.holder.MyClinicHolder
-import the.goats.tracedent.api.OLDAPI.Clinic
+import the.goats.tracedent.model.Clinic
 
 class MyClinicAdapter (
     private val context : Context,

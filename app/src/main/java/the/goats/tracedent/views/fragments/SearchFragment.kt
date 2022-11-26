@@ -20,11 +20,7 @@ import the.goats.tracedent.databinding.FragmentSearchBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
-import the.goats.tracedent.api.OLDAPI.Clinic
-import the.goats.tracedent.api.OLDAPI.Dentist
-import the.goats.tracedent.api.OLDAPI.Person
-import the.goats.tracedent.api.OLDAPI.Usuario
-import the.goats.tracedent.api.nuevoApi.NewApiResponse
+import the.goats.tracedent.api.ApiResponse
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -58,7 +54,8 @@ class SearchFragment
         communicator    =   requireActivity() as Communicator
         logout          =   requireActivity() as Credential.LogOut
         activityParent  =   requireActivity() as MainActivity
-        mService=Common.retrofitService
+        // Retrofit service
+        mService        =   Common.retrofitService
         //Firebase Analytics
         analyticEvent(requireActivity(), "SearchFragment", "onViewCreated")
 
@@ -111,10 +108,10 @@ class SearchFragment
             }
     }
     private fun getAllDentistList() {
-        mService.getAllDentistsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object: Callback<NewApiResponse<Dentist>> {
+        mService.getAllDentistsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object: Callback<ApiResponse<Dentist>> {
             override fun onResponse(
-                call: Call<NewApiResponse<Dentist>>,
-                response: Response<NewApiResponse<Dentist>>
+                call: Call<ApiResponse<Dentist>>,
+                response: Response<ApiResponse<Dentist>>
             ) {
                 try {
                     adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>) {
@@ -134,16 +131,16 @@ class SearchFragment
 
                 }
             }
-            override fun onFailure(call: Call<NewApiResponse<Dentist>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
 
             }
         })
     }
     private fun getAllClinicList() {
-        mService.getAllClinicsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object : Callback<NewApiResponse<Clinic>> {
+        mService.getAllClinicsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object : Callback<ApiResponse<Clinic>> {
             override fun onResponse(
-                call: Call<NewApiResponse<Clinic>>,
-                response: Response<NewApiResponse<Clinic>>
+                call: Call<ApiResponse<Clinic>>,
+                response: Response<ApiResponse<Clinic>>
             ) {
                 try {
                     adapter2 = MyClinicAdapter(requireContext(), response.body() as List<Clinic>) {
@@ -163,7 +160,7 @@ class SearchFragment
                 }
             }
 
-            override fun onFailure(call: Call<NewApiResponse<Clinic>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
 
             }
         })
