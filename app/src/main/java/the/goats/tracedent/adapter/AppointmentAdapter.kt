@@ -26,6 +26,7 @@ class AppointmentAdapter(private val context: Context,
                 parent,
                 false
             )
+        println("ffffffffffffffffffff" + schedule.toString())
         return AppointmentHolder(layoutInflater)
     }
 

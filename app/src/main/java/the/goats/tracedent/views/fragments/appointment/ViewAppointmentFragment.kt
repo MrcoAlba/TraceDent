@@ -116,6 +116,7 @@ class ViewAppointmentFragment
                         response: Response<ApiResponse<Schedule>>
                     ) {
                         try {
+                            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa paciente" +  response.body()!!.data)
                             adapter = AppointmentAdapter(requireContext(), response.body()!!.data)
                             adapter!!.notifyDataSetChanged()
                             binding.rvListadodata.adapter = adapter
@@ -136,6 +137,7 @@ class ViewAppointmentFragment
                         response: Response<ApiResponse<Schedule>>
                     ) {
                         try {
+                            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa dentista" +  response.body()!!.data)
                             adapter = AppointmentAdapter(requireContext(), response.body()!!.data)
                             adapter!!.notifyDataSetChanged()
                             binding.rvListadodata.adapter = adapter
@@ -156,6 +158,7 @@ class ViewAppointmentFragment
                         response: Response<ApiResponse<Schedule>>
                     ) {
                         try {
+                            println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa clinica" +  response.body()!!.data)
                             adapter = AppointmentAdapter(requireContext(), response.body()!!.data)
                             adapter!!.notifyDataSetChanged()
                             binding.rvListadodata.adapter = adapter
