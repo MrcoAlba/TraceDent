@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layout_marginVertical="6dp"
+    android:layout_marginHorizontal="6dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lly_text_dentistayespecialidad"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvDentista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textSize="15dp"
+                tools:text="Lissy Marianella Tavara Iparraguirre"
+                android:maxLines="3"
+                android:gravity="center"
+                android:layout_margin="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvEspecialidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                tools:text="San Juan de Lurigancho"
+                android:gravity="center"
+                android:layout_margin="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                tools:text="activa"
+                android:gravity="center"
+                android:layout_margin="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/tvFechaCita"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            tools:text="4.96"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/lly_text_dentistayespecialidad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
