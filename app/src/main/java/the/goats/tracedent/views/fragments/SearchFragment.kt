@@ -77,7 +77,6 @@ class SearchFragment
     }
 
     private fun choiceChips(){
-        Log.w("choiceChips","inicio")
         binding.chipgroup
             .setOnCheckedChangeListener {
                     group, checkedId ->

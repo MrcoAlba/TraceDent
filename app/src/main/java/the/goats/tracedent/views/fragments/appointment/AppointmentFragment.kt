@@ -74,8 +74,8 @@ class AppointmentFragment
         //Delegates
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
-
-        mService= Common.retrofitService
+        // Retrofit
+        mService = Common.retrofitService
 
         // Dropdown list logic
         getAllDentist()
@@ -93,15 +93,6 @@ class AppointmentFragment
                     response: Response<ApiResponse<Recruitment>>
                 ) {
                     val recruitments = response.body()!!.data
-                    Log.w("getAllDentist", "1")
-                    Log.w("getAllDentist", "1")
-                    Log.w("getAllDentist", "1")
-                    Log.w("getAllDentist", response.toString())
-                    Log.w("getAllDentist", response.toString())
-                    Log.w("getAllDentist", response.toString())
-                    Log.w("getAllDentist", "2")
-                    Log.w("getAllDentist", "2")
-                    Log.w("getAllDentist", "2")
                     val dentistNames = mutableListOf<String>()
                     for (index in recruitments.indices){
                         recruitments[index].dentist!!.person?.first_name?.let { dentistNames.add(it) }
@@ -172,13 +163,6 @@ class AppointmentFragment
         fecha="$year-$month2-$day"+"T00:00:05.007Z"
         // Todo: Revisar esta parte xd
         binding.txtfecha.visibility = View.VISIBLE
-        Log.w("onDateSelected", "1")
-        Log.w("onDateSelected", "1")
-        Log.w("onDateSelected", "1")
-        Log.w("onDateSelected", requireArguments().getString("id")!!+"-"+selectedDentist.id_dentist!!+"-"+fecha)
-        Log.w("onDateSelected", "2")
-        Log.w("onDateSelected", "2")
-        Log.w("onDateSelected", "2")
         mService
             .getAllScheduleByClinicDentistAndTime("0","100",requireArguments().getString("id")!!,selectedDentist.id_dentist!!,fecha)
             .enqueue(object : Callback<ApiResponse<Schedule>>{
