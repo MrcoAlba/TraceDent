@@ -1,6 +1,7 @@
 package the.goats.tracedent.views.fragments.appointment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -39,9 +40,6 @@ class AppointmentFragment
     private lateinit var selectedSchedule: Schedule
 
     private var filtro: String = "vacio"
-
-    private val especialidades:MutableList<String> = mutableListOf()
-    private val horasdisponibles:MutableList<String> = mutableListOf()
 
     var horas: List<String> = listOf(
     "12:00am", "12:30am",
@@ -94,10 +92,10 @@ class AppointmentFragment
                     call: Call<ApiResponse<Recruitment>>,
                     response: Response<ApiResponse<Recruitment>>
                 ) {
-                    /*val dentists = response.body()!!.data
+                    val recruitments = response.body()!!.data
                     val dentistNames = mutableListOf<String>()
-                    for (index in dentists.indices){
-                        dentists[index].person?.first_name?.let { dentistNames.add(it) }
+                    for (index in recruitments.indices){
+                        recruitments[index].dentist!!.person?.first_name?.let { dentistNames.add(it) }
                     }
                     val adapters = ArrayAdapter(
                         activityParent.baseContext,
@@ -108,9 +106,10 @@ class AppointmentFragment
                     binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
                         binding.autoCompleteTextView.isClickable=true
                         binding.autoCompleteTextView.isEnabled=true
-                        selectedDentist = dentists[i]
-                        getAllSpecialities(dentists[i].id_dentist!!)
-                    }*/
+                        selectedDentist = recruitments[i].dentist!!
+                        getAllSpecialities(selectedDentist.id_dentist!!)
+                    }
+
                 }
                 override fun onFailure(call: Call<ApiResponse<Recruitment>>, t: Throwable) {
                     binding.autoCompleteTextView.isClickable=false
@@ -119,7 +118,6 @@ class AppointmentFragment
                 }
             })
     }
-
     private fun getAllSpecialities(idDentist: String) {
         mService.getDentistByIdAllSpecialities(idDentist, "100", "0","")
             .enqueue(object : Callback<ApiResponse<DentistSpecialities>>{
@@ -151,12 +149,10 @@ class AppointmentFragment
                 }
             })
     }
-
     private fun showDatePickerFragment() {
         val datePicker = DatePickerFragment{day, month, year -> onDateSelected(day,month,year)}
         datePicker.show(activityParent.supportFragmentManager,"datepicker")
     }
-
     private fun onDateSelected(day:Int, month:Int, year:Int){
         val month2:Int=month+1
         binding.txtfecha.text = "Día $day/$month2/$year"
@@ -168,6 +164,13 @@ class AppointmentFragment
         fecha="$year-$month2-$day"+"T00:00:05.007Z"
         // Todo: Revisar esta parte xd
         binding.txtfecha.visibility = View.VISIBLE
+        Log.w("onDateSelected", "1")
+        Log.w("onDateSelected", "1")
+        Log.w("onDateSelected", "1")
+        Log.w("onDateSelected", requireArguments().getString("id")!!+"-"+selectedDentist.id_dentist!!+"-"+fecha)
+        Log.w("onDateSelected", "2")
+        Log.w("onDateSelected", "2")
+        Log.w("onDateSelected", "2")
         mService
             .getAllScheduleByClinicDentistAndTime("0","100",requireArguments().getString("id")!!,selectedDentist.id_dentist!!,fecha)
             .enqueue(object : Callback<ApiResponse<Schedule>>{
@@ -191,7 +194,6 @@ class AppointmentFragment
                 }
             })
     }
-
     private fun createChoiceChips(name:String){
         val chip=Chip(context)
         chip.text=name
@@ -204,7 +206,6 @@ class AppointmentFragment
         chip.setChipDrawable(chipDrawable)
         binding.chipgroup.addView(chip)
     }
-
     private fun choiceChips(){
         binding.chipgroup
             .setOnCheckedChangeListener {
@@ -232,7 +233,6 @@ class AppointmentFragment
                 }
             }
     }
-
     private fun selectSchedule() {
         val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
         val idPatient : String? = prefs.getString(getString(R.string.sp_patient_id),null)
@@ -240,9 +240,9 @@ class AppointmentFragment
         mService
             .s3patientChoosesSchedule(
                 Schedule(
-                    id_schedule = selectedSchedule.id_schedule, null,null,null,
-                    id_patient = idPatient,null,
-                    null,null,null
+                    selectedSchedule.id_schedule, null,null,
+                    null, idPatient,null,
+                    null,null,null,null
                 ))
             .enqueue(object: Callback<ApiResponse<Schedule>>{
                 override fun onResponse(

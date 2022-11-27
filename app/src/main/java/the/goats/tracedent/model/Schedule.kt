@@ -10,4 +10,5 @@ data class Schedule (
     val id_dentist : String?,
     val id_speciality : String?,
     val id_comment : String?,
+    val recruitment : Recruitment?
 )

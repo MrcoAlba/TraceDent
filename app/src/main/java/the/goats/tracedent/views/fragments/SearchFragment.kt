@@ -34,7 +34,7 @@ class SearchFragment
     private lateinit var layoutManager: LinearLayoutManager
     private  var adapter: MyDentistAdapter? = null
     private  var adapter2: MyClinicAdapter? = null
-    private var filtro: String = "Dentistas"
+    private var filtro: String = "Clinicas"
     private lateinit var txtNombre: TextView
     private lateinit var txtDireccion: TextView
     private lateinit var txtRating: TextView
@@ -77,6 +77,7 @@ class SearchFragment
     }
 
     private fun choiceChips(){
+        Log.w("choiceChips","inicio")
         binding.chipgroup
             .setOnCheckedChangeListener {
                     group, checkedId ->
@@ -87,29 +88,35 @@ class SearchFragment
                             "Filtro $filtro",
                             Toast.LENGTH_SHORT).show()
                         if(filtro=="Dentistas"){
-                            getAllDentistList("")
+                            getTheList("")
                         }else{
-                            getAllClinicList("")
+                            getTheList("")
                         }
                     }else{
                         filtro="Dentistas"
-                        getAllDentistList("")
+                        getTheList("")
                         Toast.makeText(context,
                             "Filtro Dentistas",
                             Toast.LENGTH_SHORT).show()
                     }
             }
+        Log.w("choiceChips","fin")
     }
     private fun getTheList(query: String) {
+        Log.w("getTheList","inicio")
         if (filtro=="Dentistas") {
             getAllDentistList(query)
         }
         else {
             getAllClinicList(query)
         }
+        Log.w("getTheList","fin")
     }
     private fun getAllDentistList(name: String) {
-        mService.getAllDentistsList(limit = "100", offset = "0", name = name, latitude = "", longitude = "").enqueue(object: Callback<ApiResponse<Dentist>> {
+        Log.w("getAllDentistList","inicio")
+        mService
+            .getAllDentistsList(limit = "100", offset = "0", name = name, latitude = "", longitude = "")
+            .enqueue(object: Callback<ApiResponse<Dentist>> {
             override fun onResponse(
                 call: Call<ApiResponse<Dentist>>,
                 response: Response<ApiResponse<Dentist>>
@@ -129,22 +136,25 @@ class SearchFragment
                     adapter!!.notifyDataSetChanged()
                     binding.rvListadodata.adapter = adapter
                 }catch (e:Exception) {
-
                 }
             }
             override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
         })
+        Log.w("getAllDentistList","fin")
     }
     private fun getAllClinicList(name: String) {
-        mService.getAllClinicsList(offset = "", limit = "100", name = name, latitude = "", longitude = "").enqueue(object : Callback<ApiResponse<Clinic>> {
+        Log.w("getAllClinicList","inicio")
+        mService
+            .getAllClinicsList(limit = "100", offset = "", name = name, latitude = "", longitude = "")
+            .enqueue(object : Callback<ApiResponse<Clinic>> {
             override fun onResponse(
                 call: Call<ApiResponse<Clinic>>,
                 response: Response<ApiResponse<Clinic>>
             ) {
                 try {
-                    adapter2 = MyClinicAdapter(requireContext(), response.body() as List<Clinic>) {
+                    adapter2 = MyClinicAdapter(requireContext(), response.body()!!.data) {
                         try {
                             getOnClickClinic(it)
                         } catch (ex: Exception) {
@@ -157,17 +167,16 @@ class SearchFragment
                     adapter2!!.notifyDataSetChanged()
                     binding.rvListadodata.adapter = adapter2
                 } catch(e: Exception) {
-
                 }
             }
-
             override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
-
             }
         })
+        Log.w("getAllClinicList","fin")
     }
 
     private fun getOnClickDentist(dentist: Dentist){
+        Log.w("getOnClickDentist","inicio")
         try {
             val info: Dentist = dentist
             val infoPerson: Person? = dentist.person
@@ -204,8 +213,10 @@ class SearchFragment
         else{
             bottomSheetFragment.visibility = View.VISIBLE
         }*/
+        Log.w("getOnClickDentist","fin")
     }
     private fun getOnClickClinic(it: Clinic){
+        Log.w("getOnClickClinic","inicio")
         try {
             val info: Clinic = it
             val infoUser: User? = it.user
@@ -236,22 +247,72 @@ class SearchFragment
             bottomSheetFragment.visibility = View.VISIBLE
         }*/
         }catch(e: Exception) {
-
         }
+        Log.w("getOnClickClinic","fin")
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        Log.w("onQueryTextSubmit","inicio")
         getTheList(query?:"")
         binding.svSearcher.clearFocus()
+        Log.w("onQueryTextSubmit","fin")
         return true
     }
     override fun onQueryTextChange(query: String?): Boolean {
+        Log.w("onQueryTextChange","inicio")
         getTheList(query?:"")
+
+        Log.w("onQueryTextChange","fin")
         return true
     }
     override fun onClose(): Boolean {
+        Log.w("onClose","inicio")
         getTheList("")
         binding.svSearcher.clearFocus()
+        Log.w("onClose","fin")
         return true
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
