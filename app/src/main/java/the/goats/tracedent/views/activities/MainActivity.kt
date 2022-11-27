@@ -1,8 +1,11 @@
 package the.goats.tracedent.views.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import retrofit2.Callback
 import androidx.fragment.app.Fragment
@@ -29,6 +32,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         UsuarioFragment()
     )
     var back = false
+
+    fun createDialog(message: String, cancelButton: String, acceptButton: String,doOnCancel: ()->Unit,doOnAccept: ()-> Unit): AlertDialog? {
+        val builder = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.popup_confirm_accept_invitation,null)
+
+        val textView = view.findViewById<TextView>(R.id.tvMessage)
+        val btnCancelar = view.findViewById<Button>(R.id.btn_cancelar)
+        val btnAceptar = view.findViewById<Button>(R.id.btn_aceptar)
+
+        textView.text = message
+        btnCancelar.text = cancelButton
+        btnAceptar.text = acceptButton
+
+        btnCancelar.setOnClickListener { doOnCancel()}
+        btnAceptar.setOnClickListener { doOnAccept() }
+
+        builder.setView(view)
+
+
+        return builder.create()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -149,7 +149,7 @@ interface RetrofitService {
                  @Query("offset")offset:String,
                  @Query("limit")limit:String,
                  @Query("name")name:String)
-    : Call<ApiResponse<Dentist>>
+    : Call<ApiResponse<Recruitment>>
     /** ----- ----- ----- ----- ----- ----- Post clinic ----- ----- ----- ----- ----- ----- ----- */
     @POST("clinic")
     fun postClinic
@@ -190,8 +190,10 @@ interface RetrofitService {
     @GET("recruitment?")
     fun getAllRecruitments
                 (@Query("offset")offset:String,
-                 @Query("limit")limit:String)
-    : Call<ApiResponse<DentistSpecialities>>
+                 @Query("limit")limit:String,
+                 @Query("id_clinic")id_clinic:String,
+                 @Query("id_dentist")id_dentist:String)
+    : Call<ApiResponse<Recruitment>>
     //  ----- ----- ----- ----- ----- ----- ----- RECRUITMENTS ----- ----- ----- ----- ----- ----- -
     // *********************************************************************************************
     // *********************************************************************************************
