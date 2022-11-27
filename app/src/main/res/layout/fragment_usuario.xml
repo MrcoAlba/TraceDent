@@ -7,6 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".views.fragments.UsuarioFragment">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_irSolicitudes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Ver solicitudes"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_irReclutamientos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_irReclutamientos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Ver reclutamientos"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_suscribirse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_irSolicitudes"
+        app:layout_constraintVertical_bias="0.77" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_suscribirse"
@@ -25,6 +59,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_reclutar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Reclutar"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cerrarSesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_suscribirse" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cerrarSesion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +87,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_suscribirse" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

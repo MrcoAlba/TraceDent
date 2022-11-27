@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:gravity="center_horizontal"
-        android:text="Lorem ipsum dolor sit amet. Quo architecto \n cumque et sapiente laudantium vel explicabo cupiditate sit sunt sapiente et dolorem pariatur a amet delectus ea architecto eligendi. In iste voluptates id consectetur optio quo porro rerum ex quaerat quisquam sed rerum optio."
+        android:text="Accediendo a la suscripción premium podrá gozar de mayores beneficios, logrando una mejor visibilidad y fidelización con los usuarios."
         android:textSize="15sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"

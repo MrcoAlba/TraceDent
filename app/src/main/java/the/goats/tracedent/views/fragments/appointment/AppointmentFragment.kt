@@ -109,6 +109,7 @@ class AppointmentFragment
                         selectedDentist = recruitments[i].dentist!!
                         getAllSpecialities(selectedDentist.id_dentist!!)
                     }
+
                 }
                 override fun onFailure(call: Call<ApiResponse<Recruitment>>, t: Throwable) {
                     binding.autoCompleteTextView.isClickable=false

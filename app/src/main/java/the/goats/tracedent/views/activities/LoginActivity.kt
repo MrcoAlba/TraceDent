@@ -70,7 +70,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     fun saveUserTypeAndId(idPatient : String, userType: String) {
         with(this.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
             .edit()){
-            putString(getString(the.goats.tracedent.R.string.sp_patient_id),idPatient)
+            if(userType == "patient"){
+                putString(getString(the.goats.tracedent.R.string.sp_patient_id),idPatient)
+            }
+            if(userType == "dentist"){
+                putString(getString(the.goats.tracedent.R.string.sp_dentist_id),idPatient)
+            }
+            if(userType == "clinic"){
+                putString(getString(the.goats.tracedent.R.string.sp_clinic_id),idPatient)
+            }
             putString(getString(the.goats.tracedent.R.string.sp_user_type),userType)
         }.commit()
     }

@@ -65,12 +65,17 @@ class RegisterG5ClinicFragment
                     call: Call<ApiResponse<ClinicCreated>>,
                     response: Response<ApiResponse<ClinicCreated>>
                 ) {
-                    if (response.body()?.data?.get(0) is ClinicCreated || response.body()?.message =="CLINIC CREATED"){
-                        response.body()?.data?.get(0)?.id_clinic?.let { activityParent.saveUserTypeAndId(it, "clinic") }
-                        login.login2Main()
-                    }else{
-                        Toast.makeText(activityParent, response.toString(), Toast.LENGTH_SHORT).show()
+                    try {
+                        if (response.body()?.data?.get(0) is ClinicCreated || response.body()?.message =="CLINIC CREATED"){
+                            response.body()?.data?.get(0)?.id_clinic?.let { activityParent.saveUserTypeAndId(it, "clinic") }
+                            login.login2Main()
+                        }else{
+                            Toast.makeText(activityParent, response.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        Toast.makeText(activityParent, "Existe uno o más campos incorrectos", Toast.LENGTH_SHORT).show()
                     }
+
                 }
                 override fun onFailure(call: Call<ApiResponse<ClinicCreated>>, t: Throwable) {
                     Toast.makeText(activityParent, t.toString(), Toast.LENGTH_SHORT).show()
