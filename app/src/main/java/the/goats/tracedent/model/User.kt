@@ -7,6 +7,6 @@ data class User(
     val subscription : Boolean?,
     val district : String?,
     val direction : String?,
-    val latitude : Long?,
-    val longitude : Long?
+    val latitude : Float?,
+    val longitude : Float?
 )

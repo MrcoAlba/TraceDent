@@ -47,8 +47,8 @@ class MapFragment
     private lateinit var activityParent : MainActivity
     private lateinit var gmMap : GoogleMap
 
-    private lateinit var latitude : String
-    private lateinit var longitude : String
+    private  var latitude : Double = 0.0
+    private  var longitude : Double = 0.0
 
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
 
@@ -71,9 +71,6 @@ class MapFragment
         createFragment()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activityParent)
-
-        latitude = ""
-        longitude = ""
 
         enableLocation()
 
@@ -99,8 +96,8 @@ class MapFragment
         fusedLocationProviderClient.lastLocation.addOnSuccessListener {
             if(it != null) {
                 val ubicacion = LatLng(it.latitude, it.longitude)
-                latitude = it.latitude.toString()
-                longitude = it.longitude.toString()
+                latitude = it.latitude
+                longitude = it.longitude
                 gmMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion, 18f))
             }
         }
@@ -183,8 +180,8 @@ class MapFragment
                 limit = "30",
                 offset = "0",
                 name = "",
-                latitude = latitude,
-                longitude = longitude)
+                latitude = latitude.toString(),
+                longitude = longitude.toString())
             .enqueue(object: Callback<ApiResponse<Dentist>> {
             override fun onResponse(
                 call: Call<ApiResponse<Dentist>>,
@@ -198,7 +195,7 @@ class MapFragment
         })
     }
     private fun getAllClinicList() {
-        mService.getAllClinicsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<ApiResponse<Clinic>> {
+        mService.getAllClinicsList(limit = "30", offset = "0", name = "", latitude = latitude.toString(), longitude = longitude.toString()).enqueue(object: Callback<ApiResponse<Clinic>> {
             override fun onResponse(
                 call: Call<ApiResponse<Clinic>>,
                 response: Response<ApiResponse<Clinic>>
@@ -215,7 +212,7 @@ class MapFragment
         val list = response.data
         if(list.isNotEmpty()){
             list.map {
-                val coordinates = LatLng(it.user!!.latitude as Double, it.user!!.longitude!! as Double)
+                val coordinates = LatLng(it.user!!.latitude!!.toDouble(), it.user!!.longitude!!.toDouble())
                 val marker = MarkerOptions().position(coordinates).title(it.company_name)
                 marker
                     .icon(BitmapDescriptorFactory
@@ -229,7 +226,7 @@ class MapFragment
         val list = response.data
         if(list.isNotEmpty()){
             list.map {
-                val coordinates = LatLng(it.person!!.user!!.latitude!! as Double, it.person!!.user!!.longitude!! as Double)
+                val coordinates = LatLng(it.person!!.user!!.latitude!!.toDouble(), it.person!!.user!!.longitude!!.toDouble())
                 val marker = MarkerOptions().position(coordinates).title(it.person!!.first_name + " " + it.person!!.last_name)
                 marker
                     .icon(BitmapDescriptorFactory

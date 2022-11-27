@@ -63,13 +63,25 @@ class LoginFragment
                         call: Call<ApiResponse<User>>,
                         response: Response<ApiResponse<User>>
                     ) {
-                        Log.e("TRABAJANDO",response.body()!!.toString())
-                        if (response.body()?.data is List<User>){
-                            processLogin(response.body()!!,email)
-                        }else{
-                            showErrorCredentials()
-                            Log.e("HOLAAA ARRIBA",response.body()!!.toString())
+                        try {
+                            Log.e("TRABAJANDO",response.body()!!.toString())
+                            if (response.body()?.data is List<User>){
+                                processLogin(response.body()!!,email)
+                            }else{
+                                showErrorCredentials()
+                                Log.e("HOLAAA ARRIBA",response.body()!!.toString())
+                            }
+                        }catch (e: Exception){
+                                Toast.makeText(activityParent.baseContext,
+                                    response.message(),
+                                    Toast.LENGTH_SHORT)
+                                    .show()
+                                println(response.message())
+                                println(e.message)
+
                         }
+
+
                     }
                     override fun onFailure(call: Call<ApiResponse<User>>, t: Throwable) {
                         // If sign in fails, display a message to the user.

@@ -108,8 +108,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         putBoolean  (getString(R.string.sp_subscription),   patient.person!!.user!!.subscription!!  )
                         putString   (getString(R.string.sp_district),       patient.person!!.user!!.district        )
                         putString   (getString(R.string.sp_direction),      patient.person!!.user!!.direction       )
-                        putLong     (getString(R.string.sp_latitude),       patient.person!!.user!!.latitude!!      )
-                        putLong     (getString(R.string.sp_longitude),      patient.person!!.user!!.longitude!!     )
+                        putFloat    (getString(R.string.sp_latitude),       patient.person!!.user!!.latitude!!  )
+                        putFloat    (getString(R.string.sp_longitude),      patient.person!!.user!!.longitude!!  )
                     }.commit()
                 }
                 override fun onFailure(call: Call<ApiResponse<Patient>>, t: Throwable) {
@@ -143,8 +143,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         putBoolean  (getString(R.string.sp_subscription),   dentist.person!!.user!!.subscription!!  )
                         putString   (getString(R.string.sp_district),       dentist.person!!.user!!.district        )
                         putString   (getString(R.string.sp_direction),      dentist.person!!.user!!.direction       )
-                        putLong     (getString(R.string.sp_latitude),       dentist.person!!.user!!.latitude!!      )
-                        putLong     (getString(R.string.sp_longitude),      dentist.person!!.user!!.longitude!!     )
+                        putFloat    (getString(R.string.sp_latitude),       dentist.person!!.user!!.latitude!!)
+                        putFloat    (getString(R.string.sp_longitude),      dentist.person!!.user!!.longitude!!  )
                     }.commit()
                 }
                 override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
@@ -161,26 +161,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     call: Call<ApiResponse<Clinic>>,
                     response: Response<ApiResponse<Clinic>>
                 ) {
-                    val clinic = response.body()?.data?.get(0) as Clinic
-                    with(this@MainActivity.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
-                        .edit()){
-                        putString   (getString(R.string.sp_clinic_id),      clinic.id_clinic              )
-                        putString   (getString(R.string.sp_clinic_ruc),     clinic.ruc                    )
-                        putString   (getString(R.string.sp_clinic_company_name),clinic.company_name       )
-                        putFloat    (getString(R.string.sp_clinic_rating),  clinic.rating!!               )
-                        putString   (getString(R.string.sp_user_id),        clinic.user!!.id_user         )
-                        putString   (getString(R.string.sp_user_type),      clinic.user!!.user_type       )
-                        putLong     (getString(R.string.sp_phone_number),   clinic.user!!.phone_number!!  )
-                        putBoolean  (getString(R.string.sp_subscription),   clinic.user!!.subscription!!  )
-                        putString   (getString(R.string.sp_district),       clinic.user!!.district        )
-                        putString   (getString(R.string.sp_direction),      clinic.user!!.direction       )
-                        putLong     (getString(R.string.sp_latitude),       clinic.user!!.latitude!!      )
-                        putLong     (getString(R.string.sp_longitude),      clinic.user!!.longitude!!     )
-                    }.commit()
+                    try {
+                        val clinics = response.body() as ApiResponse<Clinic>
+                        val clinic = clinics.data[0]
+
+                        with(this@MainActivity.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
+                            .edit()){
+                            putString   (getString(R.string.sp_clinic_id),      clinic.id_clinic              )
+                            putString   (getString(R.string.sp_clinic_ruc),     clinic.ruc                    )
+                            putString   (getString(R.string.sp_clinic_company_name),clinic.company_name       )
+                            putFloat    (getString(R.string.sp_clinic_rating),  clinic.rating!!               )
+                            putString   (getString(R.string.sp_user_id),        clinic.user!!.id_user         )
+                            putString   (getString(R.string.sp_user_type),      clinic.user!!.user_type       )
+                            putLong     (getString(R.string.sp_phone_number),   clinic.user!!.phone_number!!  )
+                            putBoolean  (getString(R.string.sp_subscription),   clinic.user!!.subscription!!  )
+                            putString   (getString(R.string.sp_district),       clinic.user!!.district        )
+                            putString   (getString(R.string.sp_direction),      clinic.user!!.direction       )
+                            putFloat    (getString(R.string.sp_latitude),       clinic.user!!.latitude!!     )
+                            putFloat    (getString(R.string.sp_longitude),      clinic.user!!.longitude!!    )
+                        }.commit()
+                    }catch (e:Exception){
+                        println(response)
+                        println(e.message)
+                    }
+
                 }
                 override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
                     Toast .makeText(applicationContext, "No se pudo encontrar la data de la clinica", Toast.LENGTH_SHORT).show()
-                    Main2Login()
+                    println(t.message)
+                    println(t)
+                    val prefs = getSharedPreferences(getString(R.string.sp_shared_preferences),0)
+                    if (prefs.edit().clear().commit()){
+                        Main2Login()
+                    }
                 }
 
             })
