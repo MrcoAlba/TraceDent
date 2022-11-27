@@ -23,13 +23,15 @@ import the.goats.tracedent.views.base.BaseActivity
 import the.goats.tracedent.views.fragments.MapFragment
 import the.goats.tracedent.views.fragments.SearchFragment
 import the.goats.tracedent.views.fragments.UsuarioFragment
+import the.goats.tracedent.views.fragments.ViewAppointmentFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), Credential.LogOut {
 
     private val principalFragments : List<Fragment> = listOf(
         SearchFragment(),
         MapFragment(),
-        UsuarioFragment()
+        UsuarioFragment(),
+        ViewAppointmentFragment()
     )
     var back = false
 
@@ -73,11 +75,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val ft = supportFragmentManager.beginTransaction()
         when (menuItem.itemId) {
             //Here goes the transitions between fragments, each lines performs when an item is pressed
-            R.id.booking_item   -> Toast .makeText(applicationContext, "Se presionó para pasar a las reservas", Toast.LENGTH_SHORT).show()
+            R.id.booking_item   -> ft.replace(binding.fcvMainActivity.id, principalFragments[3])
             R.id.search_item    -> ft.replace(binding.fcvMainActivity.id, principalFragments[0])
             R.id.map_item       -> ft.replace(binding.fcvMainActivity.id, principalFragments[1])
             R.id.profile_item   -> ft.replace(binding.fcvMainActivity.id, principalFragments[2])
-            R.id.messaging_item -> Toast.makeText(applicationContext, "Se presionó para pasar a los chats", Toast.LENGTH_SHORT).show()
             else                -> Toast.makeText(applicationContext, "Se presionó una opción incorrecta", Toast.LENGTH_SHORT).show()
         }
         ft.addToBackStack(null)
