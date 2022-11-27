@@ -1,8 +1,6 @@
-package the.goats.tracedent.views.fragments.Suscripcion
+package the.goats.tracedent.views.fragments.suscripcion
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import the.goats.tracedent.R
@@ -24,45 +22,44 @@ class Suscripcion01Fragment
         communicator = requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
         activityParent.back = false
-        val suscripcion = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),Context.MODE_PRIVATE).getBoolean(getString(R.string.sp_subscription),false)
-        Log.i("Hola", suscripcion.toString())
-        if (suscripcion == true) {
-            enableButton(false)
+        // There are some rules to show all the content
+        enableSubscriptionButton()
+        //Listeners
+        binding.btnSuscribirse.setOnClickListener { continueSubscriptionLogic() }
+        binding.tvCancelarSusripcion.setOnClickListener { cancelSubscription() }
+    }
+
+    private fun enableSubscriptionButton() {
+        val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
+        val subscription = prefs.getBoolean(getString(R.string.sp_subscription),false)
+        enableButton(!subscription)
+        if (subscription) {
             binding.btnSuscribirse.text = "Usted ya esta suscrito"
             binding.tvCancelarSusripcion.visibility = View.VISIBLE
         } else {
-            enableButton(true)
             binding.btnSuscribirse.text = "Suscribirse"
             binding.tvCancelarSusripcion.visibility = View.GONE
         }
-        //Listeners
-        //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
-        binding.btnSuscribirse.setOnClickListener { Continue(1) }
-        binding.tvCancelarSusripcion.setOnClickListener {
-            Toast.makeText(
-                activityParent,
-                "Cancelar renovación automatica",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
     }
-
-    private fun Continue(option: Int) {
-        //Save in memory that client card view was pressed
-        val bundle: Bundle = Bundle()
-        bundle.putInt("option", option)
+    private fun continueSubscriptionLogic() {
         communicator
             .goToAnotherFragment(
-                bundle,
+                null,
                 Suscripcion02Fragment(),
                 activityParent.containerView,
                 "Suscripcion01FragmentSuscripcion02Fragment"
             )
     }
-
     private fun enableButton(b: Boolean) {
         binding.btnSuscribirse.isClickable = b
         binding.btnSuscribirse.isEnabled = b
+    }
+    private fun cancelSubscription() {
+        Toast.makeText(
+            activityParent,
+            "Cancelar renovación automatica",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
 

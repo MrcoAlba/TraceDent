@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         MapFragment(),
         UsuarioFragment()
     )
-    private var back = false
+    var back = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +110,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         putString   (getString(R.string.sp_direction),      patient.person!!.user!!.direction       )
                         putLong     (getString(R.string.sp_latitude),       patient.person!!.user!!.latitude!!      )
                         putLong     (getString(R.string.sp_longitude),      patient.person!!.user!!.longitude!!     )
-                    }
+                    }.commit()
                 }
                 override fun onFailure(call: Call<ApiResponse<Patient>>, t: Throwable) {
                     Toast .makeText(applicationContext, "No se pudo encontrar la data del paciente", Toast.LENGTH_SHORT).show()
@@ -145,7 +145,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         putString   (getString(R.string.sp_direction),      dentist.person!!.user!!.direction       )
                         putLong     (getString(R.string.sp_latitude),       dentist.person!!.user!!.latitude!!      )
                         putLong     (getString(R.string.sp_longitude),      dentist.person!!.user!!.longitude!!     )
-                    }
+                    }.commit()
                 }
                 override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
                     Toast .makeText(applicationContext, "No se pudo encontrar la data del dentista", Toast.LENGTH_SHORT).show()
@@ -176,7 +176,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                         putString   (getString(R.string.sp_direction),      clinic.user!!.direction       )
                         putLong     (getString(R.string.sp_latitude),       clinic.user!!.latitude!!      )
                         putLong     (getString(R.string.sp_longitude),      clinic.user!!.longitude!!     )
-                    }
+                    }.commit()
                 }
                 override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
                     Toast .makeText(applicationContext, "No se pudo encontrar la data de la clinica", Toast.LENGTH_SHORT).show()

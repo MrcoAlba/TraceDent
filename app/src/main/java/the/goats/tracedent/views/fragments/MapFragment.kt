@@ -28,25 +28,26 @@ import the.goats.tracedent.api.ApiResponse
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentMapBinding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.interfaces.RetrofitService
+import the.goats.tracedent.model.Clinic
+import the.goats.tracedent.model.Dentist
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
 
 class MapFragment
-    : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener {
+    : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate)
+    , OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener
+    , GoogleMap.OnMyLocationClickListener, GoogleMap.OnMapClickListener
+    , GoogleMap.OnMarkerClickListener
+{
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
     private lateinit var gmMap : GoogleMap
-    private lateinit var mService : RetrofitService
-    private lateinit var bottomSheetFragment : View
-    private lateinit var txtNombre : TextView
-    private lateinit var txtDireccion : TextView
-    private lateinit var txtRating : TextView
-    private lateinit var butMasInfo : Button
+
     private lateinit var latitude : String
     private lateinit var longitude : String
+
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
 
 
@@ -55,40 +56,19 @@ class MapFragment
         val camera_zoom = 15
     }
 
-    override fun onStart() {
-        super.onStart()
-        txtNombre = activityParent.findViewById(R.id.txtNombre)
-        txtDireccion = activityParent.findViewById(R.id.txtDireccion)
-        txtRating = activityParent.findViewById(R.id.txtRating)
-        butMasInfo = activityParent.findViewById(R.id.butMasInfo)
-        bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
-
-    }
-
-
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Delegates
         communicator    =   requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
-
-        //Firebase Analytics
-        analyticEvent(requireActivity(), "BaseFragment", "onViewCreated")
-
-
+        // Retrofit
         mService = Common.retrofitService
 
         //Lifecycle necessary functions
         createFragment()
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activityParent)
-
-        txtNombre = activityParent.findViewById(R.id.txtNombre)
-        txtDireccion = activityParent.findViewById(R.id.txtDireccion)
-        txtRating = activityParent.findViewById(R.id.txtRating)
-        butMasInfo = activityParent.findViewById(R.id.butMasInfo)
-        bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
 
         latitude = ""
         longitude = ""
@@ -99,8 +79,8 @@ class MapFragment
 
     private fun createFragment(){
         try {
-            val supportMapFragment =
-                childFragmentManager.findFragmentById(R.id.f_map) as SupportMapFragment
+            val supportMapFragment = childFragmentManager
+                .findFragmentById(R.id.f_map) as SupportMapFragment
             supportMapFragment.getMapAsync(this)
         }catch (e: Exception) {
             Log.e(TAG, "onCreateView", e);
@@ -134,10 +114,8 @@ class MapFragment
 
     }
 
-
     private fun isLocationPermissionGranted() =
         ContextCompat.checkSelfPermission(activityParent.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-
     private fun enableLocation() {
         if(!::gmMap.isInitialized) return
         if(isLocationPermissionGranted()) {
@@ -203,20 +181,13 @@ class MapFragment
                 call: Call<ApiResponse<Dentist>>,
                 response: Response<ApiResponse<Dentist>>
             ) {
-                Log.i(null, "Se llego hasta aqui")
-                Log.i(null, response.body().toString())
                 createMarkers(response.body()!!)
             }
-
             override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                Log.e("gaaa!",t.message.toString())
             }
-
         })
-
     }
-
     private fun getAllClinicList() {
         mService.getAllClinicsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<ApiResponse<Clinic>> {
             override fun onResponse(
@@ -225,10 +196,8 @@ class MapFragment
             ) {
                 createMarkers1(response.body()!!)
             }
-
             override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                Log.e("gaaa!",t.message.toString())
             }
         })
     }
@@ -237,7 +206,7 @@ class MapFragment
         val list = response.data
         if(list.size>0){
             list.map {
-                val coordinates = LatLng(it.user!!.latitude!!, it.user!!.longitude!!)
+                val coordinates = LatLng(it.user!!.latitude as Double, it.user!!.longitude!! as Double)
                 val marker = MarkerOptions().position(coordinates).title(it.company_name)
                 val marker_ : Marker? = gmMap.addMarker(marker)
                 marker_!!.tag = it
@@ -245,7 +214,6 @@ class MapFragment
             }
         }
     }
-
     private fun createMarkers(response : ApiResponse<Dentist>) {
         val list = response.data
 
@@ -269,17 +237,17 @@ class MapFragment
            val info : Dentist = p0.tag as Dentist
            val infoPerson : Person? = info.person
            val infoUser : Usuario? = info.person!!.user
-           txtNombre.text = infoPerson!!.first_name + " " + infoPerson!!.last_name
-           txtDireccion.text = infoUser!!.direction
-           txtRating.text = info.rating.toString()
-           butMasInfo.setOnClickListener{
+           binding.bottomsheet.txtNombre.text = infoPerson!!.first_name + " " + infoPerson!!.last_name
+           binding.bottomsheet.txtDireccion.text = infoUser!!.direction
+           binding.bottomsheet.txtRating.text = info.rating.toString()
+           binding.bottomsheet.butMasInfo.setOnClickListener{
                val bundle : Bundle = Bundle()
                bundle.putString("id", info.id_dentist)
                bundle.putString("first_name", infoPerson.first_name)
                bundle.putString("first_name", infoPerson.first_name)
                bundle.putString("last_name", infoPerson.last_name)
-               bundle.putString("direction", txtDireccion.text.toString())
-               bundle.putString("rating", txtRating.text.toString())
+               bundle.putString("direction", binding.bottomsheet.txtDireccion.text.toString())
+               bundle.putString("rating", binding.bottomsheet.txtRating.text.toString())
                bundle.putString("gender", infoPerson.gender)
                bundle.putString("district", infoUser.direction)
                bundle.putString("dni", infoPerson.dni.toString())
@@ -305,15 +273,15 @@ class MapFragment
 
            val info : Clinic = p0.tag as Clinic
            val infoUser : Usuario? = info.user
-           txtNombre.text = info.company_name
-           txtDireccion.text = infoUser!!.direction
-           txtRating.text = info.rating.toString()
-           butMasInfo.setOnClickListener{
+           binding.bottomsheet.txtNombre.text = info.company_name
+           binding.bottomsheet.txtDireccion.text = infoUser!!.direction
+           binding.bottomsheet.txtRating.text = info.rating.toString()
+           binding.bottomsheet.butMasInfo.setOnClickListener{
                val bundle : Bundle = Bundle()
                bundle.putString("id", info.id_clinic)
                bundle.putString("company_name",info.company_name )
-               bundle.putString("direction", txtDireccion.text.toString())
-               bundle.putString("rating", txtRating.text.toString())
+               bundle.putString("direction", binding.bottomsheet.txtDireccion.text.toString())
+               bundle.putString("rating", binding.bottomsheet.txtRating.text.toString())
                bundle.putString("phone_number", infoUser.phone_number.toString())
                bundle.putString("district", infoUser.district.toString())
                bundle.putString("ruc", info.ruc)

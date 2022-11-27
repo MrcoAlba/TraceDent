@@ -3,13 +3,12 @@ package the.goats.tracedent.views.fragments
 import android.os.Bundle
 import android.view.View
 import the.goats.tracedent.R
-import the.goats.tracedent.api.user.UserLoginResponse
 import the.goats.tracedent.databinding.FragmentUsuarioBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
-import the.goats.tracedent.views.fragments.Suscripcion.Suscripcion01Fragment
+import the.goats.tracedent.views.fragments.suscripcion.Suscripcion01Fragment
 
 class UsuarioFragment
     : BaseFragment<FragmentUsuarioBinding>(FragmentUsuarioBinding::inflate)
@@ -17,9 +16,7 @@ class UsuarioFragment
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
-    private lateinit var user : UserLoginResponse
 
-    //Fragment Lifecycle
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,49 +24,39 @@ class UsuarioFragment
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
         logout          =   requireActivity() as Credential.LogOut
+        // There are some rules to show all the content
+        setUserTypeLogic()
+        //Listeners
+        binding.btnSuscribirse.setOnClickListener                     { continueToSubscriptionFragment()    }
+        binding.btnCerrarSesion.setOnClickListener                    { signOut()                           }
+    }
 
-        //Firebase Analytics
-        analyticEvent(requireActivity(), "UsuarioFragment", "onViewCreated")
-        //Getting user
+    private fun setUserTypeLogic() {
         val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
 
-        val tipo = prefs.getString(getString(R.string.sp_user_type),"user")
+        val userType = prefs.getString(getString(R.string.sp_user_type),null)
 
-        val suscripcion = prefs.getBoolean(getString(R.string.sp_subscription),false)
-        //Listeners
-        binding.btnSuscribirse.setOnClickListener                     { GetInfo(suscripcion) }
-        binding.btnCerrarSesion.setOnClickListener                    {  SignOut()          }
-
-        if (tipo == "patient"){
+        if (userType == "patient"){
             binding.btnSuscribirse.visibility = View.GONE
         }
-    }
 
+    }
     //Selected option
-    private fun GetInfo(option:Boolean){
-        //Save in memory that client card view was pressed
-        val bundle = Bundle()
-        bundle.putBoolean("suscripcion", option)
+    private fun continueToSubscriptionFragment(){
         communicator
             .goToAnotherFragment(
-                bundle,
+                null,
                 Suscripcion01Fragment(),
                 activityParent.containerView,
-                "UsuarioSuscripcion01Fragment"
+                "Suscripcion01Fragment"
             )
     }
-
-    private fun SignOut(){
-
+    // Sign out and clean the Share Preferences
+    private fun signOut(){
         val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
-
-         if (prefs.edit().clear().commit()){
-             logout.Main2Login()
-         }
-
-
-
+        if (prefs.edit().clear().commit()){
+            logout.Main2Login()
+        }
     }
-
 
 }

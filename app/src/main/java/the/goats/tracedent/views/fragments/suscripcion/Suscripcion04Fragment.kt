@@ -1,4 +1,4 @@
-package the.goats.tracedent.views.fragments.Suscripcion
+package the.goats.tracedent.views.fragments.suscripcion
 
 import android.os.Bundle
 import android.view.View
@@ -16,9 +16,6 @@ class Suscripcion04Fragment
     //At the moment, they are null variables
     private lateinit var activityParent : MainActivity
 
-
-
-
     //Fragment Lifecycle
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,23 +23,16 @@ class Suscripcion04Fragment
         communicator    =   requireActivity() as Communicator
         activityParent  =   requireActivity() as MainActivity
 
-        //Firebase Analytics
-        analyticEvent(requireActivity(), "Suscripcion04Fragment", "onViewCreated")
-        activityParent.back = true
-
+        activityParent.back = false
         //Listeners
-
-        //binding.btnSuscribirse.setOnClickListener                     { activityParent.ChangesSubscription() }
-        binding.btnSuscribirse.setOnClickListener                       { Continue(1) }
+        binding.btnSuscribirse.setOnClickListener                       { continueSubscriptionLogic() }
     }
 
     //Selected option
-    private fun Continue(option:Int){
-        val bundle : Bundle = Bundle()
-        bundle.putInt("option", option)
+    private fun continueSubscriptionLogic(){
         communicator
             .goToAnotherFragment(
-                bundle,
+                null,
                 UsuarioFragment(),
                 activityParent.containerView,
                 "Suscripcion03FragmentUsuarioFragment"

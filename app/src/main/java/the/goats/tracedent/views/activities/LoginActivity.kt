@@ -100,8 +100,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             putString(getString(the.goats.tracedent.R.string.sp_district),user.district)
             putLong(getString(the.goats.tracedent.R.string.sp_phone_number),user.phone_number!!)
             putBoolean(getString(the.goats.tracedent.R.string.sp_subscription),user.subscription!!)
-            commit()
-        }
+        }.commit()
     }
 
 
@@ -111,7 +110,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
             .edit()){
             putString(getString(the.goats.tracedent.R.string.sp_patient_id),idPatient)
             putString(getString(the.goats.tracedent.R.string.sp_user_type),userType)
-        }
+        }.commit()
     }
 
 }

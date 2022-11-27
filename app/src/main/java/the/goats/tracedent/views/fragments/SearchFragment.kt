@@ -52,7 +52,6 @@ class SearchFragment
 
         //Delegates
         communicator    =   requireActivity() as Communicator
-        logout          =   requireActivity() as Credential.LogOut
         activityParent  =   requireActivity() as MainActivity
         // Retrofit service
         mService        =   Common.retrofitService

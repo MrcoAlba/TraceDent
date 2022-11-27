@@ -65,7 +65,6 @@ class AppointmentDFragment
         super.onViewCreated(view, savedInstanceState)
         //Delegates
         communicator = requireActivity() as Communicator
-        logout = requireActivity() as Credential.LogOut
         activityParent = requireActivity() as MainActivity
         mService=Common.retrofitService
         //Firebase Analytics
