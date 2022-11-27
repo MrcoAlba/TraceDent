@@ -213,19 +213,28 @@ class AppointmentDFragment
                     null, idPatient,null,
                     null,null,null,null
                 ))
-            .enqueue(object: Callback<ApiResponse<Schedule>>{
+            .enqueue(object: Callback<ApiResponse<Int>>{
                 override fun onResponse(
-                    call: Call<ApiResponse<Schedule>>,
-                    response: Response<ApiResponse<Schedule>>
+                    call: Call<ApiResponse<Int>>,
+                    response: Response<ApiResponse<Int>>
                 ) {
-                    Toast
-                        .makeText(
-                            activityParent,
-                            "La reserva fue exitosa!",
-                            Toast.LENGTH_SHORT)
-                        .show()
+                    if(response.body()!!.data[0] == 1){
+                        Toast
+                            .makeText(
+                                activityParent,
+                                "La reserva fue exitosa!",
+                                Toast.LENGTH_SHORT)
+                            .show()
+                    }else{
+                        Toast
+                            .makeText(
+                                activityParent,
+                                "Seleccione otra fecha por favor",
+                                Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
-                override fun onFailure(call: Call<ApiResponse<Schedule>>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse<Int>>, t: Throwable) {
                     Toast
                         .makeText(
                             activityParent,
