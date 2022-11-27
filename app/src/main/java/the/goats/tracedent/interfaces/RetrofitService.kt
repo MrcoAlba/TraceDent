@@ -194,6 +194,12 @@ interface RetrofitService {
                  @Query("id_clinic")id_clinic:String,
                  @Query("id_dentist")id_dentist:String)
     : Call<ApiResponse<Recruitment>>
+
+    @POST("/recruitment/change/{id}?")
+    fun changeRecruitmentStatus
+                (@Path("id")id:String,
+                 @Query("status")status:String)
+    :Call<ApiResponse<Int>>
     //  ----- ----- ----- ----- ----- ----- ----- RECRUITMENTS ----- ----- ----- ----- ----- ----- -
     // *********************************************************************************************
     // *********************************************************************************************

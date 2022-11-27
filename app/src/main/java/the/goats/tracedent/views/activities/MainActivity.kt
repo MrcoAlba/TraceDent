@@ -222,4 +222,43 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
             })
     }
+
+    fun changeRecruitmentState(id_recruitment:String,status:String,doOnSuccess:()->Unit){
+        Common.retrofitService.changeRecruitmentStatus(id_recruitment,status)
+            .enqueue(object : Callback<ApiResponse<Int>>{
+
+                override fun onResponse(call: Call<ApiResponse<Int>>, response: Response<ApiResponse<Int>>) {
+                    try {
+                        val code = (response.body() as ApiResponse<Int>).data[0]
+                        println(id_recruitment)
+                        if(code == 1){
+                        doOnSuccess()
+                        Toast.makeText(
+                            baseContext, "Accion realizada correctamente",
+                            Toast.LENGTH_SHORT
+                        ).show()}
+                        else{
+                            Toast.makeText(
+                                baseContext, "Hubo un error",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }catch (e: Exception){
+                        Toast.makeText(
+                            baseContext, e.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiResponse<Int>>, t: Throwable) {
+                    println(id_recruitment)
+                    Toast.makeText(
+                        baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
+    }
 }
