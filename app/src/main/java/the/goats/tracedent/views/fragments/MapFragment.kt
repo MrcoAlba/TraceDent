@@ -108,9 +108,6 @@ class MapFragment
 
         getAllDentistList()
         getAllClinicList()
-
-        Log.i("", "Se llega hasta aquí")
-
     }
 
     private fun isLocationPermissionGranted() =
