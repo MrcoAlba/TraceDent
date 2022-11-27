@@ -223,7 +223,7 @@ interface RetrofitService {
                  @Query("date")         date:String,)
             : Call<ApiResponse<Schedule>>
     /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist and time ----- ----- --  */
-    @GET("schedule/dentist/only/{id}?")
+    @GET("schedule/dentist/time?")
     fun getAllScheduleByDentistAndTime
                 (@Query("offset")       offset:String,
                  @Query("limit")        limit:String,

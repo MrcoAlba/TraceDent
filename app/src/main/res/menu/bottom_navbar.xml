@@ -11,9 +11,6 @@
         android:id="@+id/map_item"
         android:icon="@drawable/ic_travel_explore" />
     <item
-        android:id="@+id/messaging_item"
-        android:icon="@drawable/ic_forum" />
-    <item
         android:id="@+id/profile_item"
         android:icon="@drawable/ic_person" />
 </menu>

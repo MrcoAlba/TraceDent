@@ -28,7 +28,6 @@
         android:numStars="5"
         android:rating="2.5"
         android:stepSize="0.5"
-        android:progressBackgroundTint="@color/black"
         android:progressTint="@android:color/holo_orange_dark"
         tools:ignore="SpeakableTextPresentCheck" />
 

@@ -22,6 +22,8 @@ import the.goats.tracedent.model.Schedule
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 import the.goats.tracedent.views.fragments.DatePickerFragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AppointmentFragment
     : BaseFragment<FragmentAppointmentBinding>(FragmentAppointmentBinding::inflate)
@@ -154,14 +156,24 @@ class AppointmentFragment
         datePicker.show(activityParent.supportFragmentManager,"datepicker")
     }
     private fun onDateSelected(day:Int, month:Int, year:Int){
-        val month2:Int=month+1
-        binding.txtfecha.text = "Día $day/$month2/$year"
-        //send a get request for the date
-        dia=day
-        mes=month2
-        año=year
+
+        binding.txtfecha.text = "Día $day/$month/$year"
+        val parsedDate: String? =
+            if(month<10){
+                if(day<10){
+                    "${year}-0${month + 1}-0${day}"
+                }else{
+                    "${year}-0${month + 1}-${day}"
+                }
+            }else{
+                if(day<10){
+                    "${year}-${month + 1}-0${day}"
+                }else{
+                    "${year}-${month + 1}-${day}"
+                }
+            }
         /*FORMATO: 2022-11-25T00:00:05.007Z*/
-        fecha="$year-$month2-$day"+"T00:00:05.007Z"
+        fecha=parsedDate!!+"T00:00:05.007Z"
         // Todo: Revisar esta parte xd
         binding.txtfecha.visibility = View.VISIBLE
         mService
