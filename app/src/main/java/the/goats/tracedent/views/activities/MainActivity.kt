@@ -151,26 +151,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     call: Call<ApiResponse<Dentist>>,
                     response: Response<ApiResponse<Dentist>>
                 ) {
-                    val dentist = response.body()?.data?.get(0) as Dentist
-                    with(this@MainActivity.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
-                        .edit()){
-                        putString   (getString(R.string.sp_patient_id),     dentist.id_dentist                      )
-                        putString   (getString(R.string.sp_dentist_ruc),    dentist.ruc                             )
-                        putFloat    (getString(R.string.sp_dentist_rating), dentist.rating!!                        )
-                        putString   (getString(R.string.sp_person_id),      dentist.person!!.id_person              )
-                        putString   (getString(R.string.sp_first_name),     dentist.person!!.first_name             )
-                        putString   (getString(R.string.sp_last_name),      dentist.person!!.last_name              )
-                        putString   (getString(R.string.sp_gender),         dentist.person!!.gender                 )
-                        putLong     (getString(R.string.sp_dni),            dentist.person!!.dni!!                  )
-                        putString   (getString(R.string.sp_user_id),        dentist.person!!.user!!.id_user         )
-                        putString   (getString(R.string.sp_user_type),      dentist.person!!.user!!.user_type       )
-                        putLong     (getString(R.string.sp_phone_number),   dentist.person!!.user!!.phone_number!!  )
-                        putBoolean  (getString(R.string.sp_subscription),   dentist.person!!.user!!.subscription!!  )
-                        putString   (getString(R.string.sp_district),       dentist.person!!.user!!.district        )
-                        putString   (getString(R.string.sp_direction),      dentist.person!!.user!!.direction       )
-                        putFloat    (getString(R.string.sp_latitude),       dentist.person!!.user!!.latitude!!)
-                        putFloat    (getString(R.string.sp_longitude),      dentist.person!!.user!!.longitude!!  )
-                    }.commit()
+                    try {
+                        val dentist = response.body()?.data?.get(0) as Dentist
+                        with(this@MainActivity.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
+                            .edit()){
+                            putString   (getString(R.string.sp_patient_id),     dentist.id_dentist                      )
+                            putString   (getString(R.string.sp_dentist_ruc),    dentist.ruc                             )
+                            putFloat    (getString(R.string.sp_dentist_rating), dentist.rating!!                        )
+                            putString   (getString(R.string.sp_person_id),      dentist.person!!.id_person              )
+                            putString   (getString(R.string.sp_first_name),     dentist.person!!.first_name             )
+                            putString   (getString(R.string.sp_last_name),      dentist.person!!.last_name              )
+                            putString   (getString(R.string.sp_gender),         dentist.person!!.gender                 )
+                            putLong     (getString(R.string.sp_dni),            dentist.person!!.dni!!                  )
+                            putString   (getString(R.string.sp_user_id),        dentist.person!!.user!!.id_user         )
+                            putString   (getString(R.string.sp_user_type),      dentist.person!!.user!!.user_type       )
+                            putLong     (getString(R.string.sp_phone_number),   dentist.person!!.user!!.phone_number!!  )
+                            putBoolean  (getString(R.string.sp_subscription),   dentist.person!!.user!!.subscription!!  )
+                            putString   (getString(R.string.sp_district),       dentist.person!!.user!!.district        )
+                            putString   (getString(R.string.sp_direction),      dentist.person!!.user!!.direction       )
+                            putFloat    (getString(R.string.sp_latitude),       dentist.person!!.user!!.latitude!!)
+                            putFloat    (getString(R.string.sp_longitude),      dentist.person!!.user!!.longitude!!  )
+                        }.commit()
+                    }catch (e: Exception){
+                        println(e.message)
+                    }
+
                 }
                 override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
                     Toast .makeText(applicationContext, "No se pudo encontrar la data del dentista", Toast.LENGTH_SHORT).show()
@@ -219,6 +224,45 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     if (prefs.edit().clear().commit()){
                         Main2Login()
                     }
+                }
+
+            })
+    }
+
+    fun changeRecruitmentState(id_recruitment:String,status:String,doOnSuccess:()->Unit){
+        Common.retrofitService.changeRecruitmentStatus(id_recruitment,status)
+            .enqueue(object : Callback<ApiResponse<Int>>{
+
+                override fun onResponse(call: Call<ApiResponse<Int>>, response: Response<ApiResponse<Int>>) {
+                    try {
+                        val code = (response.body() as ApiResponse<Int>).data[0]
+                        println(id_recruitment)
+                        if(code == 1){
+                        doOnSuccess()
+                        Toast.makeText(
+                            baseContext, "Accion realizada correctamente",
+                            Toast.LENGTH_SHORT
+                        ).show()}
+                        else{
+                            Toast.makeText(
+                                baseContext, "Hubo un error",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }catch (e: Exception){
+                        Toast.makeText(
+                            baseContext, e.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiResponse<Int>>, t: Throwable) {
+                    println(id_recruitment)
+                    Toast.makeText(
+                        baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             })

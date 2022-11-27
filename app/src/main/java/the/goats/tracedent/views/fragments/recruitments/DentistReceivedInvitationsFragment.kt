@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -74,7 +75,9 @@ class DentistReceivedInvitationsFragment :BaseFragment<FragmentTitleReciclerview
                                     {
                                         dialog!!.hide()
                                     },{
-                                        doOnConfirmReject()
+                                        activityParent.changeRecruitmentState(it.id_recruitment!!,"4"){
+                                            getAllRecruitments()
+                                        }
                                         dialog!!.hide()
                                     })
                                 dialog!!.show()
@@ -85,7 +88,9 @@ class DentistReceivedInvitationsFragment :BaseFragment<FragmentTitleReciclerview
                                     {
                                         dialog!!.hide()
                                     },{
-                                        doOnConfirmAccept()
+                                        activityParent.changeRecruitmentState(it.id_recruitment!!,"2"){
+                                            getAllRecruitments()
+                                        }
                                         dialog!!.hide()
                                     })
                                 dialog!!.show()
@@ -95,28 +100,20 @@ class DentistReceivedInvitationsFragment :BaseFragment<FragmentTitleReciclerview
                         binding.reciclerView.adapter = adapter
 
                     }catch (ex: Exception){
-                        println(ex)
+                        Toast.makeText(
+                            activityParent.baseContext, ex.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ApiResponse<Recruitment>>, t: Throwable) {
-                    println("GAAAAAAAERRORGAAAAAAAAA")
+                    Toast.makeText(
+                        activityParent.baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             })
     }
-
-
-
-    private fun doOnConfirmAccept(){
-        //TODO Cuando se confirma el reclutamiento
-    }
-
-    private fun doOnConfirmReject(){
-        //TODO Cuando se rechaza el reclutamiento
-    }
-
-
-
-
 }

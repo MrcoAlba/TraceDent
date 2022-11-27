@@ -3,6 +3,7 @@ package the.goats.tracedent.views.fragments.recruitments
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,7 +66,7 @@ class ClinicPendingRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewB
                         binding.reciclerView.visibility = View.VISIBLE
 
                         adapter = RecruitmentsAdapter(requireActivity(),
-                            recruitment)
+                            recruitment,"clinic")
                         {
                             dialog = activityParent.createDialog("¿Realmente desea cancelar esta solicitud?",
                                 "Cancelar",
@@ -73,7 +74,9 @@ class ClinicPendingRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewB
                                 {
                                     dialog!!.hide()
                                 },{
-                                    doOnConfirmAccept()
+                                    activityParent.changeRecruitmentState(it.id_recruitment!!,"1"){
+                                        getAllRecruitments()
+                                    }
                                     dialog!!.hide()
                                 })
                             dialog!!.show()
@@ -82,19 +85,21 @@ class ClinicPendingRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewB
                         binding.reciclerView.adapter = adapter
 
                     }catch (ex: Exception){
-                        println(ex)
+                        Toast.makeText(
+                            activityParent.baseContext, ex.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ApiResponse<Recruitment>>, t: Throwable) {
-                    println("GAAAAAAAERRORGAAAAAAAAA")
+                    Toast.makeText(
+                        activityParent.baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             })
-    }
-
-    private fun doOnConfirmAccept(){
-        //TODO
     }
 
 }

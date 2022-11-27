@@ -85,6 +85,7 @@
         android:text="Olvide mi contraseña"
         android:textSize="16sp"
         android:textStyle="bold|italic"
+        android:visibility="gone"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

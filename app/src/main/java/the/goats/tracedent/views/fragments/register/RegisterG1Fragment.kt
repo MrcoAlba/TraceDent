@@ -90,7 +90,8 @@ class RegisterG1Fragment
                     call: Call<ApiResponse<Int>>,
                     response: Response<ApiResponse<Int>>
                 ) {
-                    if (response.body()?.data?.get(0) == 0){
+                    println(response.body())
+                    if (response.body()?.data?.get(0) == 1){
                         moveNextFragment(email)
                     }else{
                         Toast.makeText(activityParent, "El correo está siendo usado por otro usuario", Toast.LENGTH_SHORT).show()
