@@ -7,4 +7,5 @@ data class Recruitment (
     val sttus: Int?,
     val id_clinic: String?,
     val id_dentist: String?,
+    val dentist: Dentist
 )
