@@ -210,7 +210,7 @@ interface RetrofitService {
                 (@Query("offset")       offset:String,
                  @Query("limit")        limit:String,
                  @Query("id_clinic")    id_clinic: String,
-                 @Query("id_patient")   id_patient:String,
+                 @Query("id_dentist")   id_dentist:String,
                  @Query("date")         date:String,)
             : Call<ApiResponse<Schedule>>
     /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist id ----- ----- ----- --  */
