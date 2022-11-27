@@ -6,6 +6,7 @@ import the.goats.tracedent.databinding.FragmentInfoClinicBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
+import the.goats.tracedent.views.fragments.appointment.AppointmentFragment
 
 class InfoClinicFragment : BaseFragment<FragmentInfoClinicBinding>(FragmentInfoClinicBinding::inflate) {
 
@@ -14,25 +15,24 @@ class InfoClinicFragment : BaseFragment<FragmentInfoClinicBinding>(FragmentInfoC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         communicator    =   requireActivity() as Communicator
-        activityParent = requireActivity() as MainActivity
-        val bundle : Bundle = Bundle()
-        bundle.putString("id", requireArguments().getString("id"))
-        bundle.putString("company_name", requireArguments().getString("company_name"))
-        bundle.putString("direction", requireArguments().getString("direction"))
-        bundle.putString("rating", requireArguments().getString("rating"))
-        bundle.putString("phone_number", requireArguments().getString("phone_number"))
-        bundle.putString("district", requireArguments().getString("district"))
-        bundle.putString("ruc", requireArguments().getString("ruc"))
+        activityParent  = requireActivity() as MainActivity
 
-        binding.butReservarClinica.setOnClickListener      {
-            communicator.goToAnotherFragment(
+        fill()
+
+        // Listeners
+        binding.butReservarClinica.setOnClickListener      { makeAnAppointment()}
+        binding.butRegresarClinica.setOnClickListener      { activityParent.onBackPressed() }
+    }
+
+    private fun makeAnAppointment() {
+        val bundle = Bundle()
+        bundle.putString("id", requireArguments().getString("id"))
+
+        communicator.goToAnotherFragment(
             bundle,
             AppointmentFragment(),
             activityParent.containerView,
             "AppointmentFragment")
-        }
-        binding.butRegresarClinica.setOnClickListener      { activityParent.onBackPressed() }
-        fill()
     }
 
     private fun fill() {
@@ -42,6 +42,4 @@ class InfoClinicFragment : BaseFragment<FragmentInfoClinicBinding>(FragmentInfoC
         binding.txtRatingClinica.text = requireArguments().getString("rating")
         binding.txtRucClinica.text = requireArguments().getString("ruc")
     }
-
-
 }

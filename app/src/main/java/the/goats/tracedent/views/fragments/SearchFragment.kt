@@ -18,9 +18,11 @@ import the.goats.tracedent.adapter.MyDentistAdapter
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentSearchBinding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.interfaces.Credential
-import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.api.ApiResponse
+import the.goats.tracedent.model.Clinic
+import the.goats.tracedent.model.Dentist
+import the.goats.tracedent.model.Person
+import the.goats.tracedent.model.User
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -30,11 +32,9 @@ class SearchFragment
     //At the moment, they are null variables
     private lateinit var activityParent: MainActivity
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var mService: RetrofitService
     private  var adapter: MyDentistAdapter? = null
     private  var adapter2: MyClinicAdapter? = null
     private var filtro: String = "Dentistas"
-    private lateinit var bottomSheetFragment: View
     private lateinit var txtNombre: TextView
     private lateinit var txtDireccion: TextView
     private lateinit var txtRating: TextView
@@ -55,29 +55,23 @@ class SearchFragment
         activityParent  =   requireActivity() as MainActivity
         // Retrofit service
         mService        =   Common.retrofitService
-        //Firebase Analytics
-        analyticEvent(requireActivity(), "SearchFragment", "onViewCreated")
-
 
         //Listeners
         binding.svSearcher.setOnQueryTextListener(this)
 
-
-
         //recycler view
-        mService = Common.retrofitService
+        mService                                = Common.retrofitService
         binding.rvListadodata.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(requireContext())
-        binding.rvListadodata.layoutManager = layoutManager
+        layoutManager                           = LinearLayoutManager(requireContext())
+        binding.rvListadodata.layoutManager     = layoutManager
         binding.chipgroup.check(binding.chipDen.id)
-        txtNombre = activityParent.findViewById(R.id.txtNombre)
-        txtDireccion = activityParent.findViewById(R.id.txtDireccion)
-        txtRating = activityParent.findViewById(R.id.txtRating)
-        butMasInfo = activityParent.findViewById(R.id.butMasInfo)
-        bottomSheetFragment = activityParent.findViewById(R.id.bottomsheet)
 
+        txtNombre                               = activityParent.findViewById(R.id.txtNombre)
+        txtDireccion                            = activityParent.findViewById(R.id.txtDireccion)
+        txtRating                               = activityParent.findViewById(R.id.txtRating)
+        butMasInfo                              = activityParent.findViewById(R.id.butMasInfo)
 
-        getAllDentistList()
+        getTheList("")
         choiceChips()
 
     }
@@ -93,27 +87,35 @@ class SearchFragment
                             "Filtro $filtro",
                             Toast.LENGTH_SHORT).show()
                         if(filtro=="Dentistas"){
-                            getAllDentistList()
+                            getAllDentistList("")
                         }else{
-                            getAllClinicList()
+                            getAllClinicList("")
                         }
                     }else{
                         filtro="Dentistas"
-                        getAllDentistList()
+                        getAllDentistList("")
                         Toast.makeText(context,
                             "Filtro Dentistas",
                             Toast.LENGTH_SHORT).show()
                     }
             }
     }
-    private fun getAllDentistList() {
-        mService.getAllDentistsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object: Callback<ApiResponse<Dentist>> {
+    private fun getTheList(query: String) {
+        if (filtro=="Dentistas") {
+            getAllDentistList(query)
+        }
+        else {
+            getAllClinicList(query)
+        }
+    }
+    private fun getAllDentistList(name: String) {
+        mService.getAllDentistsList(limit = "100", offset = "0", name = name, latitude = "", longitude = "").enqueue(object: Callback<ApiResponse<Dentist>> {
             override fun onResponse(
                 call: Call<ApiResponse<Dentist>>,
                 response: Response<ApiResponse<Dentist>>
             ) {
                 try {
-                    adapter = MyDentistAdapter(requireContext(), response.body() as List<Dentist>) {
+                    adapter = MyDentistAdapter(requireContext(), response.body()!!.data) {
                         try {
                             getOnClickDentist(it)
                         } catch (ex: Exception) {
@@ -131,12 +133,12 @@ class SearchFragment
                 }
             }
             override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
-
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
-    private fun getAllClinicList() {
-        mService.getAllClinicsList(offset = "", limit = "", name = "", latitude = "", longitude = "").enqueue(object : Callback<ApiResponse<Clinic>> {
+    private fun getAllClinicList(name: String) {
+        mService.getAllClinicsList(offset = "", limit = "100", name = name, latitude = "", longitude = "").enqueue(object : Callback<ApiResponse<Clinic>> {
             override fun onResponse(
                 call: Call<ApiResponse<Clinic>>,
                 response: Response<ApiResponse<Clinic>>
@@ -164,73 +166,12 @@ class SearchFragment
             }
         })
     }
-    private fun getTheList(query: String) {
-        if (filtro=="Dentistas") {
-            mService.getDentistsList(query).enqueue(object : Callback<MutableList<Dentist>> {
-                override fun onResponse(
-                    call: Call<MutableList<Dentist>>,
-                    response: Response<MutableList<Dentist>>
-                ) {
-                    try {
-                        adapter =
-                            MyDentistAdapter(activityParent, response.body() as List<Dentist>) {
-                                try {
-                                    getOnClickDentist(it)
-                                } catch (ex: Exception) {
-                                    Toast.makeText(
-                                        activityParent.baseContext, "No se encontro su busqueda",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        adapter!!.notifyDataSetChanged()
-                        binding.rvListadodata.adapter = adapter
-                    } catch(e: Exception) {
 
-                    }
-                    }
-
-                override fun onFailure(call: Call<MutableList<Dentist>>, t: Throwable) {
-                    Log.e("gaaa!", t.message.toString())
-                }
-            })
-        }
-        else {
-            mService.getClinicList(query).enqueue(object : Callback<MutableList<Clinic>> {
-                override fun onResponse(
-                    call: Call<MutableList<Clinic>>,
-                    response: Response<MutableList<Clinic>>
-                ) {
-                    try {
-                        adapter2 =
-                            MyClinicAdapter(requireContext(), response.body() as List<Clinic>) {
-                                try {
-                                    getOnClickClinic(it)
-                                } catch (ex: Exception) {
-                                    Toast.makeText(
-                                        activityParent.baseContext, "No se encontro su busqueda",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        adapter2!!.notifyDataSetChanged()
-                        binding.rvListadodata.adapter = adapter2
-                    } catch (e:Exception) {
-
-                    }
-                }
-
-                override fun onFailure(call: Call<MutableList<Clinic>>, t: Throwable) {
-                    Log.e("gaaa!", t.message.toString())
-                }
-            })
-        }
-    }
-    private fun getOnClickDentist(it: Dentist){
+    private fun getOnClickDentist(dentist: Dentist){
         try {
-            val info: Dentist = it
-            val infoPerson: Person? = it.person
-            val infoUser: Usuario? = it.person?.user
+            val info: Dentist = dentist
+            val infoPerson: Person? = dentist.person
+            val infoUser: User? = dentist.person?.user
             txtNombre.text = infoPerson!!.first_name + " " + infoPerson!!.last_name
             txtDireccion.text = infoUser!!.direction
             txtRating.text = info.rating.toString()
@@ -267,7 +208,7 @@ class SearchFragment
     private fun getOnClickClinic(it: Clinic){
         try {
             val info: Clinic = it
-            val infoUser: Usuario? = it.user
+            val infoUser: User? = it.user
             txtNombre.text = info.company_name
             txtDireccion.text = infoUser!!.direction
             txtRating.text = info.rating.toString()
@@ -298,6 +239,7 @@ class SearchFragment
 
         }
     }
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         getTheList(query?:"")
         binding.svSearcher.clearFocus()
@@ -308,11 +250,7 @@ class SearchFragment
         return true
     }
     override fun onClose(): Boolean {
-        if(filtro=="Dentistas"){
-            getAllDentistList()
-        }else{
-            getAllClinicList()
-        }
+        getTheList("")
         binding.svSearcher.clearFocus()
         return true
     }

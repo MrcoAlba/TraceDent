@@ -21,14 +21,13 @@ class InfoPatientFragment : BaseFragment<FragmentInfoPatientBinding>(FragmentInf
     private lateinit var activityParent : MainActivity
     private lateinit var patient : Patient
     private lateinit var idCita : String
-    private lateinit var mService : RetrofitService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         communicator    =   requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
+        // Retrofit
         mService = Common.retrofitService
-
 
         val bundle : Bundle = Bundle()
         bundle.putString("id_cita", requireArguments().getString("id_cita"))
@@ -36,11 +35,11 @@ class InfoPatientFragment : BaseFragment<FragmentInfoPatientBinding>(FragmentInf
         idCita = requireArguments().getString("id_cita").toString()
 
         binding.butRegresarPaciente.setOnClickListener      { activityParent.onBackPressed() }
-        obtenerPaciente(idCita)
+        /*obtenerPaciente(idCita)*/
     }
 
 
-    private fun obtenerPaciente(id_cita : String) {
+    /*private fun obtenerPaciente(id_cita : String) {
         mService.getPatient(id_cita = id_cita).enqueue(object: Callback<ApiResponse<Patient>> {
             override fun onResponse(
                 call: Call<ApiResponse<Patient>>,
@@ -55,24 +54,20 @@ class InfoPatientFragment : BaseFragment<FragmentInfoPatientBinding>(FragmentInf
             }
 
         })
-    }
-
-
+    }*/
 
     private fun fill(response : ApiResponse<Patient>) {
-
         var lista = response.data
 
-        if(lista.size > 0) {
+        if(lista.isNotEmpty()) {
             lista.map {
-                binding.txtNombrePaciente.text = it.person.first_name + " " + it.person.last_name
-                binding.txtTelefonoPaciente.text = it.person.user.phone_number.toString()
-                binding.txtDireccionPaciente.text = it.person.user.direction + "," + " " + it.person.user.district
-                binding.txtGeneroPaciente.text = it.person.gender
-                binding.txtDNIPaciente.text = it.person.dni.toString()
+                binding.txtNombrePaciente.text = it.person?.first_name + " " + it.person?.last_name
+                binding.txtTelefonoPaciente.text = it.person?.user?.phone_number.toString()
+                binding.txtDireccionPaciente.text = it.person?.user?.direction + "," + " " + it.person?.user?.district
+                binding.txtGeneroPaciente.text = it.person?.gender
+                binding.txtDNIPaciente.text = it.person?.dni.toString()
             }
         }
     }
-
 
 }

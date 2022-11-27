@@ -149,7 +149,7 @@ interface RetrofitService {
                  @Query("offset")offset:String,
                  @Query("limit")limit:String,
                  @Query("name")name:String)
-    : Call<ApiResponse<Clinic>>
+    : Call<ApiResponse<Dentist>>
     /** ----- ----- ----- ----- ----- ----- Post clinic ----- ----- ----- ----- ----- ----- ----- */
     @POST("clinic")
     fun postClinic
@@ -205,6 +205,14 @@ interface RetrofitService {
                 (@Query("offset")offset:String,
                  @Query("limit")limit:String)
     : Call<ApiResponse<Schedule>>
+    @GET("schedule/clinic/dentist/time?")
+    fun getAllScheduleByClinicDentistAndTime
+                (@Query("offset")       offset:String,
+                 @Query("limit")        limit:String,
+                 @Query("id_clinic")    id_clinic: String,
+                 @Query("id_patient")   id_patient:String,
+                 @Query("date")         date:String,)
+            : Call<ApiResponse<Schedule>>
     /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist id ----- ----- ----- --  */
     @GET("schedule/dentist/{id}?")
     fun getAllScheduleByDentistId

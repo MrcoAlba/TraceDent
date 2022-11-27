@@ -49,44 +49,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-    fun createDentist(dentist: DentistCreation){
-        mService.insertDentist(dentist)
-            .enqueue(object: Callback<ApiResponse<DentistCreated>>{
-            override fun onResponse(
-                call: Call<ApiResponse<DentistCreated>>,
-                response: Response<ApiResponse<DentistCreated>>
-            ) {
-                Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT).show()
-                Log.i("onResponse","Se creo el dentista")
-            }
-            override fun onFailure(call: Call<ApiResponse<DentistCreated>>, t: Throwable) {
-                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-    fun createClinic(clinic: ClinicCreation){
-        mService.insertClinic(clinic)
-            .enqueue(object : Callback<ApiResponse<ClinicCreated>>{
-            override fun onResponse(
-                call: Call<ApiResponse<ClinicCreated>>,
-                response: Response<ApiResponse<ClinicCreated>>
-            ) {
-                Toast.makeText(applicationContext, response.toString(), Toast.LENGTH_SHORT).show()
-                Log.i("onResponse","Se creo la clinica")
-            }
-
-            override fun onFailure(call: Call<ApiResponse<ClinicCreated>>, t: Throwable) {
-                Toast.makeText(applicationContext, t.toString(), Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
-
-
-
-
 
     // LOGIN FUNCTIONS
 

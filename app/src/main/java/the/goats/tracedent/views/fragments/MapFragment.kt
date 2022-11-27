@@ -30,6 +30,8 @@ import the.goats.tracedent.databinding.FragmentMapBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.model.Clinic
 import the.goats.tracedent.model.Dentist
+import the.goats.tracedent.model.Person
+import the.goats.tracedent.model.User
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
 
@@ -176,7 +178,14 @@ class MapFragment
 
 
     private fun getAllDentistList() {
-        mService.getAllDentistsList(limit = "30", offset = "0", name = "", latitude = latitude, longitude = longitude).enqueue(object: Callback<ApiResponse<Dentist>> {
+        mService
+            .getAllDentistsList(
+                limit = "30",
+                offset = "0",
+                name = "",
+                latitude = latitude,
+                longitude = longitude)
+            .enqueue(object: Callback<ApiResponse<Dentist>> {
             override fun onResponse(
                 call: Call<ApiResponse<Dentist>>,
                 response: Response<ApiResponse<Dentist>>
@@ -204,29 +213,30 @@ class MapFragment
 
     private fun createMarkers1(response : ApiResponse<Clinic>) {
         val list = response.data
-        if(list.size>0){
+        if(list.isNotEmpty()){
             list.map {
                 val coordinates = LatLng(it.user!!.latitude as Double, it.user!!.longitude!! as Double)
                 val marker = MarkerOptions().position(coordinates).title(it.company_name)
+                marker
+                    .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
                 val marker_ : Marker? = gmMap.addMarker(marker)
                 marker_!!.tag = it
-                //Log.i(null, it.user!!.latitude.toString() + " " + it.user!!.longitude)
             }
         }
     }
     private fun createMarkers(response : ApiResponse<Dentist>) {
         val list = response.data
-
-        list.map {
-            val coordinates = LatLng(it.person!!.user!!.latitude!!, it.person!!.user!!.longitude!!)
-            val marker = MarkerOptions().position(coordinates).title(it.person!!.first_name + " " + it.person!!.last_name)
-            marker.icon(
-                BitmapDescriptorFactory.defaultMarker(
-                    BitmapDescriptorFactory.HUE_YELLOW
-                )
-            )
-            val marker_ : Marker? = gmMap.addMarker(marker)
-            marker_!!.tag = it
+        if(list.isNotEmpty()){
+            list.map {
+                val coordinates = LatLng(it.person!!.user!!.latitude!! as Double, it.person!!.user!!.longitude!! as Double)
+                val marker = MarkerOptions().position(coordinates).title(it.person!!.first_name + " " + it.person!!.last_name)
+                marker
+                    .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                val marker_ : Marker? = gmMap.addMarker(marker)
+                marker_!!.tag = it
+            }
         }
     }
 
@@ -236,7 +246,7 @@ class MapFragment
        try{
            val info : Dentist = p0.tag as Dentist
            val infoPerson : Person? = info.person
-           val infoUser : Usuario? = info.person!!.user
+           val infoUser : User? = info.person!!.user
            binding.bottomsheet.txtNombre.text = infoPerson!!.first_name + " " + infoPerson!!.last_name
            binding.bottomsheet.txtDireccion.text = infoUser!!.direction
            binding.bottomsheet.txtRating.text = info.rating.toString()
@@ -253,7 +263,6 @@ class MapFragment
                bundle.putString("dni", infoPerson.dni.toString())
                bundle.putString("phone_number", infoUser.phone_number.toString())
                bundle.putString("ruc", info.ruc)
-
                communicator.goToAnotherFragment(
                    bundle,
                    InfoDentistFragment(),
@@ -261,18 +270,16 @@ class MapFragment
                    "MapFragment2InfoDentistFragment"
                )
            }
-
-           if(bottomSheetFragment.visibility == View.VISIBLE) {
-               bottomSheetFragment.visibility = View.GONE
+           if(binding.bottomsheet.root.visibility == View.VISIBLE) {
+               binding.bottomsheet.root.visibility = View.GONE
            }
            else{
-               bottomSheetFragment.visibility = View.VISIBLE
+               binding.bottomsheet.root.visibility = View.VISIBLE
            }
 
        } catch (ex : Exception) {
-
            val info : Clinic = p0.tag as Clinic
-           val infoUser : Usuario? = info.user
+           val infoUser : User? = info.user
            binding.bottomsheet.txtNombre.text = info.company_name
            binding.bottomsheet.txtDireccion.text = infoUser!!.direction
            binding.bottomsheet.txtRating.text = info.rating.toString()
@@ -293,20 +300,18 @@ class MapFragment
                    "MapFragment2InfoDentistFragment"
                )
            }
-
-           if(bottomSheetFragment.visibility == View.VISIBLE) {
-               bottomSheetFragment.visibility = View.GONE
+           if(binding.bottomsheet.root.visibility == View.VISIBLE) {
+               binding.bottomsheet.root.visibility = View.GONE
            }
            else{
-               bottomSheetFragment.visibility = View.VISIBLE
+               binding.bottomsheet.root.visibility = View.VISIBLE
            }
        }
-       Log.i(null, p0.position.toString())
        return false
     }
 
     override fun onMapClick(p0: LatLng) {
-        bottomSheetFragment.visibility = View.GONE
+        binding.bottomsheet.root.visibility = View.GONE
     }
 
 }

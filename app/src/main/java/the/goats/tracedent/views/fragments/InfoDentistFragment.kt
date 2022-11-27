@@ -6,6 +6,7 @@ import the.goats.tracedent.databinding.FragmentInfoDentistBinding
 import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
+import the.goats.tracedent.views.fragments.appointment.AppointmentDFragment
 
 class InfoDentistFragment : BaseFragment<FragmentInfoDentistBinding>(FragmentInfoDentistBinding::inflate) {
 
@@ -16,7 +17,15 @@ class InfoDentistFragment : BaseFragment<FragmentInfoDentistBinding>(FragmentInf
         communicator    =   requireActivity() as Communicator
         activityParent = requireActivity() as MainActivity
 
-        val bundle : Bundle = Bundle()
+        fill()
+
+        // Listeners
+        binding.butReservarDentista.setOnClickListener      { makeAnAppointment() }
+        binding.butRegresarDentista.setOnClickListener      { activityParent.onBackPressed() }
+    }
+
+    private fun makeAnAppointment() {
+        val bundle = Bundle()
         bundle.putString("id", requireArguments().getString("id"))
         bundle.putString("first_name", requireArguments().getString("first_name"))
         bundle.putString("last_name", requireArguments().getString("last_name"))
@@ -28,15 +37,11 @@ class InfoDentistFragment : BaseFragment<FragmentInfoDentistBinding>(FragmentInf
         bundle.putString("phone_number", requireArguments().getString("phone_number"))
         bundle.putString("ruc", requireArguments().getString("ruc"))
 
-        binding.butReservarDentista.setOnClickListener      {
-            communicator.goToAnotherFragment(
-                bundle,
-                AppointmentDFragment(),
-                activityParent.containerView,
-                "AppointmentFragment")
-        }
-        binding.butRegresarDentista.setOnClickListener      { activityParent.onBackPressed() }
-        fill()
+        communicator.goToAnotherFragment(
+            bundle,
+            AppointmentDFragment(),
+            activityParent.containerView,
+            "AppointmentFragment")
     }
 
     private fun fill() {

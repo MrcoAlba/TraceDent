@@ -1,6 +1,7 @@
 package the.goats.tracedent.views.fragments.login
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -62,14 +63,17 @@ class LoginFragment
                         call: Call<ApiResponse<User>>,
                         response: Response<ApiResponse<User>>
                     ) {
+                        Log.e("TRABAJANDO",response.body()!!.toString())
                         if (response.body()?.data is List<User>){
                             processLogin(response.body()!!,email)
                         }else{
                             showErrorCredentials()
+                            Log.e("HOLAAA ARRIBA",response.body()!!.toString())
                         }
                     }
                     override fun onFailure(call: Call<ApiResponse<User>>, t: Throwable) {
                         // If sign in fails, display a message to the user.
+                        Log.e("HOLAAA ARRIBA",t.toString())
                         showErrorCredentials()
                     }
                 })

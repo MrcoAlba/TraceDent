@@ -1,4 +1,4 @@
-package the.goats.tracedent.views.fragments
+package the.goats.tracedent.views.fragments.appointment
 
 import android.os.Bundle
 import android.util.Log
@@ -13,16 +13,17 @@ import retrofit2.Response
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.databinding.FragmentAppointmentDBinding
 import the.goats.tracedent.interfaces.Communicator
-import the.goats.tracedent.interfaces.Credential
 import the.goats.tracedent.interfaces.RetrofitService
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
+import the.goats.tracedent.views.fragments.DatePickerFragment
 
 
 class AppointmentDFragment
     : BaseFragment<FragmentAppointmentDBinding>(FragmentAppointmentDBinding::inflate) {
     //This variables are gonna be instantiated on the fragment lifecycle,
     //At the moment, they are null variables
+    /*
     private lateinit var activityParent: MainActivity
     private var dia: Int = -1
     private var mes: Int = -1
@@ -205,5 +206,5 @@ class AppointmentDFragment
                         Toast.LENGTH_SHORT).show()
                 }
             }
-    }
+    }*/
 }
