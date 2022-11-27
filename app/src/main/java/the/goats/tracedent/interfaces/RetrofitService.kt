@@ -149,7 +149,7 @@ interface RetrofitService {
                  @Query("offset")offset:String,
                  @Query("limit")limit:String,
                  @Query("name")name:String)
-    : Call<ApiResponse<Dentist>>
+    : Call<ApiResponse<Recruitment>>
     /** ----- ----- ----- ----- ----- ----- Post clinic ----- ----- ----- ----- ----- ----- ----- */
     @POST("clinic")
     fun postClinic

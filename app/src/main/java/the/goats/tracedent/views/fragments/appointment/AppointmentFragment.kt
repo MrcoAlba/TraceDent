@@ -16,6 +16,7 @@ import the.goats.tracedent.interfaces.Communicator
 import the.goats.tracedent.common.Common
 import the.goats.tracedent.model.Dentist
 import the.goats.tracedent.model.DentistSpecialities
+import the.goats.tracedent.model.Recruitment
 import the.goats.tracedent.model.Schedule
 import the.goats.tracedent.views.activities.MainActivity
 import the.goats.tracedent.views.base.BaseFragment
@@ -87,16 +88,26 @@ class AppointmentFragment
     }
 
     private fun getAllDentist() {
+        println("getAllDentist()")
+        println("getAllDentist()")
+        println("getAllDentist()")
         mService.getAllDentistByIdClinic(requireArguments().getString("id")!!,"0","100","")
-            .enqueue(object : Callback<ApiResponse<Dentist>> {
+            .enqueue(object : Callback<ApiResponse<Recruitment>> {
                 override fun onResponse(
-                    call: Call<ApiResponse<Dentist>>,
-                    response: Response<ApiResponse<Dentist>>
+                    call: Call<ApiResponse<Recruitment>>,
+                    response: Response<ApiResponse<Recruitment>>
                 ) {
-                    val dentists = response.body()!!.data
+                    println("response.body()!!.data")
+                    println("response.body()!!.data")
+                    println("response.body()!!.data")
+                    println(response.body()!!.data.toString())
+                    println("response.body()!!.data")
+                    println("response.body()!!.data")
+                    println("response.body()!!.data")
+                    val recruitment = response.body()!!.data
                     val dentistNames = mutableListOf<String>()
-                    for (index in dentists.indices){
-                        dentists[index].person?.first_name?.let { dentistNames.add(it) }
+                    for (index in recruitment.indices){
+                        recruitment[index].dentist.person?.first_name.let { dentistNames.add(it!!) }
                     }
                     val adapters = ArrayAdapter(
                         activityParent.baseContext,
@@ -107,11 +118,11 @@ class AppointmentFragment
                     binding.autoCompleteTextView2.setOnItemClickListener { adapterView, view, i, l ->
                         binding.autoCompleteTextView.isClickable=true
                         binding.autoCompleteTextView.isEnabled=true
-                        selectedDentist = dentists[i]
-                        getAllSpecialities(dentists[i].id_dentist!!)
+                        selectedDentist = recruitment[i].dentist
+                        getAllSpecialities(selectedDentist.id_dentist!!)
                     }
                 }
-                override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse<Recruitment>>, t: Throwable) {
                     binding.autoCompleteTextView.isClickable=false
                     binding.autoCompleteTextView.isEnabled=false
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
