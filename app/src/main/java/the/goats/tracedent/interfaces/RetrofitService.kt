@@ -194,6 +194,12 @@ interface RetrofitService {
                  @Query("id_clinic")id_clinic:String,
                  @Query("id_dentist")id_dentist:String)
     : Call<ApiResponse<Recruitment>>
+
+    @POST("/recruitment/change/{id}?")
+    fun changeRecruitmentStatus
+                (@Path("id")id:String,
+                 @Query("status")status:String)
+    :Call<ApiResponse<Int>>
     //  ----- ----- ----- ----- ----- ----- ----- RECRUITMENTS ----- ----- ----- ----- ----- ----- -
     // *********************************************************************************************
     // *********************************************************************************************
@@ -207,11 +213,20 @@ interface RetrofitService {
                 (@Query("offset")offset:String,
                  @Query("limit")limit:String)
     : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist clinic and time ----- -  */
     @GET("schedule/clinic/dentist/time?")
     fun getAllScheduleByClinicDentistAndTime
                 (@Query("offset")       offset:String,
                  @Query("limit")        limit:String,
                  @Query("id_clinic")    id_clinic: String,
+                 @Query("id_dentist")   id_dentist:String,
+                 @Query("date")         date:String,)
+            : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist and time ----- ----- --  */
+    @GET("schedule/dentist/only/{id}?")
+    fun getAllScheduleByDentistAndTime
+                (@Query("offset")       offset:String,
+                 @Query("limit")        limit:String,
                  @Query("id_dentist")   id_dentist:String,
                  @Query("date")         date:String,)
             : Call<ApiResponse<Schedule>>
@@ -224,7 +239,15 @@ interface RetrofitService {
                  @Query("status")status:Int,
                  @Query("id_clinic")id_clinic:String)
     : Call<ApiResponse<Schedule>>
-    /** ----- ----- ----- ----- ----- ----- Get all schedules by dentist id ----- ----- ----- --  */
+    /** ----- ----- ----- ----- ----- ----- Get all schedules by clinic id ----- ----- ----- --  */
+    @GET("schedule/clinic/{id}?")
+    fun getAllScheduleByClinicId
+                (@Path("id")id:String?,
+                 @Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("status")status:Int)
+            : Call<ApiResponse<Schedule>>
+    /** ----- ----- ----- ----- ----- ----- Get all schedules by patient id ----- ----- ----- --  */
     @GET("schedule/patient/{id}?")
     fun getAllScheduleByPatientId
                 (@Path("id")id:String?,
@@ -260,4 +283,12 @@ interface RetrofitService {
     // *********************************************************************************************
     // *********************************************************************************************
 
+    @GET("speciality?")
+    fun getSpeciality
+                (@Query("offset")offset:String,
+                 @Query("limit")limit:String,
+                 @Query("name")name:String,
+                 @Query("id")id: String?)
+            : Call<ApiResponse<Speciality>>
+    //  ----- ----- ----- ----- ----- ----- ----- SPECIALITY ----- ----- ----- ----- ----- ----- ---
 }

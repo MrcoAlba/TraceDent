@@ -27,15 +27,6 @@ class InfoDentistFragment : BaseFragment<FragmentInfoDentistBinding>(FragmentInf
     private fun makeAnAppointment() {
         val bundle = Bundle()
         bundle.putString("id", requireArguments().getString("id"))
-        bundle.putString("first_name", requireArguments().getString("first_name"))
-        bundle.putString("last_name", requireArguments().getString("last_name"))
-        bundle.putString("direction", requireArguments().getString("direction"))
-        bundle.putString("rating", requireArguments().getString("rating"))
-        bundle.putString("gender", requireArguments().getString("gender"))
-        bundle.putString("district", requireArguments().getString("district"))
-        bundle.putString("dni", requireArguments().getString("dni"))
-        bundle.putString("phone_number", requireArguments().getString("phone_number"))
-        bundle.putString("ruc", requireArguments().getString("ruc"))
 
         communicator.goToAnotherFragment(
             bundle,

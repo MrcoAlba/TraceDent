@@ -16,8 +16,9 @@ import the.goats.tracedent.model.Dentist
 import the.goats.tracedent.model.Recruitment
 
 class RecruitmentsAdapter(private val context: Context,
-                          private val recruitments: List<Recruitment>,
-                          val onCancelPressed:()->Unit
+                          private val recruitments: List<Recruitment>,private val type: String,
+
+                          val onCancelPressed:(Recruitment)->Unit
 ): RecyclerView.Adapter<RecruitmentsHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecruitmentsHolder {
         val layoutInflater = LayoutInflater
@@ -33,9 +34,13 @@ class RecruitmentsAdapter(private val context: Context,
     override fun onBindViewHolder(holder: RecruitmentsHolder, position: Int) {
         val item = recruitments[position]
 
-        holder.binding.btnAceptar.setOnClickListener { onCancelPressed() }
+        holder.binding.btnAceptar.setOnClickListener { onCancelPressed(item) }
+        if(type == "clinic"){
+            getDentitst(item.id_dentist!!,holder)
+            return
+        }
+        getClinic(item.id_clinic!!,holder)
 
-        getDentitst(item.id_dentist!!,holder)
     }
 
     override fun getItemCount(): Int = recruitments.size
@@ -48,11 +53,30 @@ class RecruitmentsAdapter(private val context: Context,
                     response: Response<ApiResponse<Dentist>>
                 ) {
                     val dentist = (response.body() as ApiResponse<Dentist>).data[0]
-                    holder.binding.tvNombre.text = dentist.person!!.first_name + dentist.person!!.last_name
+                    holder.binding.tvNombre.text = dentist.person!!.first_name + " " + dentist.person!!.last_name
                     holder.binding.tvTextoInicio.text = ""
                 }
 
                 override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
+                    println(t.message)
+                }
+
+            })
+    }
+
+    private fun getClinic(clinicId: String, holder: RecruitmentsHolder){
+        Common.retrofitService.getClinicById(id=clinicId)
+            .enqueue(object: Callback<ApiResponse<Clinic>> {
+                override fun onResponse(
+                    call: Call<ApiResponse<Clinic>>,
+                    response: Response<ApiResponse<Clinic>>
+                ) {
+                    val clinic = (response.body() as ApiResponse<Clinic>).data[0]
+                    holder.binding.tvNombre.text = clinic.company_name
+                    holder.binding.tvTextoInicio.text = ""
+                }
+
+                override fun onFailure(call: Call<ApiResponse<Clinic>>, t: Throwable) {
                     println(t.message)
                 }
 

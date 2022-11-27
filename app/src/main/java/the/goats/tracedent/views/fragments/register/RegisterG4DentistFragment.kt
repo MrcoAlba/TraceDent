@@ -68,12 +68,19 @@ class RegisterG4DentistFragment
                     call: Call<ApiResponse<DentistCreated>>,
                     response: Response<ApiResponse<DentistCreated>>
                 ) {
-                    if (response.body()?.data?.get(0) is DentistCreated || response.body()?.message =="DENTIST CREATED"){
-                        response.body()?.data?.get(0)?.id_dentist?.let { activityParent.saveUserTypeAndId(it, "dentist") }
-                        login.login2Main()
-                    }else{
-                        Toast.makeText(activityParent, response.toString(), Toast.LENGTH_SHORT).show()
+                    try {
+                        val data = response.body() as ApiResponse<DentistCreated>
+                        println(data)
+                        if (data.message =="DENTIST CREATED"){
+                            activityParent.saveUserTypeAndId(data.data[0].id_dentist!!, "dentist")
+                            login.login2Main()
+                        }else{
+                            Toast.makeText(activityParent, response.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }catch (e: Exception){
+                        Toast.makeText(activityParent, "Existe uno o más campos incorrectos", Toast.LENGTH_SHORT).show()
                     }
+
                 }
                 override fun onFailure(call: Call<ApiResponse<DentistCreated>>, t: Throwable) {
                     Toast.makeText(activityParent, t.toString(), Toast.LENGTH_SHORT).show()

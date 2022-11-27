@@ -67,15 +67,23 @@ class RegisterG3ClientFragment
                     call: Call<ApiResponse<PatientCreated>>,
                     response: Response<ApiResponse<PatientCreated>>
                 ) {
-                    if (response.body()?.data?.get(0) is PatientCreated || response.body()?.message =="PATIENT CREATED"){
-                        response.body()?.data?.get(0)?.id_patient?.let { activityParent.saveUserTypeAndId(it, "patient") }
-                        login.login2Main()
-                    }else{
-                        Toast.makeText(activityParent, response.toString(), Toast.LENGTH_SHORT).show()
+                    try {
+                        val data = response.body() as ApiResponse<PatientCreated>
+                        println(data)
+                        if (data.message =="PATIENT CREATED"){
+                            data.data[0].let { activityParent.saveUserTypeAndId(it.id_patient!!, "patient") }
+                            login.login2Main()
+                        }else{
+                            Toast.makeText(activityParent, response.toString(), Toast.LENGTH_SHORT).show()
+                            println(response.body().toString())
+                        }
+                    }catch (e: Exception){
+                        Toast.makeText(activityParent, "Existe uno o más campos incorrectos", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<ApiResponse<PatientCreated>>, t: Throwable) {
                     Toast.makeText(activityParent, t.toString(), Toast.LENGTH_SHORT).show()
+                    println(t.toString())
                 }
             })
     }

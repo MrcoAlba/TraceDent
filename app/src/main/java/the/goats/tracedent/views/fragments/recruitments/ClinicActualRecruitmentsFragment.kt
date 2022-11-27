@@ -3,6 +3,8 @@ package the.goats.tracedent.views.fragments.recruitments
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +39,8 @@ class ClinicActualRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewBi
 
         val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
 
+        binding.reciclerView.layoutManager = LinearLayoutManager(activityParent.baseContext)
+
         clinic_id = prefs.getString(getString(R.string.sp_clinic_id),null)
 
         getAllRecruitments()
@@ -62,7 +66,7 @@ class ClinicActualRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewBi
                         binding.reciclerView.visibility = View.VISIBLE
 
                         adapter = RecruitmentsAdapter(requireActivity(),
-                            recruitments)
+                            recruitments,"clinic")
                         {
                             dialog = activityParent.createDialog("¿Realmente desea terminar este reclutamiento?",
                                 "Cancelar",
@@ -70,7 +74,9 @@ class ClinicActualRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewBi
                                 {
                                     dialog!!.hide()
                                 },{
-                                    doOnConfirmAccept()
+                                    activityParent.changeRecruitmentState(it.id_recruitment!!,"3"){
+                                        getAllRecruitments()
+                                    }
                                     dialog!!.hide()
                                 })
                             dialog!!.show()
@@ -79,19 +85,23 @@ class ClinicActualRecruitmentsFragment: BaseFragment<FragmentTitleReciclerviewBi
                         binding.reciclerView.adapter = adapter
 
                     }catch (ex: Exception){
-                        println(ex)
+                        Toast.makeText(
+                            activityParent.baseContext, ex.message!!,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ApiResponse<Recruitment>>, t: Throwable) {
-                    println("GAAAAAAAERRORGAAAAAAAAA")
+                    Toast.makeText(
+                        activityParent.baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             })
     }
 
-    private fun doOnConfirmAccept(){
-        //TODO
-    }
+
 
 }

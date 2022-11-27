@@ -16,8 +16,8 @@ import the.goats.tracedent.model.Recruitment
 
 class InviteAdapter(private val context: Context,
                     private val recluitments: List<Recruitment>,
-                    val onRejectPressed: ()->Unit,
-                    val onAcceptPressed: ()->Unit
+                    val onRejectPressed: (Recruitment)->Unit,
+                    val onAcceptPressed: (Recruitment)->Unit
 ):RecyclerView.Adapter<InviteHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InviteHolder {
@@ -34,8 +34,8 @@ class InviteAdapter(private val context: Context,
     override fun onBindViewHolder(holder: InviteHolder, position: Int) {
         val item = recluitments[position]
 
-        holder.binding.btnAceptar.setOnClickListener { onAcceptPressed() }
-        holder.binding.btnRechazar.setOnClickListener { onRejectPressed() }
+        holder.binding.btnAceptar.setOnClickListener { onAcceptPressed(item) }
+        holder.binding.btnRechazar.setOnClickListener { onRejectPressed(item) }
 
         getClinicById(item.id_clinic!!,holder)
 

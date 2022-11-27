@@ -76,7 +76,7 @@ class SearchForRecruitmentFragment: BaseFragment<FragmentSearchForRecruitmentBin
                                 } catch (ex: Exception) {
                                     println(ex)
                                     Toast.makeText(
-                                        activityParent.baseContext, "Error",
+                                        activityParent.baseContext, ex.message!!,
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -85,14 +85,17 @@ class SearchForRecruitmentFragment: BaseFragment<FragmentSearchForRecruitmentBin
                         binding.rvListadodata.adapter = adapter
                     } catch (e:Exception) {
                         Toast.makeText(
-                            activityParent.baseContext, e.message,
+                            activityParent.baseContext, e.message!!,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<ApiResponse<Dentist>>, t: Throwable) {
-                    Log.e("gaaa!", t.message.toString())
+                    Toast.makeText(
+                        activityParent.baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
@@ -123,7 +126,7 @@ class SearchForRecruitmentFragment: BaseFragment<FragmentSearchForRecruitmentBin
 
                     }catch (e: Exception){
                         Toast.makeText(
-                            activityParent.baseContext, e.message,
+                            activityParent.baseContext, e.message!!,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -133,7 +136,10 @@ class SearchForRecruitmentFragment: BaseFragment<FragmentSearchForRecruitmentBin
                     call: Call<ApiResponse<ClinicRecruitDentistIdResponse>>,
                     t: Throwable
                 ) {
-                    Log.e("gaaa!", t.message.toString())
+                    Toast.makeText(
+                        activityParent.baseContext, t.message!!,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             })
