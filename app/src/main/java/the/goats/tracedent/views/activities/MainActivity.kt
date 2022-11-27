@@ -71,7 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     /**
      * Moves from one navigation option to another
      */
-    private fun selectNavigationOption(menuItem: MenuItem) : Boolean{
+    public fun selectNavigationOption(menuItem: MenuItem) : Boolean{
         val ft = supportFragmentManager.beginTransaction()
         when (menuItem.itemId) {
             //Here goes the transitions between fragments, each lines performs when an item is pressed

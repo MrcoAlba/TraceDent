@@ -2,6 +2,7 @@ package the.goats.tracedent.views.fragments.appointment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -241,27 +242,42 @@ class AppointmentFragment
     private fun selectSchedule() {
         val prefs = activityParent.getSharedPreferences(getString(R.string.sp_shared_preferences),0)
         val idPatient : String? = prefs.getString(getString(R.string.sp_patient_id),null)
-
+        val schedule = Schedule(
+            selectedSchedule.id_schedule, null,null,
+            null, idPatient,null,
+            null,null,null,null
+        )
+        println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        println(schedule.toString())
+        println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         mService
-            .s3patientChoosesSchedule(
-                Schedule(
-                    selectedSchedule.id_schedule, null,null,
-                    null, idPatient,null,
-                    null,null,null,null
-                ))
-            .enqueue(object: Callback<ApiResponse<Schedule>>{
+            .s3patientChoosesSchedule(schedule)
+            .enqueue(object: Callback<ApiResponse<Int>>{
                 override fun onResponse(
-                    call: Call<ApiResponse<Schedule>>,
-                    response: Response<ApiResponse<Schedule>>
+                    call: Call<ApiResponse<Int>>,
+                    response: Response<ApiResponse<Int>>
                 ) {
-                    Toast
-                        .makeText(
-                            activityParent,
-                            "La reserva fue exitosa!",
-                            Toast.LENGTH_SHORT)
-                        .show()
+                    if(response.body()!!.data[0] == 1){
+                        Toast
+                            .makeText(
+                                activityParent,
+                                "La reserva fue exitosa!",
+                                Toast.LENGTH_SHORT)
+                            .show()
+                    }else{
+                        Toast
+                            .makeText(
+                                activityParent,
+                                "Seleccione otra fecha por favor",
+                                Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
-                override fun onFailure(call: Call<ApiResponse<Schedule>>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse<Int>>, t: Throwable) {
                     Toast
                         .makeText(
                             activityParent,
@@ -269,7 +285,6 @@ class AppointmentFragment
                             Toast.LENGTH_SHORT)
                         .show()
                 }
-
             })
     }
 

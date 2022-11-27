@@ -275,7 +275,7 @@ interface RetrofitService {
     @POST("schedule/patient/3")
     fun s3patientChoosesSchedule
                 (@Body schedule : Schedule)
-    : Call<ApiResponse<Schedule>>
+    : Call<ApiResponse<Int>>
     //  ----- ----- ----- ----- ----- ----- ----- SCHEDULE ----- ----- ----- ----- ----- ----- -----
     // *********************************************************************************************
     // *********************************************************************************************
